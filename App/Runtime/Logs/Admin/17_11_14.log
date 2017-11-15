@@ -1,0 +1,215 @@
+[ 2017-11-14T17:46:40+08:00 ] 127.0.0.1 /Admin
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001322s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000729s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000833s ]
+NOTIC: [8] A session had already been started - ignoring session_start() /Users/panjianbo/Desktop/www/quwan/admin/App/Admin/Controller/ComController.class.php 第 101 行.
+
+[ 2017-11-14T17:46:40+08:00 ] 127.0.0.1 /Admin/login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000214s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001125s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001172s ]
+NOTIC: [8] A session had already been started - ignoring session_start() /Users/panjianbo/Desktop/www/quwan/admin/App/Admin/Controller/ComController.class.php 第 101 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000643s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000706s ]
+NOTIC: [8] Undefined variable: current /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/f0f0edaa955fd2857dedea53d1ab9ca3.php 第 6 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.014954s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015006s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000385s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000425s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000777s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000825s ]
+
+[ 2017-11-14T17:46:40+08:00 ] 127.0.0.1 /Admin/login/verify.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000244s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000421s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000472s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000376s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000434s ]
+
+[ 2017-11-14T17:46:43+08:00 ] 127.0.0.1 /Admin/login/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000231s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000367s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000439s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000026s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000073s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.004997s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005065s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000134s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000198s ]
+
+[ 2017-11-14T17:46:46+08:00 ] 127.0.0.1 /Admin/login/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000183s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000262s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000312s ]
+NOTIC: [8] A session had already been started - ignoring session_start() /Users/panjianbo/Desktop/www/quwan/admin/App/Admin/Controller/ComController.class.php 第 101 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000058s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000115s ]
+NOTIC: [8] Undefined variable: current /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/f0f0edaa955fd2857dedea53d1ab9ca3.php 第 6 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.005722s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.005784s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000106s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000132s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000543s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000611s ]
+
+[ 2017-11-14T17:46:46+08:00 ] 127.0.0.1 /Admin/login/verify.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000246s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000276s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000330s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000378s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000433s ]
+
+[ 2017-11-14T17:46:50+08:00 ] 127.0.0.1 /Admin/login/login.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000159s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000173s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000203s ]
+SQL: SHOW COLUMNS FROM `qw_admin` [ RunTime:0.0018s ]
+SQL: SELECT `admin_id`,`user` FROM `qw_admin` WHERE `user` = 'admin' AND `password` = '66d6a1c8748025462128dc75bf5ae8d1' LIMIT 1   [ RunTime:0.0012s ]
+NOTIC: [8] A session had already been started - ignoring session_start() /Users/panjianbo/Desktop/www/quwan/admin/App/Admin/Controller/LoginController.class.php 第 51 行.
+SQL: SHOW COLUMNS FROM `qw_admin_log` [ RunTime:0.0007s ]
+NOTIC: [8] A session had already been started - ignoring session_start() /Users/panjianbo/Desktop/www/quwan/admin/App/Admin/Common/function.php 第 12 行.
+SQL: SELECT `user` FROM `qw_admin` WHERE `admin_id` = 1 LIMIT 1   [ RunTime:0.0013s ]
+SQL: INSERT INTO `qw_admin_log` (`name`,`t`,`ip`,`log`) VALUES ('admin','1510652810','127.0.0.1','登录成功。') [ RunTime:0.0060s ]
+
+[ 2017-11-14T17:46:50+08:00 ] 127.0.0.1 /Admin/index/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000182s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000195s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000227s ]
+NOTIC: [8] A session had already been started - ignoring session_start() /Users/panjianbo/Desktop/www/quwan/admin/App/Admin/Controller/ComController.class.php 第 101 行.
+SQL: SHOW COLUMNS FROM `qw_admin` [ RunTime:0.0005s ]
+SQL: SELECT * FROM `qw_admin` WHERE `admin_id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM qw_auth_group g left join qw_auth_group_access a on g.id=a.group_id where a.admin_id=1 [ RunTime:0.0019s ]
+SQL: SELECT * FROM `qw_admin` WHERE `admin_id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT s.id,s.title,s.name,s.tips,s.pid,p.pid as ppid,p.title as ptitle FROM qw_auth_rule s left join qw_auth_rule p on p.id=s.pid where s.name='Index/index' [ RunTime:0.0035s ]
+SQL: SHOW COLUMNS FROM `qw_auth_rule` [ RunTime:0.0014s ]
+SQL: SELECT `id`,`title`,`pid`,`name`,`icon` FROM `qw_auth_rule` WHERE ( islink=1   ) ORDER BY o ASC  [ RunTime:0.0020s ]
+SQL: select VERSION() as mysql [ RunTime:0.0011s ]
+SQL: SHOW COLUMNS FROM `qw_admin_log` [ RunTime:0.0007s ]
+SQL: DELETE FROM `qw_admin_log` WHERE ( t < 1505468810 ) [ RunTime:0.0027s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `qw_admin_log` LIMIT 1   [ RunTime:0.0008s ]
+SQL: SELECT * FROM `qw_admin_log` ORDER BY id desc LIMIT 0,25   [ RunTime:0.0004s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000156s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000220s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.019016s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019071s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000126s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000151s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000213s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000238s ]
+
+[ 2017-11-14T17:47:00+08:00 ] 127.0.0.1 /Admin/Group/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000143s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000171s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000200s ]
+NOTIC: [8] A session had already been started - ignoring session_start() /Users/panjianbo/Desktop/www/quwan/admin/App/Admin/Controller/ComController.class.php 第 101 行.
+SQL: SHOW COLUMNS FROM `qw_admin` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `qw_admin` WHERE `admin_id` = 1 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM qw_auth_group g left join qw_auth_group_access a on g.id=a.group_id where a.admin_id=1 [ RunTime:0.0004s ]
+SQL: SELECT * FROM `qw_admin` WHERE `admin_id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT s.id,s.title,s.name,s.tips,s.pid,p.pid as ppid,p.title as ptitle FROM qw_auth_rule s left join qw_auth_rule p on p.id=s.pid where s.name='Group/index' [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `qw_auth_rule` [ RunTime:0.0004s ]
+SQL: SELECT `id`,`title`,`pid`,`name`,`icon` FROM `qw_auth_rule` WHERE ( islink=1   ) ORDER BY o ASC  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `qw_auth_group` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `qw_auth_group`  [ RunTime:0.0004s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000049s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000094s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.014298s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.014484s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000106s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000131s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000231s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000260s ]
+
+[ 2017-11-14T17:47:01+08:00 ] 127.0.0.1 /Admin/Adminuser/index.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000245s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000322s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000457s ]
+NOTIC: [8] A session had already been started - ignoring session_start() /Users/panjianbo/Desktop/www/quwan/admin/App/Admin/Controller/ComController.class.php 第 101 行.
+SQL: SHOW COLUMNS FROM `qw_admin` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `qw_admin` WHERE `admin_id` = 1 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM qw_auth_group g left join qw_auth_group_access a on g.id=a.group_id where a.admin_id=1 [ RunTime:0.0004s ]
+SQL: SELECT * FROM `qw_admin` WHERE `admin_id` = 1 LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT s.id,s.title,s.name,s.tips,s.pid,p.pid as ppid,p.title as ptitle FROM qw_auth_rule s left join qw_auth_rule p on p.id=s.pid where s.name='Adminuser/index' [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `qw_auth_rule` [ RunTime:0.0004s ]
+SQL: SELECT `id`,`title`,`pid`,`name`,`icon` FROM `qw_auth_rule` WHERE ( islink=1   ) ORDER BY o ASC  [ RunTime:0.0004s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `qw_admin` INNER JOIN qw_auth_group_access ON qw_admin.admin_id = qw_auth_group_access.admin_id INNER JOIN qw_auth_group ON qw_auth_group.id = qw_auth_group_access.group_id  ORDER BY qw_admin.admin_id asc LIMIT 1   [ RunTime:0.0006s ]
+SQL: SELECT qw_admin.*,qw_auth_group.id as gid,qw_auth_group.title FROM `qw_admin` INNER JOIN qw_auth_group_access ON qw_admin.admin_id = qw_auth_group_access.admin_id INNER JOIN qw_auth_group ON qw_auth_group.id = qw_auth_group_access.group_id  ORDER BY qw_admin.admin_id asc LIMIT 0,10   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `qw_auth_group` [ RunTime:0.0004s ]
+SQL: SELECT `id`,`title` FROM `qw_auth_group`  [ RunTime:0.0003s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000052s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000088s ]
+NOTIC: [8] Use of undefined constant user - assumed 'user' /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 395 行.
+NOTIC: [8] Use of undefined constant phone - assumed 'phone' /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 396 行.
+NOTIC: [8] Use of undefined constant qq - assumed 'qq' /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 397 行.
+NOTIC: [8] Use of undefined constant email - assumed 'email' /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 398 行.
+NOTIC: [8] Use of undefined constant keyword - assumed 'keyword' /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 400 行.
+NOTIC: [8] Use of undefined constant asc - assumed 'asc' /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 403 行.
+NOTIC: [8] Use of undefined constant desc - assumed 'desc' /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 404 行.
+NOTIC: [8] Undefined index: uid /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 451 行.
+NOTIC: [8] Undefined index: uid /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 453 行.
+NOTIC: [8] Undefined index: uid /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 459 行.
+NOTIC: [8] Undefined index: uid /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 471 行.
+NOTIC: [8] Undefined index: uid /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 472 行.
+NOTIC: [8] Undefined index: uid /Users/panjianbo/Desktop/www/quwan/admin/App/Runtime/Cache/Admin/2786951f77fc1eaefa873e49c0da3248.php 第 473 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023279s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023383s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000142s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000174s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000228s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000260s ]
+
