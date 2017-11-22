@@ -33,10 +33,10 @@ return array(
         'saveName' => array ('uniqid', ''),
         'driver' => 'Qiniu',
         'driverConfig' => array (
-            'accessKey' => 'Y6BRd8MqYy1Lo12s1xKWZvCpkwda8FGQNSlgMNzS',
-            'secrectKey' => 'y54IwIKGUfKiAiUP8zMX93rLQU6bCMTXUPiWMtMx',
-            'domain' => 'okrvwsbaw.bkt.clouddn.com',
-            'bucket' => 'bobolucy',
+            'accessKey' => 'jVIkLNl8FzaeCK8H5AxPLYi49qlmc86572ITnbiM',
+            'secrectKey' => 'A1JOHdGbg0IoxcoZYmoHtjfzbgwp51EDfzusMNkm',
+            'domain' => 'ozg3kv9uz.bkt.clouddn.com',
+            'bucket' => 'quwan',
         )
     )
 );

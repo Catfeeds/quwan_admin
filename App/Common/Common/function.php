@@ -18,7 +18,7 @@ function UpImage($callBack = "image", $width = 100, $height = 100, $image = "")
 
 function BatchImage($callBack = "image",$width = 100, $height = 100, $image = "")
 {
-    echo '<iframe scrolling="no" frameborder="0" border="0" width=100% onload="this.height=this.contentWindow.document.body.scrollHeight;" src="' . U('Upload/batchpic') . '?BackCall=' . $callBack . '&Img=' . $image . '"></iframe>
+    echo '<iframe scrolling="no" frameborder="0" border="0" width=100% onload="this.height=this.contentWindow.document.documentElement.scrollHeight;" src="' . U('Upload/batchpic') . '?BackCall=' . $callBack . '&Img=' . $image . '"></iframe>
 		<input type="hidden" name="' . $callBack . '" id="' . $callBack . '">';
 }
 
@@ -139,4 +139,14 @@ function checkMobile($mobile){
     }else{
         return true;
     }
+}
+
+/**
+ * 获取七牛的图片链接
+ * @param unknown $url
+ * @return string
+ */
+function getQiqiuImgUrl($url){
+    $setting = C(UPLOAD_SITEIMG_QINIU);
+    return "http://".$setting['driverConfig']['domain']."/".$url;
 }
