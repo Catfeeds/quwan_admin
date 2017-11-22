@@ -45,13 +45,20 @@ class ComController extends BaseController
         $Auth = new Auth();
         $allow_controller_name = array('Upload');//放行控制器名称
         $allow_action_name = array();//放行函数名称
-        if ($userinfo[0]['group_id'] != 1 && !$Auth->check(CONTROLLER_NAME . '/' . ACTION_NAME,
+        if ($userinfo[0]['group_id'] == 1 && !$Auth->check(CONTROLLER_NAME . '/' . ACTION_NAME,
                 $UID) && !in_array(CONTROLLER_NAME, $allow_controller_name) && !in_array(ACTION_NAME,
                 $allow_action_name)
         ) {
             $this->error('没有权限访问本页面!');
         }
-
+        $shop_id = session('shop_id');
+        $shop_status = session('shop_status');
+//         echo $shop_status;
+//         die;
+        if($shop_id>0 && $shop_status==-1 && (CONTROLLER_NAME!='ShopPass' && CONTROLLER_NAME!='Mobile')){
+            $this->error('请先重置您的密码!',U('ShopPass/index'));
+        }
+        
         $user = member(intval($UID));
         $this->assign('user', $user);
 

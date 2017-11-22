@@ -1,0 +1,167 @@
+<include file="Public/head"/>
+<body class="no-skin">
+<include file="Public/header"/>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <form class="form-horizontal" id="form" method="post" action="{:U('update')}">
+
+                            <!-- PAGE CONTENT BEGINS -->
+
+                            <input type="hidden" name="shop_id" value="{$shopInfo.shop_id}" id="aid"/>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    店铺名称 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="shop_title" id="shop_title" placeholder="店铺名称"
+                                           class="col-xs-10 col-sm-5" value="{$shopInfo.shop_title}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+										<span class="middle"></span>
+									</span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    联系人名字 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="shop_name" id="shop_name" placeholder="联系人名字"
+                                           class="col-xs-10 col-sm-5" value="{$shopInfo.shop_name}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+										<span class="middle">联系人名字不能为空。</span>
+									</span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    手机号码 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="shop_mobile" id="shop_mobile" placeholder="手机号码"
+                                           class="col-xs-10 col-sm-5" value="{$shopInfo.shop_mobile}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+										<span class="middle">手机号码不能为空。</span>
+									</span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    商家描述 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="shop_desc" id="shop_desc" placeholder="商家描述"
+                                           class="col-xs-10 col-sm-5" value="{$shopInfo.shop_desc}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+										<span class="middle"></span>
+									</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-offset-2 col-md-9">
+                                <button class="btn btn-info submit" type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    提交
+                                </button>
+
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+
+                            <!-- PAGE CONTENT ENDS -->
+
+
+                        </form>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    <include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    $(function () {
+        $("#tabs").tabs();
+        var editor = KindEditor.create('textarea[name="content"]', {
+            uploadJson: '__PUBLIC__/kindeditor/php/upload_json.php',
+            fileManagerJson: '__PUBLIC__/kindeditor/php/file_manager_json.php',
+            allowFileManager: true,
+            afterBlur: function () {
+                this.sync();
+            }
+        });
+        $(".submit").click(function () {
+            var sid = $("#sid").val();
+            var title = $("#title").val();
+            var content = $("#content").val();
+            if (sid == 0) {
+                bootbox.dialog({
+                    title: '友情提示：',
+                    message: "文章分类必须选择。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return;
+            }
+            if (title == '') {
+                bootbox.dialog({
+                    title: '友情提示：',
+                    message: "文章标题必须填写。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return;
+            }
+            if (content == '') {
+                bootbox.dialog({
+                    title: '友情提示：',
+                    message: "文章内容需要填写。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return;
+                return;
+            }
+            $("#form").submit();
+        });
+    });
+</script>
+</body>
+</html>

@@ -11,71 +11,12 @@
 
 namespace Admin\Controller;
 
-class AdminuserController extends ComController
+class AddressController extends ComController
 {
     public function index()
     {
         
-        $p = isset($_GET['p']) ? intval($_GET['p']) : '1';
-        $field = isset($_GET['field']) ? $_GET['field'] : '';
-        $keyword = isset($_GET['keyword']) ? htmlentities($_GET['keyword']) : '';
-        $order = isset($_GET['order']) ? $_GET['order'] : 'DESC';
-        $where = '';
-
-        $prefix = C('DB_PREFIX');
-        if ($order == 'asc') {
-            $order = "{$prefix}admin.t asc";
-        } elseif (($order == 'desc')) {
-            $order = "{$prefix}admin.t desc";
-        } else {
-            $order = "{$prefix}admin.admin_id asc";
-        }
-        if ($keyword <> '') {
-            if ($field == 'user') {
-                $where = "{$prefix}admin.user LIKE '%$keyword%'";
-            }
-            if ($field == 'phone') {
-                $where = "{$prefix}admin.phone LIKE '%$keyword%'";
-            }
-            if ($field == 'qq') {
-                $where = "{$prefix}admin.qq LIKE '%$keyword%'";
-            }
-            if ($field == 'email') {
-                $where = "{$prefix}admin.email LIKE '%$keyword%'";
-            }
-        }
-
         
-        if($where){
-            $where .= " and {$prefix}auth_group_access.group_id!=2";
-        }else{
-            $where .= "{$prefix}auth_group_access.group_id!=2";
-        }
-
-        $user = M('admin');
-        $pagesize = 10;#每页数量
-        $offset = $pagesize * ($p - 1);//计算记录偏移量
-        $count = $user->field("{$prefix}admin.*,{$prefix}auth_group.id as gid,{$prefix}auth_group.title")
-            ->order($order)
-            ->join("{$prefix}auth_group_access ON {$prefix}admin.admin_id = {$prefix}auth_group_access.admin_id")
-            ->join("{$prefix}auth_group ON {$prefix}auth_group.id = {$prefix}auth_group_access.group_id")
-            ->where($where)
-            ->count();
-
-        $list = $user->field("{$prefix}admin.*,{$prefix}auth_group.id as gid,{$prefix}auth_group.title")
-            ->order($order)
-            ->join("{$prefix}auth_group_access ON {$prefix}admin.admin_id = {$prefix}auth_group_access.admin_id")
-            ->join("{$prefix}auth_group ON {$prefix}auth_group.id = {$prefix}auth_group_access.group_id")
-            ->where($where)
-            ->limit($offset . ',' . $pagesize)
-            ->select();
-        //$user->getLastSql();
-        $page = new \Think\Page($count, $pagesize);
-        $page = $page->show();
-        $this->assign('list', $list);
-        $this->assign('page', $page);
-        $group = M('auth_group')->field('id,title')->where("id!=2")->select();
-        $this->assign('group', $group);
         $this->display();
     }
 
@@ -123,10 +64,8 @@ class AdminuserController extends ComController
         } else {
             $this->error('参数错误！');
         }
-        if($member['group_id']==2){
-            $this->error('参数错误！');
-        }
-        $usergroup = M('auth_group')->field('id,title')->where("id!=2")->select();
+
+        $usergroup = M('auth_group')->field('id,title')->select();
         $this->assign('usergroup', $usergroup);
 
         $this->assign('member', $member);
@@ -135,12 +74,12 @@ class AdminuserController extends ComController
 
     public function update($ajax = '')
     {
-//         if ($ajax == 'yes') {
-//             $uid = I('get.uid', 0, 'intval');
-//             $gid = I('get.gid', 0, 'intval');
-//             M('auth_group_access')->data(array('group_id' => $gid))->where("admin_id='$uid'")->save();
-//             die('1');
-//         }
+        if ($ajax == 'yes') {
+            $uid = I('get.uid', 0, 'intval');
+            $gid = I('get.gid', 0, 'intval');
+            M('auth_group_access')->data(array('group_id' => $gid))->where("admin_id='$uid'")->save();
+            die('1');
+        }
 
         $uid = isset($_POST['uid']) ? intval($_POST['uid']) : false;
 //         $user = isset($_POST['user']) ? htmlspecialchars($_POST['user'], ENT_QUOTES) : '';
@@ -149,7 +88,7 @@ class AdminuserController extends ComController
             $this->error("请填入正确的手机号码");
         }
         $group_id = isset($_POST['group_id']) ? intval($_POST['group_id']) : 0;
-        if (!$group_id || $group_id==2) {
+        if (!$group_id) {
             $this->error('请选择用户组！');
         }
         $password = isset($_POST['password']) ? trim($_POST['password']) : false;
@@ -193,7 +132,7 @@ class AdminuserController extends ComController
     public function add()
     {
 
-        $usergroup = M('auth_group')->field('id,title')->where("id!=2")->select();
+        $usergroup = M('auth_group')->field('id,title')->select();
         $this->assign('usergroup', $usergroup);
         $this->display('form');
     }

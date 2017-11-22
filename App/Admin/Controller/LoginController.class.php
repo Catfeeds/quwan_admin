@@ -51,6 +51,10 @@ class LoginController extends ComController
         $user = $model->field('admin_id,user')->where($where)->find();
 
         if ($user) {
+            
+            
+            
+            
             $salt = C("COOKIE_SALT");
             $ip = get_client_ip();
             $ua = $_SERVER['HTTP_USER_AGENT'];
@@ -64,7 +68,20 @@ class LoginController extends ComController
                 cookie('auth', $auth);
             }
             addlog('登录成功。');
+            
+            $shop_id = 0;
+            $shop_status=-1;
             $url = U('index/index');
+            $shopInfo = M('admin_shop')->where("admin_id=".$user['admin_id'])->find();
+            if($shopInfo){
+                $shop_id=$shopInfo['shop_id'];
+                $shop = M('shop')->where("shop_id=".$shopInfo['shop_id'])->find();
+                $shop_status = $shop['shop_status'];
+                $url = U("ShopPass/index");
+            }
+            session('shop_id',$shop_id);
+            session('shop_status',$shop_status);
+            
             header("Location: $url");
             exit(0);
         } else {

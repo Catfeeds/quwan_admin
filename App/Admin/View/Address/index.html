@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>鼠标拾取地图坐标</title>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <script type="text/javascript"
+            src="http://webapi.amap.com/maps?v=1.3&key=de4d841a9e2138bf29b9c846d5969dea&plugin=AMap.Autocomplete,AMap.Geocoder"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    
+<script src="http://fifteentest.kugou.com/qqq/jquery.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="container"></div>
+<div id="myPageTop">
+    <table>
+        <tr>
+            <td>
+                <label>按关键字搜索：</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" placeholder="请输入关键字进行搜索" id="tipinput">
+            </td>
+            <td style="display:none" class="column2">
+                <input type="text" readonly="true" id="lnglat"><input type="text" readonly="true" id="address">
+            </td>
+            <td style="display:none">
+                <input type="button" readonly="true" id="submitmap"  value="确定2"  onclick="return submitmap();">
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    //创建标点、地图对象
+    var marker,map = new AMap.Map("container", {
+        resizeEnable: true,
+        zoom:18
+    });
+    //为地图注册click事件获取鼠标点击出的经纬度坐标
+    var clickEventListener = map.on('click', function(e) {
+    	
+        document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
+        //添加标记点
+        addMarker(e.lnglat);
+        regeocoder(e.lnglat.getLng() + ',' + e.lnglat.getLat());
+        console.log(e);
+        
+        $(window.parent.$("#amap_lon").val(e.lnglat.getLng())); 
+        $(window.parent.$("#amap_lat").val(e.lnglat.getLat())); 
+        var location = [e.lnglat.getLng(),e.lnglat.getLat()];
+        /* location[] = e.lnglat.getLng();
+        location[] = e.lnglat.getLat(); */
+        select(location);
+    });
+   //AMap.event.addListener(map,'click',getLnglat); //点击事件  另一种监听调用方式
+    var auto = new AMap.Autocomplete({
+        input: "tipinput",
+        city:"沈阳"
+    });
+    AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
+    function select(e) {
+        if (e.poi && e.poi.location) {
+            map.setZoom(18);
+            map.setCenter(e.poi.location);
+        }
+    }
+    //提交表单方法
+    function submitmap(){
+        var lntlat =  $('#lnglat').val();
+        regeocoder(lntlat);
+        //关闭父窗口--使用easyui打开窗口、关闭窗口方法
+        //window.parent.$('#w').window('close'); 
+    }
+    //逆地理编码
+    function regeocoder(lnglat) { 
+        var lnglatXY = lnglat;
+        console.log(lnglat);
+        var geocoder = new AMap.Geocoder({
+            radius: 1000,
+            extensions: "all"
+        });        
+        geocoder.getAddress(lnglatXY, function(status, result) {
+        	
+            if (status === 'complete' && result.info === 'OK') {
+                geocoder_CallBack(result);
+            }
+        }); 
+    }
+    //逆地理编码回调方法
+    function geocoder_CallBack(data) {
+        var address = data.regeocode.formattedAddress; //返回地址描述
+        console.log(data);
+        //给父窗口赋值--视情况决定
+        /* $("#address").val(address);  */
+        $(window.parent.$("#amap_address").val(address));
+    }
+    // 实例化点标记
+    function addMarker(lnglat) {
+        if (marker) {
+            return;
+        }
+        marker = new AMap.Marker({
+            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+            position: lnglat
+        });
+        marker.setMap(map);
+    }
+
+</script>
+</body>
+</html>

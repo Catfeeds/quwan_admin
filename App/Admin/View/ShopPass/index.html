@@ -1,0 +1,156 @@
+<include file="Public/head"/>
+<body class="no-skin">
+<include file="Public/header"/>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <form class="form-horizontal" role="form" id="form" method="post" action="{:U('update')}">
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 后台添加的手机号 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="mobile" id="mobile" placeholder="后台添加的手机号"
+                                           class="col-xs-10 col-sm-5" value="">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">后台添加的手机号。</span>
+											</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 验证码 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="captche" id="captche" placeholder="验证码"
+                                           class="col-xs-10 col-sm-4" value="">
+                                           <div class="btn btn-info" id="getCatpche">获取验证码</div>
+                                </div>
+                            </div>
+                            
+			                <div class="space-4"></div>
+			                <div class="form-group">
+			                    <label class="col-sm-1 control-label no-padding-right" for="o"> 新密码 </label>
+			                    <div class="col-sm-9">
+			                        <input type="text" name="new_pwd" id="new_pwd" placeholder="新密码" class="col-xs-10 col-sm-5"
+			                               value="">
+			                        <span class="help-inline col-xs-12 col-sm-7">
+															<span class="middle"></span>
+														</span>
+			                    </div>
+			                </div>
+			                <div class="space-4"></div>
+			                <div class="form-group">
+			                    <label class="col-sm-1 control-label no-padding-right" for="o"> 新密码确认 </label>
+			                    <div class="col-sm-9">
+			                        <input type="text" name="new_pwd_2" id="new_pwd_2" placeholder="新密码确认" class="col-xs-10 col-sm-5"
+			                               value="">
+			                        <span class="help-inline col-xs-12 col-sm-7">
+															<span class="middle"></span>
+														</span>
+			                    </div>
+			                </div>
+
+                <div class="col-md-offset-2 col-md-9">
+                    <button class="btn btn-info submit" type="button">
+                        <i class="icon-ok bigger-110"></i>
+                        提交
+                    </button>
+
+                    &nbsp; &nbsp; &nbsp;
+                    <button class="btn" type="reset">
+                        <i class="icon-undo bigger-110"></i>
+                        重置
+                    </button>
+                </div>
+                </form>
+                <!-- PAGE CONTENT ENDS -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.page-content -->
+</div>
+</div><!-- /.main-content -->
+<include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    $(function () {
+        var editor = KindEditor.create('textarea[name="content"]', {
+            uploadJson: '__PUBLIC__/kindeditor/php/upload_json.php',
+            fileManagerJson: '__PUBLIC__/kindeditor/php/file_manager_json.php',
+            allowFileManager: true,
+            afterBlur: function () {
+                this.sync();
+            }
+        });
+        $("#getCatpche").click(function () {
+        	var mobile = $("#mobile").val();
+        	$.post("{:U('Mobile/getCode')}",{mobile:mobile}, function (result) {
+                if (result.status == 1) {
+                    bootbox.alert({
+                        buttons: {
+                            ok: {
+                                label: '确定',
+                                className: 'btn-myStyle'
+                            }
+                        },
+                        message: '验证码发送成功。',
+                        title: "提示信息",
+                    });
+                    return;
+                } else {
+                    bootbox.dialog({
+                        message: result.info,
+                        buttons: {
+                            "success": {
+                                "label": "确定",
+                                "className": "btn-danger"
+                            }
+                        }
+                    });
+                    return;
+                }
+            }, "json");
+        });
+        $(".btn.btn-info.submit").click(function () {
+            var name = $("#name").val();
+            if (name == '') {
+                bootbox.dialog({
+                    message: "抱歉，分类名称不能为空。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return false;
+            }
+            $("#form").submit();
+
+        })
+    })
+</script>
+</body>
+</html>

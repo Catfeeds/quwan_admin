@@ -18,7 +18,7 @@ class FlashController extends ComController
     public function index()
     {
 
-        $list = M('flash')->order('o asc')->select();
+        $list = M('adv')->where("adv_status=1")->order('adv_weight asc')->select();
         $this->assign('list', $list);
         $this->display();
     }
@@ -35,7 +35,7 @@ class FlashController extends ComController
     {
 
         $id = intval($id);
-        $flash = M('flash')->where('id=' . $id)->find();
+        $flash = M('adv')->where('adv_id=' . $id)->find();
         $this->assign('flash', $flash);
         $this->display('form');
     }
@@ -48,11 +48,11 @@ class FlashController extends ComController
         if ($ids) {
             if (is_array($ids)) {
                 $ids = implode(',', $ids);
-                $map['id'] = array('in', $ids);
+                $map['adv_id'] = array('in', $ids);
             } else {
-                $map = 'id=' . $ids;
+                $map = 'adv_id=' . $ids;
             }
-            if (M('flash')->where($map)->delete()) {
+            if (M('adv')->where($map)->save(array("adv_status=0"))) {
                 addlog('删除焦点图，ID：' . $ids);
                 $this->success('恭喜，删除成功！');
             } else {
@@ -67,21 +67,37 @@ class FlashController extends ComController
     public function update($id = 0)
     {
         $id = intval($id);
-        $data['title'] = I('post.title', '', 'strip_tags');
-        if (!$data['title']) {
-            $this->error('请填写标题！');
+        $data['adv_title'] = I('post.adv_title', '', 'strip_tags');
+        if (!$data['adv_title']) {
+            $this->error('请填写广告说明！');
         }
-        $data['url'] = I('post.url', '', 'strip_tags');
-        $data['o'] = I('post.o', '', 'strip_tags');
-        $data['pic'] = I('post.pic', '', 'strip_tags');
-        if ($data['pic'] == '') {
+        
+        $adv_type = I('post.adv_type',1,'intval');
+        if($adv_type==1){
+            $data['adv_url'] = I('post.adv_url', '', 'strip_tags');
+            if(!$data['adv_url']){
+                $this->error('请填写链接！');
+            }
+        }else{
+            $data['adv_content'] = I('post.url', '', 'adv_content');
+            if(!$data['adv_content']){
+                $this->error('请填写内页内容！');
+            }
+        }
+        
+        $data['adv_weight'] = I('post.adv_weight', '1', 'intval');
+        $data['adv_img'] = I('post.adv_img', '', 'strip_tags');
+        if ($data['adv_img'] == '') {
             $this->error('请上传图片！');
         }
+        $data['adv_status'] = 1;
         if ($id) {
-            M('flash')->data($data)->where('id=' . $id)->save();
+            $data['adv_updated_at'] = time();
+            M('adv')->data($data)->where('adv_id=' . $id)->save();
             addlog('修改焦点图，ID：' . $id);
         } else {
-            M('flash')->data($data)->add();
+            $data['adv_created_at'] = time();
+            M('adv')->data($data)->add();
             addlog('新增焦点图');
         }
 

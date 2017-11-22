@@ -7,6 +7,17 @@
             ace.settings.check('main-container', 'fixed')
         } catch (e) {
         }
+        
+        function change_type(){
+        	var adv_type = $("#adv_type").val();
+        	if(adv_type==1){
+        		$("#adv_url_html").show();
+        		$("#adv_content_html").hide();
+        	}else{
+        		$("#adv_url_html").hide();
+        		$("#adv_content_html").show();
+        	}
+        }
     </script>
 
     <include file="Public/sidebar"/>
@@ -23,28 +34,30 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <form class="form-horizontal" id="form" method="post" action="{:U('update')}?id={$flash.id}">
+                        <form class="form-horizontal" id="form" method="post" action="{:U('update')}?id={$flash.adv_id}">
                             <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1"> 标题 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1"> 广告说明 </label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="title" id="title" placeholder="标题"
-                                           class="col-xs-10 col-sm-5" value="{$flash['title']}">
+                                    <input type="text" name="adv_title" id="adv_title" class="rcol-xs-10 col-sm-5"
+                                           value="{$flash.adv_title}">
                                     <span class="help-inline col-xs-12 col-sm-7">
-												<span class="middle">标题不能为空。</span>
+												<span class="middle"></span>
 											</span>
                                 </div>
                             </div>
-
                             <div class="space-4"></div>
-
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 链接地址 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-0">
+                                    广告类型 </label>
                                 <div class="col-sm-9">
-                                    <input type="url" name="url" id="url" placeholder="链接地址" class="col-xs-10 col-sm-5"
-                                           value="{$flash['url']}">
+                                    <select onchange="change_type()" id="adv_type" name="adv_type" class="col-xs-10 col-sm-5">
+                                        <option value="1"<if condition="$flash.adv_type eq 1"> selected</if>>链接</option>
+                                        <option value="2"<if condition="$flash.adv_type eq 2"> selected</if>>内页</option>
+                                    </select>
+
                                     <span class="help-inline col-xs-12 col-sm-7">
-												<span class="middle">链接地址。</span>
+												<span class="middle">选择所属类型。</span>
 											</span>
                                 </div>
                             </div>
@@ -54,7 +67,7 @@
                             <div class="form-group">
                                 <label class="col-sm-1 control-label no-padding-right" for="form-field-4"> 焦点图 </label>
                                 <div class="col-sm-9">
-                                    <div class="col-xs-10 col-sm-5">{:UpImage("pic",400,100,$flash['pic'])}</div>
+                                    <div class="col-xs-10 col-sm-5">{:UpImage("adv_img",400,100,$flash['adv_img'])}</div>
                                     <span class="help-inline col-xs-12 col-sm-7">
 												<span class="middle">仅支持jpg、gif、png、bmp、jpeg，且小于1MB。</span>
 											</span>
@@ -63,11 +76,33 @@
 
                             <div class="space-4"></div>
 
+                            <div id="adv_url_html" class="form-group"<if condition="$flash.adv_type eq 2"> stype="display:none"</if>>
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 链接地址 </label>
+                                <div class="col-sm-9">
+                                    <input type="url" name="adv_url" id="adv_url" placeholder="链接地址" class="col-xs-10 col-sm-5"
+                                           value="{$flash['adv_url']}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">链接地址。</span>
+											</span>
+                                </div>
+                            </div>
+							<div class="space-4"></div>
+
+                            <div id="adv_content_html" class="form-group"<if condition="$flash.adv_type eq 1"> stype="display:none"</if>>
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2">
+                                    广告内容 </label>
+                                <div class="col-sm-4">
+                                        <textarea name="adv_content" id="adv_content"
+                                                  style="width:100%;height:500px;visibility:hidden;">{$flash['adv_content']}</textarea>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+
                             <div class="form-group">
                                 <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 排序 </label>
                                 <div class="col-sm-9">
-                                    <input type="number" name="o" id="o" placeholder="排序" class="col-xs-10 col-sm-5"
-                                           value="{$flash['o']}">
+                                    <input type="number" name="adv_weight" id="adv_weight" placeholder="排序" class="col-xs-10 col-sm-5"
+                                           value="{$flash['adv_weight']}">
                                     <span class="help-inline col-xs-12 col-sm-7">
 												<span class="middle">越小越靠前。</span>
 											</span>
@@ -101,6 +136,17 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     $(function () {
+        change_type();
+    	var editor = KindEditor.create('textarea[name="adv_content"]', {
+    		width:"100%",
+            uploadJson: '__PUBLIC__/kindeditor/php/upload_json.php',
+            fileManagerJson: '__PUBLIC__/kindeditor/php/file_manager_json.php',
+            allowFileManager: true,
+            afterBlur: function () {
+                this.sync();
+            }
+        });
+    	
         $(".btn-info.submit").click(function () {
             var webname = $("#webname").val();
             var url = $("#url").val();
