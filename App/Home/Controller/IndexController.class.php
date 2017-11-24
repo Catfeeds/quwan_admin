@@ -16,6 +16,7 @@ class IndexController extends ComController
 {
     public function index()
     {
+        redirect('Admin/index/index');
 		$this->set_page_view('Index','index');
         $this->display();
     }
