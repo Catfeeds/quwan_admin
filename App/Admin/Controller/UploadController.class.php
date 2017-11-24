@@ -118,14 +118,19 @@ class UploadController extends ComController
         if (strlen($ImgStr) > 1) {
             $Img = explode('|', $ImgStr);
         }
+//         PRINT_R($Img);
         $Path = null;
         
         if ($_FILES['uploadimg']) {
             $info = $this->saveimg($_FILES);
+//             print_R($Img);
+//             print_R($info);
             foreach($info as $val){
-                array_push($Img, $val['name']);
+//                 array_push($Img, $val['name']);
+                $Img[] = $val['name'];
             }
         }
+        
         $ImgStr = implode("|", $Img);
         $BackCall = I('BackCall');
         $Width = I('u');
@@ -142,10 +147,10 @@ class UploadController extends ComController
         $this->assign('Width', $Width);
         $this->assign('BackCall', $BackCall);
         $this->assign('ImgStr', $ImgStr);
-        $setting = C("UPLOAD_SITEIMG_QINIU");
-        foreach($Img as &$val){
-            $val = "http://".$setting['driverConfig']['domain'].'/'.$val;
-        }
+//         $setting = C("UPLOAD_SITEIMG_QINIU");
+//         foreach($Img as &$val){
+//             $val = "http://".$setting['driverConfig']['domain'].'/'.$val;
+//         }
         $this->assign('Img', $Img);
         $this->assign('Height', $Height);
         $this->display('Batchpic');

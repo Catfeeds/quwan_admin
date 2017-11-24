@@ -7,18 +7,17 @@
             ace.settings.check('main-container', 'fixed')
         } catch (e) {
         }
-        
-		function sort_up(id){
+        function sort_up(id){
         	
         	var destination_status = 0;
         	
-        	var status = $("input[name='cid_status_"+id+"']").is(':checked');
+        	var status = $("input[name='destination_status_"+id+"']").is(':checked');
         	if(status){
         		destination_status = 1;
         	}
         	
         	
-        	$.post("{:U('update')}?act=status",{cid_status:destination_status,cid_id:id}, function (result) {
+        	$.post("{:U('update')}?act=status",{destination_status:destination_status,destination_id:id}, function (result) {
                 if (result == 1) {
                     bootbox.alert({
                         buttons: {
@@ -27,7 +26,7 @@
                                 className: 'btn-myStyle'
                             }
                         },
-                        message: '修改分类状态成功。',
+                        message: '修改该目的地状态成功。',
                         title: "提示信息",
                     });
                     return;
@@ -60,7 +59,7 @@
 
                 <!-- /section:settings.box -->
                 <div class="row">
-                    <div class="col-xs-10">
+                    <div class="col-xs-11">
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="cf">
                                 <a class="btn btn-info" href="{:U('add')}" value="">新增</a>
@@ -75,29 +74,29 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <if condition="!empty($category)">
-                            	<volist name="category" id="val">
+                            <if condition="!empty($destination)">
+                            	<volist name="destination" id="val">
                                     <tr>
-                                        <td>{$val['cid_name']}</td>
-                                        <td><input name="cid_status_{$val['cid_id']}"  id="islink"
-	                                        <if condition="$val.cid_status eq 1">checked="checked"</if>
-	                                        value="1" class="ace ace-switch ace-switch-2" type="checkbox"  onchange="sort_up({$val['cid_id']})" /><span class="lbl"></span>
+                                        <td>{$val['destination_name']}</td>
+                                        <td><input name="destination_status_{$val['destination_id']}"  id="islink"
+	                                        <if condition="$val.destination_status eq 1">checked="checked"</if>
+	                                        value="1" class="ace ace-switch ace-switch-2" type="checkbox"  onchange="sort_up({$val['destination_id']})" /><span class="lbl"></span>
 														</td>
-										<td><input name="o" class="inputorder" type="number" value="{$val['cid_sort']}"
-                                                         val="{$val['cid_id']}"/>
+										<td><input name="o" class="inputorder" type="number" value="{$val['destination_sort']}"
+                                                         val="{$val['destination_id']}"/>
                                         </td>
                                         <td>
-                                        	<a class="blue" href="{:U('edit',array('cid_id'=>$val['cid_id'],'cid_type'=>$cid_type_status))}"
-                                                     title="编辑分类"><i class="ace-icon fa fa-plus-circle bigger-100"></i>编辑</a>&nbsp;&nbsp;
-                                            <a class="red del" href="javascript:void(0);" val="{$val['cid_id']}"
-                                                     title="删除分类"><i class="ace-icon fa fa-plus-circle bigger-100"></i>删除</a>
+                                        	<a class="blue" href="{:U('edit',array('destination_id'=>$val['destination_id']))}"
+                                                     title="编辑目的地"><i class="ace-icon fa fa-plus-circle bigger-100"></i>编辑</a>&nbsp;&nbsp;
+                                            <a class="red del" href="javascript:void(0);" val="{$val['destination_id']}"
+                                                     title="删除目的地"><i class="ace-icon fa fa-plus-circle bigger-100"></i>删除</a>
                                            
                                         </td>
                                     </tr>
                                 </volist>
                                 <else/>
                                 <tr>
-                                    <td colspan="3">无分类</td>
+                                    <td colspan="3">无目的地</td>
                                 </tr>
                             </if>
                             </tbody>
@@ -116,11 +115,12 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     $(function () {
-        $(".inputorder").change(function () {
+    	
+    	$(".inputorder").change(function () {
             var id = $(this).attr('val');
             var o = $(this).val();
             if (id != o) {
-                $.post("{:U('update',array('act'=>'order','cid_type'=>$cid_type))}", {cid_id: id, cid_sort: o}, function (data) {
+                $.post("{:U('update',array('act'=>'order'))}", {destination_id: id, destination_sort: o}, function (data) {
                     if (data == 1) {
                         window.location.reload(true);
                     }
@@ -129,15 +129,16 @@
                 ;
             }
         })
+    	
         $(".del").on('click', function () {
             var obj = $(this);
             var id = obj.attr('val');
             bootbox.confirm({
                 title: "系统提示",
-                message: "是否要删除该分类？",
+                message: "是否要删除该目的地？",
                 callback: function (result) {
                     if (result) {
-                        $.get("{:U('del')}?cid_id=" + id, function (result) {
+                        $.get("{:U('del')}?destination_id=" + id, function (result) {
                             if (result == 2) {
                                 bootbox.alert({
                                     buttons: {
@@ -146,7 +147,7 @@
                                             className: 'btn-myStyle'
                                         }
                                     },
-                                    message: '该类下拥有子类，无法删除。',
+                                    message: '该类下拥有子目的地，无法删除。',
                                     title: "提示信息",
                                 });
                                 return;

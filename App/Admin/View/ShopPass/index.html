@@ -7,6 +7,8 @@
             ace.settings.check('main-container', 'fixed')
         } catch (e) {
         }
+        
+        
     </script>
 
     <include file="Public/sidebar"/>
@@ -50,7 +52,7 @@
 			                <div class="form-group">
 			                    <label class="col-sm-1 control-label no-padding-right" for="o"> 新密码 </label>
 			                    <div class="col-sm-9">
-			                        <input type="text" name="new_pwd" id="new_pwd" placeholder="新密码" class="col-xs-10 col-sm-5"
+			                        <input type="password" name="new_pwd" id="new_pwd" placeholder="新密码" class="col-xs-10 col-sm-5"
 			                               value="">
 			                        <span class="help-inline col-xs-12 col-sm-7">
 															<span class="middle"></span>
@@ -61,10 +63,10 @@
 			                <div class="form-group">
 			                    <label class="col-sm-1 control-label no-padding-right" for="o"> 新密码确认 </label>
 			                    <div class="col-sm-9">
-			                        <input type="text" name="new_pwd_2" id="new_pwd_2" placeholder="新密码确认" class="col-xs-10 col-sm-5"
+			                        <input type="password" name="new_pwd_2" id="new_pwd_2" placeholder="新密码确认" class="col-xs-10 col-sm-5"
 			                               value="">
 			                        <span class="help-inline col-xs-12 col-sm-7">
-															<span class="middle"></span>
+															<span id="pwd_content_error" class="middle"></span>
 														</span>
 			                    </div>
 			                </div>
@@ -104,10 +106,43 @@
                 this.sync();
             }
         });
+        
+        var countdown=120; 
+        function settime(val) { 
+	        if (countdown == 0) { 
+		        $("#"+val).html("获取验证码");
+		        countdown = 120; 
+	        } else { 
+		        /* val.setAttribute("disabled", true); 
+		        val.value="重新发送(" + countdown + ")";  */
+		        $("#"+val).html("重新发送(" + countdown + ")");
+		        countdown--; 
+	        } 
+	        setTimeout(function() { 
+	        	settime(val) 
+	        },1000) 
+        } 
+        
         $("#getCatpche").click(function () {
+        	if(countdown!=120){
+        		return false;
+        	}
         	var mobile = $("#mobile").val();
+        	if(mobile == ''){
+        		bootbox.dialog({
+                    message: "请传入您的手机号码。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return false;
+        	}
         	$.post("{:U('Mobile/getCode')}",{mobile:mobile}, function (result) {
                 if (result.status == 1) {
+                	settime("getCatpche");
                     bootbox.alert({
                         buttons: {
                             ok: {
@@ -134,10 +169,39 @@
             }, "json");
         });
         $(".btn.btn-info.submit").click(function () {
-            var name = $("#name").val();
-            if (name == '') {
+            var pwd1 = $("#new_pwd").val();
+            var pwd2 = $("#new_pwd_2").val();
+            var mobile = $("#mobile").val();
+            if(mobile == ''){
+        		bootbox.dialog({
+                    message: "请传入您的手机号码。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return false;
+        	}
+            
+            var captche = $("#captche").val();
+            if(captche == ''){
+        		bootbox.dialog({
+                    message: "请传入您的验证码。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return false;
+        	}
+            
+            if (pwd1 !=pwd2) {
                 bootbox.dialog({
-                    message: "抱歉，分类名称不能为空。",
+                    message: "两次密码不一致。",
                     buttons: {
                         "success": {
                             "label": "确定",
@@ -147,7 +211,40 @@
                 });
                 return false;
             }
-            $("#form").submit();
+            
+            
+            $.post("{:U('update')}",$("#form").serialize(), function (result) {
+                if (result.status == 1) {
+                    bootbox.alert({
+                        buttons: {
+                            ok: {
+                                label: '确定',
+                                className: 'btn-myStyle',
+                                
+                            }
+                        },
+                        message: '修改密码成功。',
+                        title: "提示信息",
+                        callback: function () {  
+                            window.location.href="{:U("Index/index")}";  
+                        } 
+                    });
+                    return false;
+                } else {
+                    bootbox.dialog({
+                        message: result.info,
+                        buttons: {
+                            "success": {
+                                "label": "确定",
+                                "className": "btn-danger"
+                            }
+                        }
+                    });
+                    return false;
+                }
+            }, "json");
+            
+            return false;
 
         })
     })

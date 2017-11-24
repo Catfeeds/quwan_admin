@@ -1,0 +1,283 @@
+<include file="Public/head"/>
+<body class="no-skin">
+<include file="Public/header"/>
+<style>
+.modal.in .modal-dialog{width:100%}
+.modal-content{height:100%}
+</style>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+        var mymodal={};
+        mymodal['width'] = '100%';
+        function dingwei(){
+        	bootbox.dialog({
+        		className: "mymodal",
+                message: '<iframe scrolling="no" frameborder="0" border="0" width=100% height=500px onload="this.height=500px;" src="{:U('Address/index')}"></iframe>',
+                buttons: {
+                    "success": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <form class="form-horizontal" role="form" id="form" method="post" action="{:U('update_my')}">
+                            <input name="attractions_id" id="attractions_id" value="{$info.attractions_id}" type="hidden">
+                            
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 景点名称 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="attractions_name" id="attractions_name" placeholder="景点名称"
+                                           class="col-xs-10 col-sm-5" value="{$info.attractions_name}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">景点名称，不能为空。(20个中文)</span>
+											</span>
+                                </div>
+                            </div>
+			                <div class="space-4"></div>
+			                <div class="form-group">
+			                    <label class="col-sm-1 control-label no-padding-right" for="o"> 定价 </label>
+			                    <div class="col-sm-9">
+			                        <input type="text" name="attractions_price" id="attractions_price" placeholder="定价" class="col-xs-10 col-sm-5"
+			                               value="{$info.attractions_price}">
+			                        <span class="help-inline col-xs-12 col-sm-7">
+															<span class="middle">景点门票的价格。</span>
+														</span>
+			                    </div>
+			                </div>
+			                <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 是否上架 </label>
+                                <div class="control-label no-padding-left col-sm-1">
+                                    <label>
+                                        <input name="attractions_status" id="attractions_status"
+                                        <if condition="$info.attractions_status eq 1">checked="checked"</if>
+                                        value="1" class="ace ace-switch ace-switch-2" type="checkbox" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </div>
+                                <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle"></span>
+										</span>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 能否退款 </label>
+                                <div class="control-label no-padding-left col-sm-1">
+                                    <label>
+                                        <input name="attractions_is_refund" id="attractions_is_refund"
+                                        <if condition="$info.attractions_is_refund eq 1">checked="checked"</if>
+                                        value="1" class="ace ace-switch ace-switch-2" type="checkbox" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </div>
+                                <span class="help-inline col-xs-12 col-sm-5">
+												<span class="middle">打开可以退款，关闭不能退款</span>
+										</span>
+                            </div>
+                            
+
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 开放时间 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="attractions_open_time" id="attractions_open_time" placeholder="开放时间"
+                                           class="col-xs-10 col-sm-5" value="{$info.attractions_open_time}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">景点开放的时间,推荐的时节等。</span>
+											</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 景点电话 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="attractions_phone" id="attractions_phone" placeholder="景点电话"
+                                           class="col-xs-10 col-sm-5" value="{$info.attractions_phone}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">景点开放的时间,推荐的时节等。</span>
+											</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 建议游玩时长 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="attractions_suggest" id="attractions_suggest" placeholder="约2-3小时"
+                                           class="col-xs-10 col-sm-5" value="{$info.attractions_suggest}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">建议游玩时长。</span>
+								    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 景点地址 </label>
+                                <div class="col-sm-9">
+                                	<div class="col-xs-12" style="padding-left:0px">
+	                                    <input type="text" name="attractions_address" id="amap_address" placeholder="景点详细地址"
+	                                           class="col-xs-12 col-sm-5" value="{$info.attractions_address}">
+	                                    
+	                                    <div style="display:none"><input type="text" name="attractions_lon" id="amap_lon" value="{$info.attractions_lon}">
+	                                    <input type="text" name="attractions_lat" id="amap_lat" value="{$info.attractions_lat}"></div>
+	                                    <span class="help-inline col-xs-12 col-sm-7">
+													<span class="middle">景点详细地址。</span>
+									    </span>
+								    </div>
+								    <div class="col-xs-12" style="padding-top:10px">
+									    <span class="help-inline col-xs-12 col-sm-6">
+									    	<a class="btn btn-info" value="">去认领</a>高德地图搜不到
+									    </span>
+									    <span class="help-inline col-xs-12 col-sm-6">
+									    	<a class="btn btn-info" onclick="dingwei()" value="">定位</a>高德地图精准定位
+									    </span>
+								    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="form-group">
+								<label class="col-sm-1 control-label no-padding-right">景点分类：</label>
+								<div class="col-sm-9 error-tips">
+								<volist name="category" id="val">
+									<label>
+										<input type="checkbox" id="cid_id" name="cid_id[]" value="{$val.cid_id}" 
+									<if condition="$infoCid[$val['cid_id']] eq 1">checked="checked"</if> class="ace" />
+										<span class="lbl"> {$val.cid_name}</span>
+									</label>
+								</volist>
+								</div>
+							</div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="pid"> 所述目的地 </label>
+                                <div class="col-sm-9">
+                                    <select id="destination_id" name="destination_id" class="col-xs-10 col-sm-5">
+                                        <option value="0">选择目的地</option>
+                                        <volist name="destination" id="val">
+                                        <option value="{$val.destination_id}"<if condition="$info['destination_id'] eq $val['destination_id']"> selected</if>>{$val.destination_name}</option>
+                                        </volist>
+                                    </select>
+
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">选择所属目的地。</span>
+											</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right"> 景点图集 </label>
+                                <div class="col-sm-9">
+                                    <div class="col-xs-10 col-sm-10">{:BatchImage("img",100,100,$info['img'])}</div>
+                                    
+                                </div>
+
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2">
+                                    景点介绍 </label>
+                                <div class="col-sm-4">
+                                        <textarea name="attractions_intro" id="attractions_intro"
+                                                  style="width:100%;height:500px;visibility:hidden;">{$info['attractions_intro']}</textarea>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+			                
+
+                <div class="col-md-offset-2 col-md-9">
+                    <button class="btn btn-info submit" type="button">
+                        <i class="icon-ok bigger-110"></i>
+                        提交
+                    </button>
+
+                    &nbsp; &nbsp; &nbsp;
+                    <button class="btn" type="reset">
+                        <i class="icon-undo bigger-110"></i>
+                        重置
+                    </button>
+                </div>
+                </form>
+                <!-- PAGE CONTENT ENDS -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.page-content -->
+</div>
+</div><!-- /.main-content -->
+<include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    $(function () {
+        var editor = KindEditor.create('textarea[name="attractions_intro"]', {
+            uploadJson: '__PUBLIC__/kindeditor/php/upload_json.php',
+            fileManagerJson: '__PUBLIC__/kindeditor/php/file_manager_json.php',
+            allowFileManager: true,
+            afterBlur: function () {
+                this.sync();
+            }
+        });
+        $("#type").change(function () {
+
+            if ($(this).val() == 1) {
+                $("#type1").removeClass('hidden');
+                $("#type2").addClass('hidden');
+            } else if ($(this).val() == 2) {
+                $("#type2").removeClass('hidden');
+                $("#type1").addClass('hidden');
+            } else {
+                $("#type1").addClass('hidden');
+                $("#type2").addClass('hidden');
+            }
+        });
+        $(".btn.btn-info.submit").click(function () {
+            var name = $("#name").val();
+            if (name == '') {
+                bootbox.dialog({
+                    message: "抱歉，分类名称不能为空。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return false;
+            }
+            $("#form").submit();
+
+        })
+    })
+</script>
+</body>
+</html>

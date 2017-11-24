@@ -19,26 +19,31 @@ class CategoryController extends ComController
     public function index()
     {
 
-
-        $category = M('category')->field('id,pid,name,o')->order('o asc')->select();
-        $category = $this->getMenu($category);
+        $cid_type = I("get.cid_type",1,'intval');
+        if($cid_type<1 || $cid_type>6){
+            $cid_type=1;
+        }
+        $category = M('cid')->where("cid_status=1 and cid_type=".$cid_type)->order('cid_sort asc')->select();
+//         $category = $this->getMenu($category);
+//         print_R($cid_type);
         $this->assign('category', $category);
+        $this->assign("cid_type_status",$cid_type);
         $this->display();
     }
 
     public function del()
     {
 
-        $id = isset($_GET['id']) ? intval($_GET['id']) : false;
+        $cid_type = I("get.cid_type",1,'intval');
+        if($cid_type<1 || $cid_type>6){
+            $cid_type=1;
+        }
+        $id = isset($_GET['cid_id']) ? intval($_GET['cid_id']) : false;
         if ($id) {
-            $data['id'] = $id;
-            $category = M('category');
-            if ($category->where('pid=' . $id)->count()) {
-                die('2');//存在子类，严禁删除。
-            } else {
-                $category->where('id=' . $id)->delete();
+            $data['cid_id'] = $id;
+            $category = M('cid');
+            $category->where('cid_id=' . $id)->save(array('cid_status'=>-1));
                 addlog('删除分类，ID：' . $id);
-            }
             die('1');
         } else {
             die('0');
@@ -49,16 +54,20 @@ class CategoryController extends ComController
     public function edit()
     {
 
-        $id = isset($_GET['id']) ? intval($_GET['id']) : false;
-        $currentcategory = M('category')->where('id=' . $id)->find();
+        $id = isset($_GET['cid_id']) ? intval($_GET['cid_id']) : false;
+        $currentcategory = M('cid')->where('cid_id=' . $id)->find();
         $this->assign('currentcategory', $currentcategory);
+        $cid_type = I("get.cid_type",1,'intval');
+        if($cid_type<1 || $cid_type>6){
+            $cid_type=1;
+        }
+//         $category = M('cid')->field('cid_id id,cid_pid pid,cid_name name')->where("cid_type=".$cid_type." and cid_id <> {$id}")->order('cid_sort asc')->select();
+//         $tree = new Tree($category);
+//         $str = "<option value=\$id \$selected>\$spacer\$name</option>"; //生成的形式
+//         $category = $tree->get_tree(0, $str, $currentcategory['cid_pid']);
 
-        $category = M('category')->field('id,pid,name')->where("id <> {$id}")->order('o asc')->select();
-        $tree = new Tree($category);
-        $str = "<option value=\$id \$selected>\$spacer\$name</option>"; //生成的形式
-        $category = $tree->get_tree(0, $str, $currentcategory['pid']);
-
-        $this->assign('category', $category);
+//         $this->assign('category', $category);
+        $this->assign("cid_type",$cid_type);
         $this->display('form');
     }
 
@@ -66,51 +75,76 @@ class CategoryController extends ComController
     {
 
         $pid = isset($_GET['pid']) ? intval($_GET['pid']) : 0;
-        $category = M('category')->field('id,pid,name')->order('o asc')->select();
-        $tree = new Tree($category);
-        $str = "<option value=\$id \$selected>\$spacer\$name</option>"; //生成的形式
-        $category = $tree->get_tree(0, $str, $pid);
+        $cid_type = I("get.cid_type",1,'intval');
+        if($cid_type<1 || $cid_type>6){
+            $cid_type=1;
+        }
+//         $category = M('cid')->field('cid_id id,cid_pid pid,cid_name name')->where("cid_type=".$cid_type)->order('cid_sort asc')->select();
+//         $tree = new Tree($category);
+//         $str = "<option value=\$id \$selected>\$spacer\$name</option>"; //生成的形式
+//         $category = $tree->get_tree(0, $str, $pid);
 
-        $this->assign('category', $category);
+//         $this->assign('category', $category);
+        $this->assign("cid_type",$cid_type);
         $this->display('form');
     }
 
     public function update($act = null)
     {
         if ($act == 'order') {
-            $id = I('post.id', 0, 'intval');
+            $id = I('post.cid_id', 0, 'intval');
             if (!$id) {
                 die('0');
             }
-            $o = I('post.o', 0, 'intval');
-            M('category')->data(array('o' => $o))->where("id='{$id}'")->save();
+            $o = I('post.cid_sort', 0, 'intval');
+            M('cid')->data(array('cid_sort' => $o))->where("cid_id='{$id}'")->save();
             addlog('分类修改排序，ID：' . $id);
+            die('1');
+        }elseif ($act == 'status') {
+            $id = I('post.cid_id', 0, 'intval');
+            if (!$id) {
+                die('0');
+            }
+            $o = I('post.cid_status', 0, 'intval');
+            M('cid')->data(array('cid_status' => $o))->where("cid_id='{$id}'")->save();
+            addlog('分类修改状态，ID：' . $id);
             die('1');
         }
 
-        $id = I('post.id', false, 'intval');
-        $data['type'] = I('post.type', 0, 'intval');
-        $data['pid'] = I('post.pid', 0, 'intval');
-        $data['name'] = I('post.name');
-        $data['seotitle'] = I('post.seotitle', '', 'htmlspecialchars');
-        $data['keywords'] = I('post.keywords', '', 'htmlspecialchars');
-        $data['description'] = I('post.description', '', 'htmlspecialchars');
-        $data['content'] = I('post.content');
-        $data['url'] = I('post.url');
-        $data['cattemplate'] = I('post.cattemplate');
-        $data['contemplate'] = I('post.contemplate');
-        $data['o'] = I('post.o', 0, 'intval');
-        if ($data['name'] == '') {
-            $this->error('分类名称不能为空！');
+        $id = I('post.cid_id', false, 'intval');
+        $data['cid_type'] = I('post.cid_type', 1, 'intval');
+        $data['cid_pid'] = I('post.cid_pid', 0, 'intval');
+        $data['cid_name'] = I('post.cid_name');
+        $data['cid_sort'] = I('post.cid_sort', 0, 'intval');
+        $data['cid_status'] = I('post.cid_status', 0, 'intval');
+        if ($data['cid_name'] == '') {
+            $this->error('请输入正确的景点类型！');
         }
+        
+        if(mb_strlen($data['cid_name'])>6){
+            $this->error('最大限制6个字！');
+        }
+        
+        if($id){
+            $where = "cid_name='{$data['cid_name']}' and cid_id<>".$id;
+        }else{
+            $where = "cid_name='{$data['cid_name']}'";
+        }
+        
+        $count = M('cid')->where($where)->count();
+        if($count){
+            $this->error('分类已经存在了哦！');
+        }
+        
+        
         if ($id) {
-            if (M('category')->data($data)->where('id=' . $id)->save()) {
+            if (M('cid')->data($data)->where('cid_id=' . $id)->save()) {
                 addlog('文章分类修改，ID：' . $id . '，名称：' . $data['name']);
                 $this->success('恭喜，分类修改成功！');
                 die(0);
             }
         } else {
-            $id = M('category')->data($data)->add();
+            $id = M('cid')->data($data)->add();
             if ($id) {
                 addlog('新增分类，ID：' . $id . '，名称：' . $data['name']);
                 $this->success('恭喜，新增分类成功！', 'index');

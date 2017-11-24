@@ -12,6 +12,7 @@
 namespace Admin\Controller;
 
 
+
 use Think\Model;
 
 class ShopPassController extends ComController
@@ -24,35 +25,73 @@ class ShopPassController extends ComController
     
     public function update($act = null)
     {
-        $shop_id = I('post.shop_id',0,'intval');
-        $shop_name = I('post.shop_name');
-        $shop_mobile = I('post.shop_mobile');
-        $shop_desc = I('post.shop_desc');
-        $shop_title = I('post.shop_title');
-        if(!$shop_id){
-            $this->error("请求出错了");
+        
+        
+        
+        
+        $mobile = I('post.mobile');
+        $captche = I('post.captche');
+        $new_pwd = I('post.new_pwd');
+        $new_pwd_2 = I('post.new_pwd_2');
+        
+        if($new_pwd!=$new_pwd_2){
+            $this->error("两次密码不相同");
         }
         
-        if(!checkMobile($shop_mobile)){
-            $this->error("请填写正确的手机号码");
+        if(strlen($new_pwd)<6 || strlen($new_pwd)>16){
+            $this->error("密码需要是6到15位的英文/数字字符串");
         }
+        $dataAdmin = array();
+        $dataAdmin['password'] = password($new_pwd);
         
-        if(!$shop_name || mb_strlen($shop_name)>10){
-            $this->error("请填写正确的商家号码");
+        $admin_id = session("admin_id");
+        $info = M('admin')->where(array("admin_id"=>$admin_id))->find();
+        if($info && $info['status']){
+            
+            
+            if($info['password']==password($new_pwd)){
+                $this->error("您未修改您的密码");
+            }
+            
+            if($mobile != $info['phone']){
+                $this->error("请输入正确的手机号码");
+            }
+            
+            $where = "admin_id=".$admin_id." and mobile_status=1 and mobile_code=".$captche;
+            $count = M('admin_mobile')->where($where)->find();
+            
+            
+            if(!$count){
+                $this->error("请输入正确的验证码");
+            }
+            $model = new Model();
+            $model->startTrans();
+            $res = M('admin_mobile')->where(array("mobile_id"=>$count['mobile_id']))->save(array("mobile_status"=>0));
+            if($res){
+                
+                $dataAdmin = array();
+                $dataAdmin['password'] = password($new_pwd);
+                $resAdmin = M('admin')->where(array("admin_id"=>$admin_id))->save($dataAdmin);
+                if($resAdmin){
+                    
+                    $shopInfo = M('admin_shop')->where("admin_id=".$admin_id)->find();
+                    if($shopInfo){
+                        $shop_id=$shopInfo['shop_id'];
+                        $shop = M('shop')->where("shop_id=".$shopInfo['shop_id'])->find();
+                        if($shop && $shop['shop_status']==-1){
+                            $upShop = array();
+                            $upShop['shop_status'] = 0;
+                            M('shop')->where("shop_id=".$shopInfo['shop_id'])->save($upShop);
+                            session('shop_status',0);
+                        }
+                    }
+                    addlog('商家修改密码，ID：' . $shopInfo['shop_id']);
+                    $model->commit();
+                    $this->success("请求成功");
+                }
+            }
+            $model->rollback();
         }
-        //商户已经存在
-        if (M('shop')->where("shop_mobile='{$shop_mobile}' and shop_id<>".$shop_id)->count()) {
-            $this->error('手机号已经存在商户了！');
-        }
-        
-        $data = array();
-        $data['shop_name'] = $shop_name;
-        $data['shop_mobile'] = $shop_mobile;
-        $data['shop_desc'] = $shop_desc;
-        $data['shop_title'] = $shop_title;
-        
-        $res = M('shop')->where(array('shop_id'=>$shop_id))->save($data);
-        addlog('编辑商户UID：' . $data);
-        $this->success("编辑商户成功",U('index'));
+        $this->error("请求出错了");
     }
 }

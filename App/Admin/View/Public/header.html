@@ -55,7 +55,7 @@
                             <img class="nav-user-photo" src="<if condition=" $user.head eq ''
                             ">__PUBLIC__/admin/avatars/avatar2.png
                             <else/>
-                            __ROOT__{$user.head}</if>" alt="{$user.user}" />
+                            {:getQiniuImgUrl($user['head'])}</if>" alt="{$user.user}" />
                             <span class="user-info">
                                 <small>欢迎光临，</small>
                                 {$user.user}

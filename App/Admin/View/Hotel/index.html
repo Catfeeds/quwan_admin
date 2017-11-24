@@ -1,0 +1,184 @@
+<include file="Public/head"/>
+
+<body class="no-skin">
+<include file="Public/header"/>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+        
+        function sort_up(obj,id){
+        	var hotel_status = 0;
+        	if(obj.checked==true){
+        		hotel_status = 1;
+        	}
+        	
+        	$.post("{:U('update')}?act=status",{hotel_status:hotel_status,hotel_id:id}, function (result) {
+                if (result.status == 1) {
+                    bootbox.alert({
+                        buttons: {
+                            ok: {
+                                label: '确定',
+                                className: 'btn-myStyle'
+                            }
+                        },
+                        message: '修改状态成功。',
+                        title: "提示信息",
+                        callback: function () {
+                        	window.location.reload();
+                        }
+                    });
+                    return;
+                } else {
+                    bootbox.dialog({
+                        message: "抱歉，系统错误，请稍后再试。",
+                        buttons: {
+                            "success": {
+                                "label": "确定",
+                                "className": "btn-danger"
+                            }
+                        }
+                    });
+                    return;
+                }
+            },'json');
+        	
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="cf">
+                            <form class="form-inline" action="" method="get">
+                                <a class="btn btn-info" href="{:U('add')}" value="">新增</a>
+                                
+                                <label class="inline">酒店名称</label>
+                                <input type="text" name="keyword" value="{:I('keyword')}" class="form-control">
+
+                                <label class="inline">&nbsp;&nbsp;选择：</label>
+                                <select name="status" class="form-control">
+                                	<option value="0" >全部酒店</option>
+                                    <option value="1" <if condition="I('status') eq 1">selected</if>>上架酒店</option>
+                                    <option value="2" <if condition="I('status') eq 2">selected</if> >下架酒店</option>
+
+                                </select>
+
+
+                                <button type="submit" class="btn btn-purple btn-sm">
+                                    <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                                    搜索
+                                </button>
+                            </form>
+                        </div>
+                        <div class="space-4"></div>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>酒店名称</th>
+                                    <th>图片</th>
+                                    <th>评价</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="val">
+                                    <tr>
+                                        <td>{$val['hotel_name']}</td>
+                                        <td><img width="100px" height="100px" src="{$val['img']}" /></td>
+                                        <td><a href="{:U('replay',array("hotel_id"=>$val['hotel_id']))}">{$val['hotel_score_num']}</a></td>
+                                        <td><input  id="islink"
+	                                        <if condition="$val.hotel_status eq 1">checked="checked"</if>
+	                                        value="1" class="ace ace-switch ace-switch-2" type="checkbox"  onchange="sort_up(this,{$val['hotel_id']})" /><span class="lbl"></span>
+										</td>
+                                        <td><a href="{:U(edit)}?hotel_id={$val['hotel_id']}"><i
+                                                class="ace-icon fa fa-pencil bigger-100"></i>修改</a>&nbsp&nbsp;<a
+                                                href="javascript:;" val="{:U('del')}?hotel_id={$val['hotel_id']}" class="del"><i
+                                                class="ace-icon fa fa-trash-o bigger-100 red"></i>删除</a></td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                        {$page}
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    <include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    $(function () {
+        $(".check-all").click(function () {
+            $(".aids").prop("checked", this.checked);
+        });
+        $(".aids").click(function () {
+            var option = $(".ids");
+            option.each(function (i) {
+                if (!this.checked) {
+                    $(".check-all").prop("checked", false);
+                    return false;
+                } else {
+                    $(".check-all").prop("checked", true);
+                }
+            });
+        });
+        $("#submit").click(function () {
+            bootbox.confirm({
+                title: "系统提示",
+                message: "是否要删除所选文章？",
+                callback: function (result) {
+                    if (result) {
+                        $("#form").submit();
+                    }
+                },
+                buttons: {
+                    "cancel": {"label": "取消"},
+                    "confirm": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        });
+        $(".del").click(function () {
+            var url = $(this).attr('val');
+            bootbox.confirm({
+                title: "系统提示",
+                message: "是否要该文章？",
+                callback: function (result) {
+                    if (result) {
+                        window.location.href = url;
+                    }
+                },
+                buttons: {
+                    "cancel": {"label": "取消"},
+                    "confirm": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>

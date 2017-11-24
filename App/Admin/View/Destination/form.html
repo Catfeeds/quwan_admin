@@ -24,8 +24,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <form class="form-horizontal" role="form" id="form" method="post" action="{:U('update',array('cid_type'=>$cid_type))}">
-                            <input name="cid_id" id="cid_id" value="{$currentcategory.cid_id}" type="hidden">
-                            <input name="cid_type" id="cid_type" value="{$cid_type}" type="hidden">
+                            <input name="destination_id" id="destination_id" value="{$destination.destination_id}" type="hidden">
                             
                             <div class="space-4"></div>
                             <!-- <div class="form-group">
@@ -44,23 +43,22 @@
 
                             <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="name"> 分类名称 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 目的地名称 </label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="cid_name" id="cid_name" placeholder="分类名称"
-                                           class="col-xs-10 col-sm-5" value="{$currentcategory.cid_name}">
+                                    <input type="text" name="destination_name" id="destination_name" placeholder="目的地名称"
+                                           class="col-xs-10 col-sm-5" value="{$destination.destination_name}">
                                     <span class="help-inline col-xs-12 col-sm-7">
-												<span class="middle">分类名称，不能为空。</span>
+												<span class="middle">目的地名称，不能为空。</span>
 											</span>
                                 </div>
                             </div>
-                            
                             <div class="space-4"></div>
                             <div class="form-group">
                                 <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 是否开启 </label>
                                 <div class="control-label no-padding-left col-sm-1">
                                     <label>
-                                        <input name="cid_status" id="cid_status"
-                                        <if condition="$currentcategory.cid_status eq 1">checked="checked"</if>
+                                        <input name="destination_status" id="destination_status"
+                                        <if condition="$destination.destination_status eq 1">checked="checked"</if>
                                         value="1" class="ace ace-switch ace-switch-2" type="checkbox" />
                                         <span class="lbl"></span>
                                     </label>
@@ -69,13 +67,12 @@
 												<span class="middle"></span>
 										</span>
                             </div>
-                            
 			                <div class="space-4"></div>
 			                <div class="form-group">
 			                    <label class="col-sm-1 control-label no-padding-right" for="o"> 排序 </label>
 			                    <div class="col-sm-9">
-			                        <input type="number" name="cid_sort" id="cid_sort" placeholder="排序" class="col-xs-10 col-sm-5"
-			                               value="{$currentcategory.cid_sort}">
+			                        <input type="number" name="destination_sort" id="destination_sort" placeholder="排序" class="col-xs-10 col-sm-5"
+			                               value="{$destination.destination_sort}">
 			                        <span class="help-inline col-xs-12 col-sm-7">
 															<span class="middle">越小越靠前。</span>
 														</span>

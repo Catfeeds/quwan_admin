@@ -25,20 +25,14 @@
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="row">
                             <form class="form-inline" action="" method="get">
-                                <a class="btn btn-info" href="{:U('add')}" value="">新增</a>
                                 <label class="inline">用户搜索</label>
-                                <select name="field" class="form-control">
-                                    <option <if condition="I('field') eq user">selected</if> value="user">用户名</option>
-                                    <option <if condition="I('field') eq phone">selected</if> value="phone">电话</option>
-                                    <option <if condition="I('field') eq qq">selected</if> value="qq">QQ</option>
-                                    <option <if condition="I('field') eq email">selected</if> value="email">邮箱</option>
-                                </select>
                                 <input type="text" name="keyword" value="{:I(keyword)}" class="form-control">
-                                <label class="inline">&nbsp;&nbsp;排序：</label>
-                                <select name="order" class="form-control">
-                                    <option <if condition="I('order') eq asc">selected</if> value="asc">注册时间升</option>
-                                    <option <if condition="I('order') eq desc">selected</if> value="desc">注册时间降</option>
-                                </select>
+                                <label class="inline">&nbsp;&nbsp;注册时间：</label>
+                                <input id="register_time" type="text" name="register_time" value="{:I(register_time)}" class="form-control">
+                                <label class="inline">之后</label>
+                                <label class="inline">&nbsp;&nbsp;登录时间：</label>
+                                <input id="login_time" type="text" name="login_time" value="{:I(login_time)}" class="form-control">
+                                <label class="inline">之后</label>
                                 <button type="submit" class="btn btn-purple btn-sm">
                                     <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
                                     Search
@@ -51,14 +45,13 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="center"><input class="check-all" type="checkbox" value=""></th>
+                                        <th>用户id</th>
+                                        <th>用户手机号</th>
                                         <th>用户名</th>
-                                        <th>用户组</th>
-                                        <th class="center">性别</th>
-                                        <th class="center">生日</th>
-                                        <th>电话</th>
-                                        <th>Q&nbsp;Q</th>
-                                        <th>邮箱</th>
+                                        <th>余额</th>
+                                        <th>累计消费</th>
+                                        <th>注册时间</th>
+                                        <th>登录时间</th>
                                         <th class="center">操作</th>
                                     </tr>
                                     </thead>
@@ -84,42 +77,21 @@
                                     </style>
                                     <volist name="list" id="val">
                                         <tr>
-                                            <td class="center">
-                                                <if condition="$val['uid'] neq 1"><input class="uids" type="checkbox"
-                                                                                         name="uids[]"
-                                                                                         value="{$val['uid']}">
-                                                    <else/>
-                                                    <span title="系统管理员，禁止删除">--</span></if>
-                                            </td>
-                                            <td>{$val['user']}</td>
-                                            <td class="grouptd">
-                                                <span class="group" val="{$val['uid']}">{$val['title']}</span>
-                                                <select class="groupselect hide">
-                                                    <volist name="group" id="v">
-                                                        <option
-                                                        <if condition="$val['gid'] eq $v['id']">selected="selected"</if>
-                                                        value="{$v.id}">{$v.title}</option>
-                                                    </volist>
-                                                </select>
-                                            </td>
-                                            <td class="center"><?php if($val['sex']==1){echo '男';}elseif($val['sex']==2){echo '女';}else{echo '保密';} ?></td>
-                                            <td class="center">{$val['birthday']|date="Y-m-d",###}</td>
-                                            <td>{$val['phone']}</td>
-                                            <td>{$val['qq']}</td>
-                                            <td>{$val['email']}</td>
-                                            <td class="center"><a href="{:U('edit')}?uid={$val['uid']}">修改</a>&nbsp;
-                                                <if condition="$val['uid'] neq 1"><a class="del" href="javascript:;"
-                                                                                     val="{:U('del')}?uids={$val['uid']}"
-                                                                                     title="删除">删除</a></if>
+                                            
+                                            <td>{$val['user_id']}</td>
+                                            <td>{$val['user_mobile']}</td>
+                                            <td>{$val['user_nickname']}</td>
+                                            <td>{$val['user_money']}</td>
+                                            <td>{$val['user_total_money']}</td>
+                                            <td>{$val['user_created_at']|date="Y-m-d H:i:s",###}</td>
+                                            <td>{$val['user_updated_at']|date="Y-m-d H:i:s",###}</td>
+                                            <td class="center"><a href="{:U('edit')}?user_id={$val['user_id']}">修改</a>
                                             </td>
                                         </tr>
                                     </volist>
                                     </tbody>
                                 </table>
                             </form>
-                            <div class="cf">
-                                <input id="submit" class="btn btn-info" type="button" value="删除">
-                            </div>
                             {$page}
                         </div>
                         <!-- PAGE CONTENT ENDS -->
@@ -136,6 +108,22 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     $(function () {
+    	
+    	$('#register_time').datepicker({
+            format: 'yyyy-mm-dd',
+            weekStart: 1,
+            autoclose: true,
+            todayBtn: 'linked',
+            language: 'cn'
+        });
+    	$('#login_time').datepicker({
+            format: 'yyyy-mm-dd',
+            weekStart: 1,
+            autoclose: true,
+            todayBtn: 'linked',
+            language: 'cn'
+        });
+    	
         $(".group").click(function () {
             $(this).addClass('hide');
             $(this).parent().find(".groupselect").removeClass('hide');

@@ -146,7 +146,7 @@ function checkMobile($mobile){
  * @param unknown $url
  * @return string
  */
-function getQiqiuImgUrl($url){
+function getQiniuImgUrl($url){
     $setting = C(UPLOAD_SITEIMG_QINIU);
     return "http://".$setting['driverConfig']['domain']."/".$url;
 }

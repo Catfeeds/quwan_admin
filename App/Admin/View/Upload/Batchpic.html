@@ -74,7 +74,7 @@
         <input type="hidden" value="{$ImgStr}" name="Img" id="Img">
         <div class="iconbox">
             <foreach name="Img" item="vo" >
-                <div class="icon"><img class="iconimg" src="{$vo}"><div class="remove">移除</div></div>
+                <div class="icon"><img class="iconimg" src="{:getQiniuImgUrl($vo)}"><div class="remove">移除</div></div>
             </foreach>
             <a class="file_box">＋<input type="file" name="uploadimg[]" id="uploadicon"  multiple  value="上传"/></a>
         </div>
@@ -90,7 +90,7 @@
             arrange();
         });
         function arrange(){
-            var ImgStr="";
+            /* var ImgStr="";
             $("#ht").html('ABC');
             $('.iconimg').each(function(index){
                 // $(this).hide();
@@ -101,10 +101,10 @@
                 ImgStr+=$(this).attr('src');
             });
             //$('#{$BackCall}',parent.document).val(ImgStr);
-            $('#Img').val(ImgStr);
+            $('#Img').val(ImgStr); */
         }
 
-        //$('#{$BackCall}',parent.document).val("{$ImgStr}");
+        $('#{$BackCall}',parent.document).val("{$ImgStr}");
     </script>
 </body>
 

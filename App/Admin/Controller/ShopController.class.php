@@ -152,7 +152,7 @@ class ShopController extends ComController
         
         M('auth_group_access')->data(array('group_id' => 2, 'admin_id' => $res_admin))->add();
         M('admin_shop')->data(array('shop_id' => $res_shop, 'admin_id' => $res_admin))->add();
-        addlog('新增商户UID：' . $res_shop);
+        addlog('新增商户UID：' . json_decode($res_shop));
         $model->commit();
         $this->success("新增商户成功");
     }
@@ -187,7 +187,7 @@ class ShopController extends ComController
         $data['shop_title'] = $shop_title;
         
         $res = M('shop')->where(array('shop_id'=>$shop_id))->save($data);
-        addlog('编辑商户UID：' . $data);
+        addlog('编辑商户UID：'.$shop_id . json_encode($data));
         $this->success("编辑商户成功",U('index'));
     }
 }
