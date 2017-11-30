@@ -1,0 +1,442 @@
+<include file="Public/head"/>
+<body class="no-skin">
+<include file="Public/header"/>
+<style>
+.modal.in .modal-dialog{width:100%}
+.modal-content{height:100%}
+</style>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+        var mymodal={};
+        mymodal['width'] = '100%';
+        function dingwei(){
+        	bootbox.dialog({
+        		className: "mymodal",
+                message: '<iframe scrolling="no" frameborder="0" border="0" width=100% height=500px onload="this.height=500px;" src="{:U('Address/index')}"></iframe>',
+                buttons: {
+                    "success": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <form class="form-horizontal" role="form" id="form" method="post" action="{:U('update')}">
+                            <input name="holiday_id" id="holiday_id" value="{$info.holiday_id}" type="hidden">
+                            
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 节日名称 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="holiday_name" id="holiday_name" placeholder="节日名称"
+                                           class="col-xs-10 col-sm-5" value="{$info.holiday_name}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">节日名称，不能为空。(20个中文)</span>
+											</span>
+                                </div>
+                            </div>
+			                <div class="space-4"></div>
+			                <div class="form-group">
+			                    <label class="col-sm-1 control-label no-padding-right" for="o"> 定价 </label>
+			                    <div class="col-sm-9">
+			                        <input type="text" readonly id="holiday_price" placeholder="定价" class="col-xs-10 col-sm-5"
+			                               value="{$info.holiday_price}">
+			                        <span class="help-inline col-xs-12 col-sm-7">
+															<span class="middle">节日门票的价格。</span>
+														</span>
+			                    </div>
+			                </div>
+			                <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 是否上架 </label>
+                                <div class="control-label no-padding-left col-sm-1">
+                                    <label>
+                                        <input name="holiday_status" id="holiday_status"
+                                        <if condition="$info.holiday_status eq 1">checked="checked"</if>
+                                        value="1" class="ace ace-switch ace-switch-2" type="checkbox" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </div>
+                                <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle"></span>
+										</span>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 能否退款 </label>
+                                <div class="control-label no-padding-left col-sm-1">
+                                    <label>
+                                        <input readonly id="holiday_is_refund"
+                                        <if condition="$info.holiday_is_refund eq 1">checked="checked"</if>
+                                        value="1" class="ace ace-switch ace-switch-2" type="checkbox" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </div>
+                                <span class="help-inline col-xs-12 col-sm-5">
+												<span class="middle">打开可以退款，关闭不能退款</span>
+										</span>
+                            </div>
+                            
+
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 开放时间 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="holiday_open_time" id="holiday_open_time" placeholder="开放时间"
+                                           class="col-xs-10 col-sm-5" value="{$info.holiday_open_time}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">节日开放的时间,推荐的时节等。</span>
+											</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 节日电话 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="holiday_phone" id="holiday_phone" placeholder="节日电话"
+                                           class="col-xs-10 col-sm-5" value="{$info.holiday_phone}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">节日开放的时间,推荐的时节等。</span>
+											</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 建议游玩时长 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="holiday_suggest" id="holiday_suggest" placeholder="约2-3小时"
+                                           class="col-xs-10 col-sm-5" value="{$info.holiday_suggest}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">建议游玩时长。</span>
+								    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 节日地址 </label>
+                                <div class="col-sm-9">
+                                	<div class="col-xs-12" style="padding-left:0px">
+	                                    <input type="text" name="holiday_address" id="amap_address" placeholder="节日详细地址"
+	                                           class="col-xs-12 col-sm-5" value="{$info.holiday_address}">
+	                                    
+	                                    <div style="display:none"><input type="text" name="holiday_lon" id="amap_lon" value="{$info.holiday_lon}">
+	                                    <input type="text" name="holiday_lat" id="amap_lat" value="{$info.holiday_lat}"></div>
+	                                    <span class="help-inline col-xs-12 col-sm-7">
+													<span class="middle">节日详细地址。</span>
+									    </span>
+								    </div>
+								    <div class="col-xs-12" style="padding-top:10px">
+									    <span class="help-inline col-xs-12 col-sm-6">
+									    	<a class="btn btn-info" value="">去认领</a>高德地图搜不到
+									    </span>
+									    <span class="help-inline col-xs-12 col-sm-6">
+									    	<a class="btn btn-info" onclick="dingwei()" value="">定位</a>高德地图精准定位
+									    </span>
+								    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="form-group">
+								<label class="col-sm-1 control-label no-padding-right">节日分类：</label>
+								<div class="col-sm-9 error-tips">
+								<volist name="category" id="val">
+									<label>
+										<input type="checkbox" id="cid_id" name="cid_id[]" value="{$val.cid_id}" 
+									<if condition="$infoCid[$val['cid_id']] eq 1">checked="checked"</if> class="ace" />
+										<span class="lbl"> {$val.cid_name}</span>
+									</label>
+								</volist>
+								</div>
+							</div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="pid"> 所述目的地 </label>
+                                <div class="col-sm-9">
+                                    <select id="destination_id" name="destination_id" class="col-xs-10 col-sm-5">
+                                        <option value="0">选择目的地</option>
+                                        <volist name="destination" id="val">
+                                        <option value="{$val.destination_id}"<if condition="$info['destination_id'] eq $val['destination_id']"> selected</if>>{$val.destination_name}</option>
+                                        </volist>
+                                    </select>
+
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">选择所属目的地。</span>
+											</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right"> 节日图集 </label>
+                                <div class="col-sm-9">
+                                    <div class="col-xs-10 col-sm-10">{:BatchImage("img",100,100,$info['img'])}</div>
+                                    
+                                </div>
+
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="pid"> 所述目的地 </label>
+                                <div class="col-sm-5">
+                                <table class="table table-striped table-bordered">
+	                                <thead>
+	                                <tr>
+	                                    <th class="col-sm-7">路线名称</th>
+	                                    <th class="col-sm-3">排序</th>
+										<th>操作</th>
+	                                </tr>
+	                                </thead>
+                                	<tbody id="route_list_content">
+                                		<volist name="route_list" id="val">
+                                		<tr id="route_chose_id_{$val['route_id']}">
+                                			<td>{$val['info']['route_name']}</td>
+                                			<input type="hidden" name="route_id[]" value="{$val['route_id']}">
+                							<td><a onclick="sort_up_check(this,'MoveUp')">上移</a>&nbsp;&nbsp;<a onclick="sort_up_check(this,'MoveDown')">下移</a></td>
+		            						<td><a onclick="html_delete_route('route_chose_id_{$val['route_id']}')">
+                			 					<i class="ace-icon fa fa-times" style="font-size:20px"></i></a>&nbsp;&nbsp;
+                							</td>
+                                		</tr>
+                                		</volist>
+                                	</tbody>
+                                </table>
+                                </div>
+                                <div class="col-sm-1"><span class="help-inline col-xs-12 col-sm-6">
+									    	<a class="btn btn-info" onclick="route_add()" value="">添加路线</a>
+									    </span>
+								</div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2">
+                                    节日介绍 </label>
+                                <div class="col-sm-4">
+                                        <textarea name="holiday_intro" id="holiday_intro"
+                                                  style="width:100%;height:500px;visibility:hidden;">{$info['holiday_intro']}</textarea>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+			                
+
+                <div class="col-md-offset-2 col-md-9">
+                    <button class="btn btn-info submit" type="button">
+                        <i class="icon-ok bigger-110"></i>
+                        提交
+                    </button>
+
+                    &nbsp; &nbsp; &nbsp;
+                    <button class="btn" type="reset">
+                        <i class="icon-undo bigger-110"></i>
+                        重置
+                    </button>
+                </div>
+                </form>
+                <!-- PAGE CONTENT ENDS -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.page-content -->
+</div>
+</div><!-- /.main-content -->
+<include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    $(function () {
+        var editor = KindEditor.create('textarea[name="holiday_intro"]', {
+            uploadJson: '__PUBLIC__/kindeditor/php/upload_json.php',
+            fileManagerJson: '__PUBLIC__/kindeditor/php/file_manager_json.php',
+            allowFileManager: true,
+            afterBlur: function () {
+                this.sync();
+            }
+        });
+        $("#type").change(function () {
+
+            if ($(this).val() == 1) {
+                $("#type1").removeClass('hidden');
+                $("#type2").addClass('hidden');
+            } else if ($(this).val() == 2) {
+                $("#type2").removeClass('hidden');
+                $("#type1").addClass('hidden');
+            } else {
+                $("#type1").addClass('hidden');
+                $("#type2").addClass('hidden');
+            }
+        });
+        $(".btn.btn-info.submit").click(function () {
+            var name = $("#name").val();
+            if (name == '') {
+                bootbox.dialog({
+                    message: "抱歉，分类名称不能为空。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return false;
+            }
+            $("#form").submit();
+
+        })
+    })
+    
+    function route_add(){
+    	var html_con = '<div class="row"><div class="col-xs-12"><div class="cf"><div class="form-inline">';
+		
+    	html_con += '<label class="inline">名称</label>';
+		html_con += '<input type="text" id="search_name" value="" class="form-control">';
+
+       	html_con += '<div onclick="search_submit()" class="btn btn-purple btn-sm">';
+      	html_con += '搜索';
+      	html_con += '</div>';
+		
+		html_con += '</div></div>';
+		html_con += '<div id="search_content" style="display:none;height:400px;overflow:auto;border-bottom:1px solid #dddddd">';
+		html_con += '<form id="search_chose" class="form-inline">';
+		//html_con += '<input type="hidden" name="search_chose_type" class="form-inline">';
+		html_con += '<table class="table table-striped table-bordered">';
+		html_con += '<thead>';
+		html_con += '<tr>';
+		html_con += '<th></th>';
+		html_con += '<th>名称</th>';
+		html_con += '<th>天数</th>';
+		html_con += '</tr>';
+		html_con += '</thead>';
+		html_con += '<tbody id="search_content_html" height="500px">';
+		html_con += '<tr>';
+		html_con += '<td></th>';
+		html_con += '<td>类型</th>';
+		html_con += '<td>名称</th>';
+		html_con += '</tr>';
+		html_con += '</tbody>';
+		html_con += '</table></form></div></div></div>';
+		
+		bootbox.confirm({
+            title: "搜索",
+            message: html_con,
+            callback: function (result) {
+                if (result) {
+                	var obj=document.getElementsByName('join_id'); //选择所有name="'test'"的对象，返回数组 
+                	//取到对象数组后，我们来循环检测它是不是被选中 
+                	var s=''; 
+                	for(var i=0; i<obj.length; i++){ 
+                		if(obj[i].checked){
+                			var value = obj[i].value;
+                			var content_html = '';
+                			var chose_id = 0;
+                			//var t01 = $("#content_plus_"+id+" tr").length;
+                			
+                			var info = route_list[value];
+            				content_html += '<tr id="route_chose_id_'+info['route_id']+'">';
+            				content_html += '<td>'+info['route_name']+'</td>';
+            				//content_html += '<td>'+info['route_day_num']+'</td>';
+            				chose_id = info['route_id'];
+                			
+                			content_html += '<input type="hidden" name="route_id[]" value="'+chose_id+'">';
+                			content_html += '<td><a onclick="sort_up_check(this,\'MoveUp\')">上移</a>&nbsp;&nbsp;<a onclick="sort_up_check(this,\'MoveDown\')">下移</a></td>';
+            				
+                			content_html += '<td><a onclick="html_delete_route(\'route_chose_id_'+chose_id+'\')">';
+                			content_html += '<i class="ace-icon fa fa-times" style="font-size:20px"></i></a>&nbsp;&nbsp;';
+                			content_html += '</td></tr>';
+                			
+                			$('#route_list_content').append(content_html);
+                			
+                		} 
+                	} 
+                }
+            },
+            buttons: {
+                "cancel": {"label": "取消"},
+                "confirm": {
+                    "label": "确定",
+                    "className": "btn-danger"
+                }
+            }
+        });
+    }
+    var route_list = {};
+    function search_submit(){
+    	
+    	var keyword = $("#search_name").val();
+    	$("#search_content").show();
+    	$("#search_content_html").html("");
+    	$.post("{:U('getList')}",{search_keyword:keyword}, function (result) {
+            var total = result.info.length;
+            if(result.status==1 && total>=1){
+            	var html_index = '';
+            	for(var i=0;i<total;i++){
+            		var info = result.info[i];
+            		var html_con='';
+            		html_con += '<tr>';
+            		route_list[info['route_id']] = info;
+        			html_con += '<td><input class="aids" type="checkbox" name="join_id" val="1" value="'+info['route_id']+'"></td>';
+            		
+            		html_con += '<td>'+info['route_name']+'</td>';
+            		html_con += '<td>'+info['route_day_num']+'</td>';
+            		html_con += '</tr>';
+            		html_index += html_con;
+            		//alert(html_index);/*  */
+            		
+            	}
+            	$("#search_content_html").html(html_index);
+            }else{
+            	alert(result.info);
+            }
+        },'json');
+    }
+    function html_delete_route(id){
+    	$("#"+id).remove();
+    }
+    function sort_up_check(t,oper){
+        var data_tr=$(t).parent().parent(); //获取到触发的tr
+            if(oper=="MoveUp"){    //向上移动
+               if($(data_tr).prev().html()==null){ //获取tr的前一个相同等级的元素是否为空
+                   alert("已经是最顶部了!");
+                   return;
+               }{
+                    $(data_tr).insertBefore($(data_tr).prev()); //将本身插入到目标tr的前面 
+               }
+               }else{
+                     if($(data_tr).next().html()==null){
+                     alert("已经是最低部了!");
+                     return;
+                 }{
+                      $(data_tr).insertAfter($(data_tr).next()); //将本身插入到目标tr的后面 
+                 }
+               }
+    }
+</script>
+</body>
+</html>
