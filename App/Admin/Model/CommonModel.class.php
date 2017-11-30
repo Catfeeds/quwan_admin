@@ -213,4 +213,28 @@ class CommonModel extends Model{
         return M('cid_map')->where(array("join_id"=>$join_id,"cid_map_type"=>$type))->getField('cid_id',true);
     }
     
+    /**
+     * 根据type和id返回响应的内容
+     * @param unknown $join_id
+     * @param unknown $type
+     * @return mixed|boolean|NULL|string|unknown|object
+     */
+    public function getIdInfo($join_id,$type){
+        if($type==1){
+            return M('attractions')->where(array("attractions_id"=>$join_id))->find();
+        }elseif($type==5){
+            return M('hotel')->where(array("hotel_id"=>$join_id))->find();
+        }elseif($type==6){
+            return M('hall')->where(array("hall_id"=>$join_id))->find();
+        }elseif($type==2){
+            return M('destination')->where(array("destination_id"=>$join_id))->find();
+        }elseif($type==3){
+            return M('route')->where(array("route_id"=>$join_id))->find();
+        }elseif($type==4){
+            return M('holiday')->where(array("holiday_id"=>$join_id))->find();
+        }else{
+            return array();
+        }
+    }
+    
 }
