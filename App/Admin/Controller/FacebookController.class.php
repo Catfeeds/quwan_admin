@@ -15,32 +15,23 @@ class FacebookController extends ComController
 {
 
     //新增
-    public function add($act = null)
+    public function index($p = 1)
     {
 
-        if ($act) {
-            $data['content'] = I('post.content', '', 'strip_tags');
-            if ($data['content'] == '') {
-                $this->error('反馈内容不能为空！');
-            }
-            $data['v'] = THINK_VERSION;
-            $data['url'] = $_SERVER['SERVER_NAME'];
-
-            $url = "http://www.bobolucy.com/index.php/api/facebook/add";
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            $r = curl_exec($ch);
-            if ($r == 'ok') {
-                $this->success('感谢您的反馈！');
-                exit(0);
-            } else {
-                $this->error('系统错误，请稍后再试！');
-            }
-        }
-
+        $p = intval($p) > 0 ? $p : 1;
+        
+        $article = M('suggest s');
+        $pagesize = 20;#每页数量
+        $offset = $pagesize * ($p - 1);//计算记录偏移量
+        $orderby = "s.suggest_created_at desc";
+        $prefix = C('DB_PREFIX');
+        $count = $article->count();
+        $list = $article->field("s.*,u.user_nickname")->join("left join {$prefix}user u on s.user_id=u.user_id")->order($orderby)->limit($offset . ',' . $pagesize)->select();
+        
+        $page = new \Think\Page($count, $pagesize);
+        $page = $page->show();
+        $this->assign('list', $list);
+        $this->assign('page', $page);
         $this->display();
     }
 }
