@@ -1,0 +1,208 @@
+<include file="Public/head"/>
+
+<body class="no-skin">
+<include file="Public/header"/>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+        
+        
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="cf">
+                            <form class="form-inline" action="" method="get">
+                                
+                                <label class="inline">关键字</label>
+                                <input type="text" name="keyword" placeholder="订单号、下单人、手机号" value="{:I('keyword')}" class="form-control">
+
+                                <label class="inline">&nbsp;&nbsp;选择：</label>
+                                <select name="status" class="form-control">
+                                	<option value="-1" >全部订单</option>
+                                    <option value="0" <if condition="I('status') eq 0">selected</if>>取消订单</option>
+                                    <option value="10" <if condition="I('status') eq 10">selected</if> >未支付订单</option>
+									<option value="20" <if condition="I('status') eq 20">selected</if> >已支付订单</option>
+									<option value="30" <if condition="I('status') eq 30">selected</if> >待评价订单</option>
+									<option value="40" <if condition="I('status') eq 40">selected</if> >已完成订单</option>
+
+                                </select>
+                                <button type="submit" class="btn btn-purple btn-sm">
+                                    <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                                    搜索
+                                </button>
+                            </form>
+                        </div>
+                        <div class="space-4"></div>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>订单号</th>
+                                    <th>商家</th>
+                                    <th>商品名</th>
+                                    <th>用户id</th>
+                                    <th>用户名</th>
+                                    <th>用户手机号</th>
+                                    <th>单价</th>
+                                    <th>总金额</th>
+                                    <th>状态</th>
+                                    <th>评论</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="val">
+                                    <tr>
+                                        <td>{$val['order_sn']}</td>
+                                        <td>{$val['shop_name']}</td>
+                                        <td>{$val['product_name']}</td>
+                                        <td>{$val['user_id']}</td>
+                                        <td>{$val['user_nickname']}</td>
+                                        <td>{$val['user_mobile']}</td>
+                                        <td>{$val['order_price']}*{$val['order_num']}</td>
+                                        <td>{$val['order_amount']}</td>
+                                        <td>{$val['msg']}</td>
+                                        <td>{$val['replay_msg']}</td>
+                                        <td><if condition="$val.replay_status eq 1"><a class="replay_content" href="javascript:;" val="{$val['replayInfo']['score_id']}"><i
+                                                class="ace-icon fa fa-pencil bigger-100"></i>回复</a>&nbsp&nbsp;</if></td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                        {$page}
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    <include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    $(function () {
+        $(".check-all").click(function () {
+            $(".aids").prop("checked", this.checked);
+        });
+        $(".aids").click(function () {
+            var option = $(".ids");
+            option.each(function (i) {
+                if (!this.checked) {
+                    $(".check-all").prop("checked", false);
+                    return false;
+                } else {
+                    $(".check-all").prop("checked", true);
+                }
+            });
+        });
+        $("#submit").click(function () {
+            bootbox.confirm({
+                title: "系统提示",
+                message: "是否要删除所选文章？",
+                callback: function (result) {
+                    if (result) {
+                        $("#form").submit();
+                    }
+                },
+                buttons: {
+                    "cancel": {"label": "取消"},
+                    "confirm": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        });
+        $(".del").click(function () {
+            var url = $(this).attr('val');
+            bootbox.confirm({
+                title: "系统提示",
+                message: "是否要该路线？",
+                callback: function (result) {
+                    if (result) {
+                        window.location.href = url;
+                    }
+                },
+                buttons: {
+                    "cancel": {"label": "取消"},
+                    "confirm": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        });
+        
+        
+        $(".replay_content").click(function () {
+            var score_id = $(this).attr('val');
+            var msg = '<textarea name="score_replay_content_'+score_id+'" id="score_replay_content_'+score_id+'" style="width:100%;height:300px;"></textarea>';
+            bootbox.confirm({
+                title: "回复评论",
+                message: msg,
+                callback: function (result) {
+                    if (result) {
+                    	var content = $('#score_replay_content_'+score_id).val();
+                    	$.post("{:U('replay_submit')}",{content:content,score_id:score_id}, function (result) {
+                            if (result.status == 1) {
+                                bootbox.alert({
+                                    buttons: {
+                                        ok: {
+                                            label: '确定',
+                                            className: 'btn-myStyle'
+                                        }
+                                    },
+                                    message: '回复成功。',
+                                    title: "提示信息",
+                                    callback: function () {
+                                    	window.location.reload();
+                                    }
+                                });
+                                return;
+                            } else {
+                                bootbox.dialog({
+                                    message: result.info,
+                                    buttons: {
+                                        "success": {
+                                            "label": "确定",
+                                            "className": "btn-danger"
+                                        }
+                                    }
+                                });
+                                return;
+                            }
+                        },'json');
+                    }else{
+                    	
+                    }
+                },
+                buttons: {
+                    "cancel": {"label": "取消"},
+                    "confirm": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>

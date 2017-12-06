@@ -105,11 +105,11 @@ class RouteController extends ComController
                         $type_info['name_s'] = $type_info['info']['attractions_name'];
                         $type_info['name_t'] = $type_info['info']['attractions_suggest'];
                         
-                    }if($type_info['route_day_join_type']==5){
+                    }elseif($type_info['route_day_join_type']==5){
                         $type_info['name'] = "酒店";
                         $type_info['name_s'] = $type_info['info']['hotel_name'];
                         $type_info['name_t'] = $type_info['info']['hotel_score'];
-                    }if($type_info['route_day_join_type']==6){
+                    }elseif($type_info['route_day_join_type']==6){
                         $type_info['name'] = "餐厅";
                         $type_info['name_s'] = $type_info['info']['hall_name'];
                         $type_info['name_t'] = $type_info['info']['hall_score'];

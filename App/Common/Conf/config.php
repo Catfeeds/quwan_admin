@@ -38,5 +38,6 @@ return array(
             'domain' => 'ozg3kv9uz.bkt.clouddn.com',
             'bucket' => 'quwan',
         )
-    )
+    ),
+    'ORDER_CANCEL_TIME'=>7200,//订单自动取消时间
 );

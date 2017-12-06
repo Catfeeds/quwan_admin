@@ -12,8 +12,6 @@
 namespace Admin\Controller;
 
 
-use Think\Model;
-
 class MemberController extends ComController
 {
 

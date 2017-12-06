@@ -653,4 +653,57 @@ class ShopholidayController extends ComController
         $list = $model->where($where)->select();
         $this->success($list);
     }
+    
+    
+    /**
+     * 报名用户
+     * @param unknown $holiday_id
+     * @param number $p
+     */
+    public function playUser($holiday_id,$p=1){
+        
+        
+        $shop_id = session("shop_id");
+        
+        if($this->Group_id==2 && !$shop_id){
+            $this->error("请求错误，请刷新后试一试");
+        }
+        
+        
+        $p = intval($p) > 0 ? $p : 1;
+        $article = M('holiday');
+        $pagesize = 20;#每页数量
+        $offset = $pagesize * ($p - 1);//计算记录偏移量
+        $prefix = C('DB_PREFIX');
+        
+        $holidayInfo = $article->where(array("holiday_id"=>$holiday_id))->find();
+        $this->assign("holidayInfo",$holidayInfo);
+        
+        if(!$shop_id){
+            $where = array(
+                //"o.shop_id"=>$shop_id,
+                "o.join_id"=>$holiday_id,
+                "o.order_type"=>$this->type,
+                "o.order_status"=>20
+            );
+        }else{
+            $where = array(
+                "o.shop_id"=>$shop_id,
+                "o.join_id"=>$holiday_id,
+                "o.order_type"=>$this->type,
+                "o.order_status"=>20
+            );
+        }
+        $orderby = "o.order_created_at asc";
+        
+        $count = M("order o")->where($where)->count();
+        $list = M("order o")->where($where)->join("left join ".$prefix."user u on o.user_id=u.user_id")
+        ->field("o.*,u.user_nickname,u.mobile")->order($orderby)->limit($offset . ',' . $pagesize)->select();
+        $page = new \Think\Page($count, $pagesize);
+        $page = $page->show();
+        $this->assign('list', $list);
+        $this->assign('page', $page);
+        $this->display();
+    }
+    
 }
