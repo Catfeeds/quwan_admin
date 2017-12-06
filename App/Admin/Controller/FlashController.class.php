@@ -52,7 +52,7 @@ class FlashController extends ComController
             } else {
                 $map = 'adv_id=' . $ids;
             }
-            if (M('adv')->where($map)->save(array("adv_status=0"))) {
+            if (M('adv')->where($map)->save(array("adv_status=-1"))) {
                 addlog('删除焦点图，ID：' . $ids);
                 $this->success('恭喜，删除成功！');
             } else {

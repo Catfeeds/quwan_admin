@@ -45,9 +45,9 @@
                                     <tr>
                                         <td class="center"><input class="ids" type="checkbox" name="ids[]"
                                                                   value="{$val['id']}"></td>
-                                        <td><a href="{$val['url']}" target="_blank">{$val['title']}</a></td>
-                                        <td><a href="{:getQiniuImgUrl($val['url'])" target="_blank">{:getQiniuImgUrl($val['url'])</a></td>
-                                        <td><a href="{$val['pic']}" target="_blank">{$val['pic']}</a></td>
+                                        <td><a href="{$val['adv_url']}" target="_blank">{$val['adv_title']}</a></td>
+                                        <td><a href="{$val['adv_url']}" target="_blank">{$val['adv_url']}</a></td>
+                                        <td><a href="{:getQiniuImgUrl($val['adv_img'])}" target="_blank"><img src="{:getQiniuImgUrl($val['adv_img'])}" height="100px" width="100px" /></a></td>
                                         <td>{$val['o']}</td>
                                         <td><a href="{:U('edit')}?id={$val['id']}"><i
                                                 class="ace-icon fa fa-pencil bigger-100"></i>修改</a>&nbsp&nbsp;<a
