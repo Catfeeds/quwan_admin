@@ -79,7 +79,7 @@ class FlashController extends ComController
                 $this->error('请填写链接！');
             }
         }else{
-            $data['adv_content'] = I('post.url', '', 'adv_content');
+            $data['adv_content'] = I('post.adv_content', '', 'strip_tags');
             if(!$data['adv_content']){
                 $this->error('请填写内页内容！');
             }
