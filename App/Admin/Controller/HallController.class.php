@@ -88,6 +88,12 @@ class HallController extends ComController
         if ($aids) {
             $map = 'hall_id=' . $aids;
             if (M('hall')->where($map)->delete()) {
+                
+                $action=3;
+                
+                $searchUpdate = D("search");
+                $searchUpdate->delType($aids,$this->type,$action);
+                
                 addlog('删除餐饮，AID：' . $aids);
                 $CommonModel = new CommonModel();
                 $CommonModel->delId($aids,$this->type);
@@ -133,8 +139,19 @@ class HallController extends ComController
             }
             $data['hall_status'] = intval(I('hall_status'))?1:0;
             $data['hall_updated_at'] = time();
-            M('hall')->data($data)->where('hall_id=' . $hall_id)->save();
+            $res = M('hall')->data($data)->where('hall_id=' . $hall_id)->save();
             addlog('餐厅，hall_id：' . $hall_id.":".intval(I('hall_status'))?"上架":"下架");
+            
+            if($res){
+                if($data['hall_status']==0){//下架是删除
+                    $action = 3;
+                }else{//上架是新增
+                    $action = 1;
+                }
+                
+                $searchUpdate = D("search");
+                $searchUpdate->delType($hall_id,$this->type,$action);
+            }
             $this->success("Ok");
         }
         
@@ -205,6 +222,15 @@ class HallController extends ComController
             
             addlog('编辑餐饮，hall_id：' . $data['hall_id'].':'.json_encode($_POST));
             $CommonModel->commit();
+            
+            if($data['hall_status']==0){//下架是删除
+                $action = 3;
+            }else{//上架是新增
+                $action = 2;
+            }
+            $searchUpdate = D("search");
+            $searchUpdate->delType($hall_id,$this->type,$action);
+            
             $this->success('恭喜！餐饮编辑成功！');
         } else {
             $data['hall_created_at'] = time();
@@ -220,6 +246,12 @@ class HallController extends ComController
                 $CommonModel->ImgJoin($hall_id, $this->type, $Img);
                 addlog('新增餐饮，hall_id：' . $hall_id.":".json_encode($_POST));
                 $CommonModel->commit();
+                
+                if($data['hall_status']==1){//下架是删除
+                    $action = 1;
+                    $searchUpdate = D("search");
+                    $searchUpdate->delType($hall_id,$this->type,$action);
+                }
                 $this->success('恭喜！餐饮添加成功！');
             } else {
                 $CommonModel->rollback();
@@ -269,8 +301,17 @@ class HallController extends ComController
             $map = 'score_type='.$this->type.' and score_id=' . $aids;
             $up = array();
             $up['score_status']=0;
-            M('score')->where($map)->save($up);
-    
+            $res = M('score')->where($map)->save($up);
+            if($res){
+                $hall_id = M('score')->where($map)->getField("join_id");
+                $res = M('hall')->where(array("hall_id"=>$hall_id))->setDec("hall_score_num");
+                if($res){
+                    $action=2;
+                
+                    $searchUpdate = D("search");
+                    $searchUpdate->delType($hall_id,$this->type,$action);
+                }
+            }
             addlog('删除评论，ID：' . $aids);
             $this->success('恭喜，评论删除成功！');
         } else {

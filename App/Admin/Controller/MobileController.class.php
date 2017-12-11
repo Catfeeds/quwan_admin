@@ -35,6 +35,18 @@ class MobileController extends ComController
             
             $code = rand(1000,9999);
             
+            
+            $Qcloudsms = new \Org\Util\Qcloudsms(C("QcloudsmsApi"), C("QcloudsmsAppkey"));
+            
+            $params = array();
+            $params[] = $code;
+            $res = $Qcloudsms->sendWithParam("86", $mobile, 64707,$params);
+            $res = json_decode($res,true);
+            //print_R($res);
+            if($res['result']!=0){
+                $this->error("短信发送失败");
+            }
+            
             $data = array();
             $data['admin_id'] = $admin_id;
             $data['mobile'] = $mobile;

@@ -65,13 +65,17 @@ class RouteController extends ComController
         $id = isset($_GET['route_id']) ? intval($_GET['route_id']) : false;
         if ($id) {
             $category = M('route');
-            $category->where('route_id=' . $id)->save(array("route_status"=>-1));
+            $res=$category->where('route_id=' . $id)->save(array("route_status"=>-1));
+            if($res){
+                $action = 3;
+                
+                $searchUpdate = D("search");
+                $searchUpdate->delType($id,$this->type,$action);
+            }
                 addlog('删除路线，ID：' . $id);
-//             die('1');
             $this->success("删除路线成功");
         } else {
             $this->error("删除路线失败");
-//             die('0');
         }
 
     }
@@ -251,8 +255,21 @@ class RouteController extends ComController
             }
             $data['route_status'] = intval(I('route_status'))?1:0;
             $data['route_updated_at'] = time();
-            M('route')->data($data)->where('route_id=' . $route_id)->save();
+            $res = M('route')->data($data)->where('route_id=' . $route_id)->save();
             addlog('路线，hall_id：' . $route_id.":".intval(I('route_status'))?"上架":"下架");
+            if($res){
+                if($data['route_status']==1){
+                    $action = 2;
+                
+                    $searchUpdate = D("search");
+                    $searchUpdate->delType($route_id,$this->type,$action);
+                }else{
+                    $action = 3;
+                
+                    $searchUpdate = D("search");
+                    $searchUpdate->delType($route_id,$this->type,$action);
+                }
+            }
             $this->success("Ok");
         }
         
@@ -330,6 +347,17 @@ class RouteController extends ComController
         }
         $model->commit();
         addlog('编辑路线，ID：' . $route_id.json_encode($_POST));
+        if($data['route_status']==1){
+            $action = 2;
+            
+            $searchUpdate = D("search");
+            $searchUpdate->delType($route_id,$this->type,$action);
+        }else{
+            $action = 3;
+            
+            $searchUpdate = D("search");
+            $searchUpdate->delType($route_id,$this->type,$action);
+        }
         $this->success("添加成功",U('index'));
     }
     

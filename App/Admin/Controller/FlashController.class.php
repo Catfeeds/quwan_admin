@@ -96,6 +96,11 @@ class FlashController extends ComController
             M('adv')->data($data)->where('adv_id=' . $id)->save();
             addlog('修改焦点图，ID：' . $id);
         } else {
+            
+            $total = M('adv')->where("adv_status>=0")->count();
+            if($total>=5){
+                $this->error("最多添加5条哦");
+            }
             $data['adv_created_at'] = time();
             M('adv')->data($data)->add();
             addlog('新增焦点图');

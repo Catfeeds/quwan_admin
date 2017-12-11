@@ -87,6 +87,12 @@ class HotelController extends ComController
         if ($aids) {
             $map = 'hotel_id=' . $aids;
             if (M('hotel')->where($map)->delete()) {
+                
+                $action=3;
+                
+                $searchUpdate = D("search");
+                $searchUpdate->delType($aids,$this->type,$action);
+                
                 addlog('删除酒店，AID：' . $aids);
                 $CommonModel = new CommonModel();
                 $CommonModel->delId($aids,$this->type);
@@ -133,8 +139,20 @@ class HotelController extends ComController
             }
             $data['hotel_status'] = intval(I('hotel_status'))?1:0;
             $data['hotel_updated_at'] = time();
-            M('hotel')->data($data)->where('hotel_id=' . $hotel_id)->save();
+            $res = M('hotel')->data($data)->where('hotel_id=' . $hotel_id)->save();
             addlog('酒店，hotel_id：' . $hotel_id.":".intval(I('hotel_status'))?"上架":"下架");
+            
+            if($res){
+                if($data['hall_status']==0){//下架是删除
+                    $action = 3;
+                }else{//上架是新增
+                    $action = 2;
+                }
+            
+                $searchUpdate = D("search");
+                $searchUpdate->delType($hotel_id,$this->type,$action);
+            }
+            
             $this->success("Ok");
         }
         
@@ -205,6 +223,15 @@ class HotelController extends ComController
             
             addlog('编辑酒店，hotel_id：' . $data['hotel_id'].':'.json_encode($_POST));
             $CommonModel->commit();
+            
+            if($data['hotel_status']==0){//下架是删除
+                $action = 3;
+            }else{//上架是新增
+                $action = 2;
+            }
+            
+            $searchUpdate = D("search");
+            $searchUpdate->delType($data['hotel_id'],$this->type,$action);
             $this->success('恭喜！酒店编辑成功！');
         } else {
             $data['hotel_created_at'] = time();
@@ -220,6 +247,13 @@ class HotelController extends ComController
                 $CommonModel->ImgJoin($hotel_id, $this->type, $Img);
                 addlog('新增酒店，hotel_id：' . $hotel_id.":".json_encode($_POST));
                 $CommonModel->commit();
+                
+                if($data['hotel_status']==1){//下架是删除
+                    $action = 1;
+                    $searchUpdate = D("search");
+                    $searchUpdate->delType($hotel_id,$this->type,$action);
+                }
+                
                 $this->success('恭喜！酒店添加成功！');
             } else {
                 $CommonModel->rollback();
@@ -268,7 +302,18 @@ class HotelController extends ComController
             $map = 'score_type='.$this->type.' and score_id=' . $aids;
             $up = array();
             $up['score_status']=-1;
-            M('score')->where($map)->save($up);
+            $res = M('score')->where($map)->save($up);
+            
+            
+            if($res){
+                $hall_id = M('score')->where($map)->getField("join_id");
+                $res = M('hotel')->where(array("hotel_id"=>$hall_id))->setDec("hotel_score_num");
+                if($res){
+                    $action=2;
+                    $searchUpdate = D("search");
+                    $searchUpdate->delType($hall_id,$this->type,$action);
+                }
+            }
             
             addlog('删除评论，ID：' . $aids);
             $this->success('恭喜，评论删除成功！');

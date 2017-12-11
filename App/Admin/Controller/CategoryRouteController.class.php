@@ -12,8 +12,9 @@
 namespace Admin\Controller;
 
 
-class CategoryController extends ComController
+class CategoryRouteController extends ComController
 {
+    private $type = 3;
 
     public function index()
     {
@@ -22,6 +23,7 @@ class CategoryController extends ComController
         if($cid_type<1 || $cid_type>6){
             $cid_type=1;
         }
+        $cid_type=$this->type;
         $category = M('cid')->where("cid_status=1 and cid_type=".$cid_type)->order('cid_sort asc')->select();
 //         $category = $this->getMenu($category);
 //         print_R($cid_type);
@@ -37,6 +39,7 @@ class CategoryController extends ComController
         if($cid_type<1 || $cid_type>6){
             $cid_type=1;
         }
+        $cid_type=$this->type;
         $id = isset($_GET['cid_id']) ? intval($_GET['cid_id']) : false;
         if ($id) {
             $data['cid_id'] = $id;
@@ -60,6 +63,7 @@ class CategoryController extends ComController
         if($cid_type<1 || $cid_type>6){
             $cid_type=1;
         }
+        $cid_type=$this->type;
 //         $category = M('cid')->field('cid_id id,cid_pid pid,cid_name name')->where("cid_type=".$cid_type." and cid_id <> {$id}")->order('cid_sort asc')->select();
 //         $tree = new Tree($category);
 //         $str = "<option value=\$id \$selected>\$spacer\$name</option>"; //生成的形式
@@ -78,6 +82,7 @@ class CategoryController extends ComController
         if($cid_type<1 || $cid_type>6){
             $cid_type=1;
         }
+        $cid_type=$this->type;
 //         $category = M('cid')->field('cid_id id,cid_pid pid,cid_name name')->where("cid_type=".$cid_type)->order('cid_sort asc')->select();
 //         $tree = new Tree($category);
 //         $str = "<option value=\$id \$selected>\$spacer\$name</option>"; //生成的形式
@@ -111,7 +116,8 @@ class CategoryController extends ComController
         }
 
         $id = I('post.cid_id', false, 'intval');
-        $data['cid_type'] = I('post.cid_type', 1, 'intval');
+        //$data['cid_type'] = I('post.cid_type', 1, 'intval');
+        $data['cid_type'] =$this->type;
         $data['cid_pid'] = I('post.cid_pid', 0, 'intval');
         $data['cid_name'] = I('post.cid_name');
         $data['cid_sort'] = I('post.cid_sort', 0, 'intval');

@@ -95,7 +95,13 @@ class ShopholidayController extends ComController
         $id = isset($_GET['holiday_id']) ? intval($_GET['holiday_id']) : false;
         if ($id) {
             $category = M('holiday');
-            $category->where('holiday_id=' . $id)->save(array("holiday_status"=>-1));
+            $res = $category->where('holiday_id=' . $id)->save(array("holiday_status"=>-1));
+            if($res){
+                $action=3;
+            
+                $searchUpdate = D("search");
+                $searchUpdate->delType($id,$this->type,$action);
+            }
                 addlog('删除节日，ID：' . $id);
             $this->success("删除节日成功");
         } else {
@@ -133,19 +139,19 @@ class ShopholidayController extends ComController
         
         $this->assign("info",$info);
         
-        $cid_type=1;
-        $category = M('cid')->where("cid_status=1 and cid_type=".$cid_type)->order('cid_sort asc')->select();
+//         $cid_type=1;
+//         $category = M('cid')->where("cid_status=1 and cid_type=".$cid_type)->order('cid_sort asc')->select();
     
-        $this->assign('category', $category);
-        //查询节日对应的分类信息
-        $list = $CommonModel->getCidJoin($holiday_id, $this->type);
-        $infoCid = array();
-        if($list){
-            foreach($list as $val){
-                $infoCid[$val] = 1;
-            }
-        }
-        $this->assign('infoCid',$infoCid);
+//         $this->assign('category', $category);
+//         //查询节日对应的分类信息
+//         $list = $CommonModel->getCidJoin($holiday_id, $this->type);
+//         $infoCid = array();
+//         if($list){
+//             foreach($list as $val){
+//                 $infoCid[$val] = 1;
+//             }
+//         }
+//         $this->assign('infoCid',$infoCid);
         $destination = M('destination')->where("destination_status=1")->order('destination_sort asc')->select();
         $this->assign("destination",$destination);
         
@@ -173,12 +179,12 @@ class ShopholidayController extends ComController
         if($this->Group_id!=2){
             $this->error("请用商家账号新增");
         }
-        $cid_type=1;
-        $category = M('cid')->where("cid_status=1 and cid_type=".$cid_type)->order('cid_sort asc')->select();
+//         $cid_type=1;
+//         $category = M('cid')->where("cid_status=1 and cid_type=".$cid_type)->order('cid_sort asc')->select();
     
-        $this->assign('category', $category);
-        $infoCid = array();
-        $this->assign('infoCid',$infoCid);
+//         $this->assign('category', $category);
+//         $infoCid = array();
+//         $this->assign('infoCid',$infoCid);
         $destination = M('destination')->where("destination_status=1")->order('destination_sort asc')->select();
         $this->assign("destination",$destination);
         $this->display('form_add');
@@ -256,10 +262,10 @@ class ShopholidayController extends ComController
         }
         $data['holiday_intro'] = htmlspecialchars($data['holiday_intro']);
         
-        $cid_id = $_POST['cid_id'];
-        if(count($cid_id)<1){
-            $this->error("最少选择一个分类");
-        }
+//         $cid_id = $_POST['cid_id'];
+//         if(count($cid_id)<1){
+//             $this->error("最少选择一个分类");
+//         }
         
         $CommonModel = D('Common');
         $CommonModel->startTrans();
@@ -276,8 +282,8 @@ class ShopholidayController extends ComController
             }
             //更新图片对应
             $CommonModel->ImgJoin($holiday_id, $this->type, $Img);
-            //更新分类对应
-            $CommonModel->setCidJoin($holiday_id, $this->type, $cid_id);
+//             //更新分类对应
+//             $CommonModel->setCidJoin($holiday_id, $this->type, $cid_id);
             
             //增加节日对应的路线
             $route_id = $_POST['route_id'];
@@ -296,6 +302,12 @@ class ShopholidayController extends ComController
             addlog('新增节日，holiday_id：' . $holiday_id.":".json_encode($_POST));
         
             $CommonModel->commit();
+            if($data['holiday_status']){
+                $action=1;
+            
+                $searchUpdate = D("search");
+                $searchUpdate->delType($holiday_id,$this->type,$action);
+            }
             $this->success('恭喜！节日添加成功！');
         } else {
             $CommonModel->rollback();
@@ -332,8 +344,18 @@ class ShopholidayController extends ComController
             }
             $data['holiday_status'] = intval(I('holiday_status'))?1:0;
             $data['holiday_updated_at'] = time();
-            M('holiday')->data($data)->where('holiday_id=' . $data['holiday_id'])->save();
+            $res = M('holiday')->data($data)->where('holiday_id=' . $data['holiday_id'])->save();
             addlog('节日，holiday_id：' . $data['holiday_id'].":".intval(I('holiday_status'))?"上架":"下架");
+            if($res){
+                if($data['holiday_status']){
+                    $action = 1;
+                }else{
+                    $action = 3;
+                }
+            
+                $searchUpdate = D("search");
+                $searchUpdate->delType($data['holiday_id'],$this->type,$action);
+            }
             $this->success("修改状态成功");
         }
         
@@ -437,6 +459,14 @@ class ShopholidayController extends ComController
         
         addlog('编辑节日，holiday_id：' . $data['holiday_id'].':'.json_encode($_POST));
         $CommonModel->commit();
+        if($data['holiday_status']){
+            $action = 2;
+        }else{
+            $action = 3;
+        }
+        
+        $searchUpdate = D("search");
+        $searchUpdate->delType($data['holiday_id'],$this->type,$action);
         $this->success('恭喜！节日编辑成功！');
     }
     
@@ -466,8 +496,19 @@ class ShopholidayController extends ComController
             }
             $data['holiday_status'] = intval(I('holiday_status'))?1:0;
             $data['holiday_updated_at'] = time();
-            M('holiday')->data($data)->where('holiday_id=' . $data['holiday_id'])->save();
+            $res = M('holiday')->data($data)->where('holiday_id=' . $data['holiday_id'])->save();
             addlog('节日，holiday_id：' . $data['holiday_id'].":".intval(I('holiday_status'))?"上架":"下架");
+            
+            if($res){
+                if($data['holiday_status']){
+                    $action = 1;
+                }else{
+                    $action = 3;
+                }
+            
+                $searchUpdate = D("search");
+                $searchUpdate->delType($data['holiday_id'],$this->type,$action);
+            }
             $this->success("修改状态成功");
         }
         
@@ -567,6 +608,14 @@ class ShopholidayController extends ComController
         
         addlog('编辑节日，holiday_id：' . $data['holiday_id'].':'.json_encode($_POST));
         $CommonModel->commit();
+        if($data['holiday_status']){
+            $action = 2;
+        }else{
+            $action = 3;
+        }
+        
+        $searchUpdate = D("search");
+        $searchUpdate->delType($data['holiday_id'],$this->type,$action);
         $this->success('恭喜！节日编辑成功！');
     }
     
@@ -609,8 +658,16 @@ class ShopholidayController extends ComController
             $map = 'score_type='.$this->type.' and score_id=' . $aids;
             $up = array();
             $up['score_status']=0;
-            M('score')->where($map)->save($up);
-    
+            $res = M('score')->where($map)->save($up);
+            if($res){
+                $hall_id = M('score')->where($map)->getField("join_id");
+                $res = M('holiday')->where(array("holiday_id"=>$hall_id))->setDec("holiday_score_num");
+                
+                $action = 2;
+                
+                $searchUpdate = D("search");
+                $searchUpdate->delType($hall_id,$this->type,$action);
+            }
             addlog('删除评论，ID：' . $aids);
             $this->success('恭喜，评论删除成功！');
         } else {

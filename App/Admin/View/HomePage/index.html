@@ -38,11 +38,11 @@
 
 									<div class="row">
 									
-									<form>
+									<form id="route_form">
 										<div class="col-sm-10 widget-container-col" id="widget-container-col-1">
 											
 										<volist name="list" id="val">
-									<div class="widget-box" id="widget-box-{$val['home_page_id']}">
+									<div style="margin-top:30px" class="widget-box" id="widget-box-{$val['home_page_id']}">
 												<div class="widget-header widget-header-large">
 													<h4 class="widget-title">{$val['home_page_name']}</h4>
 
@@ -58,19 +58,117 @@
 													<div class="widget-main">
 															<if condition="$val.home_page_id eq 1">
 																<p class="center"><a href="{:U("flash/index")}">管理广告</a></p>
-															<elseif condition="$val.home_page_id eq 2">
+															<elseif condition="$val.home_page_id eq 6" />
+																<p class="center">推荐周边由程序自动推荐周边热门，不需要配置</p>
+															<elseif condition="$val.home_page_id eq 2" />
 															<table class="table table-striped table-bordered">
-																<tbody id="content_plus_{$val['home_page_id']}"><tr><td colspan="5">
-															<elseif condition="$val.home_page_id eq 3">
-															<elseif condition="$val.home_page_id eq 4">
-															<elseif condition="$val.home_page_id eq 5">
-															<elseif condition="$val.home_page_id eq 6">
+																<thead>
+									                                <tr id="content_plus_add_{$val['home_page_id']}"<if condition="$val['label_num'] egt 3"> style="display:none"</if>>
+									                                    <th colspan="2"><div class="btn" onclick="add_info({$val['home_page_id']})">添加</div></th>
+									                                </tr>
+								                                </thead>
+																<tbody id="content_plus_{$val['home_page_id']}">
+																	<volist name="val['list']" id="val_info">
+																	<tr id="content_plus_info_{$val['home_page_id']}_{$val_info["route_id"]}">
+																		<input type="hidden" name="page_name_value_{$val['home_page_id']}[]" value="{$val_info["route_id"]}" />
+																		<td>{$val_info['route_name']}</td>
+																		<td><a onclick="sort_up_check(this,'MoveUp')">上移</a>&nbsp;&nbsp;
+																		<a onclick="sort_up_check(this,'MoveDown')">下移</a>&nbsp;&nbsp;
+																		<a onclick="delete_content_info(this,{$val['home_page_id']},{$val_info["route_id"]})">删除</a></td>
+																	</tr>
+																	</volist>
+																</tbody>
+															</table>
+															<elseif condition="$val.home_page_id eq 3" />
+															<table class="table table-striped table-bordered">
+																<thead>
+									                                <tr id="content_plus_add_{$val['home_page_id']}"<if condition="$val['label_num'] egt 3"> style="display:none"</if>>
+									                                    <th colspan="2"><div class="btn" onclick="add_info({$val['home_page_id']})">添加</div></th>
+									                                </tr>
+								                                </thead>
+																<tbody id="content_plus_{$val['home_page_id']}">
+																	<volist name="val['list']" id="val_info">
+																	<tr id="content_plus_info_{$val['home_page_id']}_{$val_info["destination_id"]}">
+																		<input type="hidden" name="page_name_value_{$val['home_page_id']}[]" value="{$val_info["destination_id"]}" />
+																		<td>{$val_info['destination_name']}</td>
+																		<td><a onclick="sort_up_check(this,'MoveUp')">上移</a>&nbsp;&nbsp;
+																		<a onclick="sort_up_check(this,'MoveDown')">下移</a>&nbsp;&nbsp;
+																		<a onclick="delete_content_info(this,{$val['home_page_id']},{$val_info["destination_id"]})">删除</a></td>
+																	</tr>
+																	</volist>
+																</tbody>
+															</table>
+															<elseif condition="$val.home_page_id eq 4" />
+															<table class="table table-striped table-bordered">
+																<thead>
+									                                <tr id="content_plus_add_{$val['home_page_id']}"<if condition="$val['label_num'] egt 3"> style="display:none"</if>>
+									                                    <th colspan="3"><div class="btn" onclick="add_info({$val['home_page_id']})">添加</div></th>
+									                                </tr>
+								                                </thead>
+																<tbody id="content_plus_{$val['home_page_id']}">
+																	<volist name="val['list']" id="val_info">
+																	<tr id="content_plus_info_{$val['home_page_id']}_{$val_info["attractions_id"]}">
+																		<input type="hidden" name="page_name_value_{$val['home_page_id']}[]" value="{$val_info["attractions_id"]}" />
+																		<td><img src="{:getQiniuImgUrl($val_info['imgInfo'])}" width="100px" height="100px" /></td>
+																		<td>{$val_info['attractions_name']}</td>
+																		<td><a onclick="sort_up_check(this,'MoveUp')">上移</a>&nbsp;&nbsp;
+																		<a onclick="sort_up_check(this,'MoveDown')">下移</a>&nbsp;&nbsp;
+																		<a onclick="delete_content_info(this,{$val['home_page_id']},{$val_info["attractions_id"]})">删除</a></td>
+																	</tr>
+																	</volist>
+																</tbody>
+															</table>
+															<elseif condition="$val.home_page_id eq 5" />
+															<table class="table table-striped table-bordered">
+																<thead>
+									                                <tr id="content_plus_add_{$val['home_page_id']}"<if condition="$val['label_num'] egt 3"> style="display:none"</if>>
+									                                    <th colspan="3"><div class="btn" onclick="add_info({$val['home_page_id']})">添加</div></th>
+									                                </tr>
+								                                </thead>
+																<tbody id="content_plus_{$val['home_page_id']}">
+																	<volist name="val['list']" id="val_info">
+																	<tr id="content_plus_info_{$val['home_page_id']}_{$val_info["holiday_id"]}">
+																		<input type="hidden" name="page_name_value_{$val['home_page_id']}[]" value="{$val_info["holiday_id"]}" />
+																		<td><img src="{:getQiniuImgUrl($val_info['imgInfo'])}" width="100px" height="100px" /></td>
+																		<td>{$val_info['holiday_name']}</td>
+																		<td><a onclick="sort_up_check(this,'MoveUp')">上移</a>&nbsp;&nbsp;
+																		<a onclick="sort_up_check(this,'MoveDown')">下移</a>&nbsp;&nbsp;
+																		<a onclick="delete_content_info(this,{$val['home_page_id']},{$val_info["holiday_id"]})">删除</a></td>
+																	</tr>
+																	</volist>
+																</tbody>
+															</table>
+															<elseif condition="$val.home_page_id eq 7" />
+															<table class="table table-striped table-bordered">
+																<thead>
+									                                <tr id="content_plus_add_{$val['home_page_id']}"<if condition="$val['label_num'] egt 6"> style="display:none"</if>>
+									                                    <th colspan="2"><div class="btn" onclick="add_info({$val['home_page_id']})">添加</div></th>
+									                                </tr>
+								                                </thead>
+																<tbody id="content_plus_{$val['home_page_id']}">
+																	<volist name="val['list']" id="val_info">
+																	<tr id="content_plus_info_{$val['home_page_id']}_{$val_info["cid_id"]}">
+																		<input type="hidden" name="page_name_value_{$val['home_page_id']}[]" value="{$val_info["cid_id"]}" />
+																		<td>{$val_info['cid_name']}</td>
+																		<td><a onclick="sort_up_check(this,'MoveUp')">上移</a>&nbsp;&nbsp;
+																		<a onclick="sort_up_check(this,'MoveDown')">下移</a>&nbsp;&nbsp;
+																		<a onclick="delete_content_info(this,{$val['home_page_id']},{$val_info["cid_id"]})">删除</a></td>
+																	</tr>
+																	</volist>
+																</tbody>
+															</table>
 															</if>
 													</div>
 												</div>
 											</div>
 									</volist>
 										</div>
+										<div class="col-sm-10">
+			                    <button class="btn btn-info submit" onclick="route_form()" type="button">
+			                        <i class="icon-ok bigger-110"></i>
+			                        提交
+			                    </button>
+	                    	</div>
 									</form>
 									</div>
 								</div>
@@ -275,6 +373,288 @@ jQuery(function($) {
 	
 });
 
+function sort_up_check(t,oper){
+    var data_tr=$(t).parent().parent(); //获取到触发的tr
+        if(oper=="MoveUp"){    //向上移动
+           if($(data_tr).prev().html()==null){ //获取tr的前一个相同等级的元素是否为空
+               alert("已经是最顶部了!");
+               return;
+           }{
+                $(data_tr).insertBefore($(data_tr).prev()); //将本身插入到目标tr的前面 
+           }
+           }else{
+                 if($(data_tr).next().html()==null){
+                 alert("已经是最低部了!");
+                 return;
+             }{
+                  $(data_tr).insertAfter($(data_tr).next()); //将本身插入到目标tr的后面 
+             }
+           }
+}
+
+function add_info(page_id){
+	var num = 0;
+	//3个
+	if(page_id==2 || page_id==3 || page_id==4 || page_id==5){
+		num = 3;
+	}else if(page_id==7){
+		num = 6;
+	}
+	var total = $("#content_plus_"+page_id).find("tr").length;
+	
+	if(total>=num){
+		alert("这项只能选择"+num+"行数据哦");
+		return;
+	}
+	
+	
+	
+	var html_con = '<div class="row"><div class="col-xs-12"><div class="cf"><div class="form-inline">';
+	
+	if(page_id==2){ //路线
+		html_con += '<label class="inline">路线名称</label>';
+		html_con += '<input type="text" id="search_name" value="" class="form-control">';
+
+	   	html_con += '<div onclick="search_submit('+page_id+')" class="btn btn-purple btn-sm">';
+	  	html_con += '路线搜索';
+	}else if(page_id==3){ //目的地
+		html_con += '<label class="inline">目的地名称</label>';
+		html_con += '<input type="text" id="search_name" value="" class="form-control">';
+
+	   	html_con += '<div onclick="search_submit('+page_id+')" class="btn btn-purple btn-sm">';
+	  	html_con += '目的地搜索';
+	}else if(page_id==4){ //景点
+		html_con += '<label class="inline">景点名称</label>';
+		html_con += '<input type="text" id="search_name" value="" class="form-control">';
+
+	   	html_con += '<div onclick="search_submit('+page_id+')" class="btn btn-purple btn-sm">';
+	  	html_con += '景点搜索';
+	}else if(page_id==5){ //节日
+		html_con += '<label class="inline">节日名称</label>';
+		html_con += '<input type="text" id="search_name" value="" class="form-control">';
+
+	   	html_con += '<div onclick="search_submit('+page_id+')" class="btn btn-purple btn-sm">';
+	  	html_con += '节日搜索';
+	}else if(page_id==7){ //景点分类
+		html_con += '<label class="inline">景点分类名称</label>';
+		html_con += '<input type="text" id="search_name" value="" class="form-control">';
+
+	   	html_con += '<div onclick="search_submit('+page_id+')" class="btn btn-purple btn-sm">';
+	  	html_con += '景点分类搜索';
+	}
+	
+	
+  	html_con += '</div>';
+	
+	html_con += '</div></div>';
+	html_con += '<div id="search_content" style="display:none;height:400px;overflow:auto;border-bottom:1px solid #dddddd">';
+	html_con += '<form id="search_chose" class="form-inline">';
+	//html_con += '<input type="hidden" name="search_chose_type" class="form-inline">';
+	html_con += '<table class="table table-striped table-bordered">';
+	html_con += '<thead>';
+	html_con += '<tr>';
+	html_con += '<th></th>';
+	html_con += '<th>类型</th>';
+	html_con += '<th class="col-xs-5">名称</th>';
+	//html_con += '<th>时长</th>';
+	html_con += '</tr>';
+	html_con += '</thead>';
+	html_con += '<tbody id="search_content_html" height="500px">';
+	html_con += '<tr>';
+	html_con += '<td></th>';
+	html_con += '<td>类型</th>';
+	html_con += '<td>名称</th>';
+	//html_con += '<td id="type_content">时长</th>';
+	html_con += '</tr>';
+	html_con += '</tbody>';
+	html_con += '</table></form></div></div></div>';
+	
+	bootbox.confirm({
+        title: "搜索",
+        message: html_con,
+        callback: function (result) {
+            if (result) {
+            	var obj=document.getElementsByName('join_id'); //选择所有name="'test'"的对象，返回数组 
+            	//取到对象数组后，我们来循环检测它是不是被选中 
+            	var s=''; 
+            	var q = 0;
+            	for(var i=0; i<obj.length; i++){ 
+            		if(obj[i].checked){
+            			var value = obj[i].value;
+            			q++;
+            		} 
+            	} 
+            	
+            	if((total+q)>num){
+            		alert("只能选择"+(num-total)+"项哦");
+            		return false;
+            	}
+            	
+            	
+            	for(var i=0; i<obj.length; i++){ 
+            		if(obj[i].checked){
+            			var html_index = '';
+            			var value = obj[i].value;
+            			if(page_id==2){
+            				html_index += '<tr id="content_plus_info_'+page_id+'_'+value+'">';
+            				html_index += '<input type="hidden" name="page_name_value_'+page_id+'[]" value="'+value+'" />';
+            				html_index += '<td>'+routeList[value]['route_name']+'</td>';
+            				html_index += '<td><a onclick="sort_up_check(this,\'MoveUp\')">上移</a>&nbsp;&nbsp;';
+            				html_index += '<a onclick="sort_up_check(this,\'MoveDown\')">下移</a>&nbsp;&nbsp;';
+            				html_index += '<a onclick="delete_content_info(this,'+page_id+','+value+')">删除</a></td>';
+            				html_index += '</tr>';
+            			}else if(page_id==3){
+            				html_index += '<tr id="content_plus_info_'+page_id+'_'+value+'">';
+            				html_index += '<input type="hidden" name="page_name_value_'+page_id+'[]" value="'+value+'" />';
+            				html_index += '<td>'+destinationList[value]['destination_name']+'</td>';
+            				html_index += '<td><a onclick="sort_up_check(this,\'MoveUp\')">上移</a>&nbsp;&nbsp;';
+            				html_index += '<a onclick="sort_up_check(this,\'MoveDown\')">下移</a>&nbsp;&nbsp;';
+            				html_index += '<a onclick="delete_content_info(this,'+page_id+','+value+')">删除</a></td>';
+            				html_index += '</tr>';
+            			}else if(page_id==4){
+            				html_index += '<tr id="content_plus_info_'+page_id+'_'+value+'">';
+            				html_index += '<input type="hidden" name="page_name_value_'+page_id+'[]" value="'+value+'" />';
+            				html_index += '<td><img src="'+attractionsList[value]['imgInfo']+'" width="100px" height="100px" /></td>';
+            				html_index += '<td>'+attractionsList[value]['attractions_name']+'</td>';
+            				html_index += '<td><a onclick="sort_up_check(this,\'MoveUp\')">上移</a>&nbsp;&nbsp;';
+            				html_index += '<a onclick="sort_up_check(this,\'MoveDown\')">下移</a>&nbsp;&nbsp;';
+            				html_index += '<a onclick="delete_content_info(this,'+page_id+','+value+')">删除</a></td>';
+            				html_index += '</tr>';
+            			}else if(page_id==5){
+            				html_index += '<tr id="content_plus_info_'+page_id+'_'+value+'">';
+            				html_index += '<input type="hidden" name="page_name_value_'+page_id+'[]" value="'+value+'" />';
+            				html_index += '<td><img src="'+holidayList[value]['imgInfo']+'" width="100px" height="100px" /></td>';
+            				html_index += '<td>'+holidayList[value]['holiday_name']+'</td>';
+            				html_index += '<td><a onclick="sort_up_check(this,\'MoveUp\')">上移</a>&nbsp;&nbsp;';
+            				html_index += '<a onclick="sort_up_check(this,\'MoveDown\')">下移</a>&nbsp;&nbsp;';
+            				html_index += '<a onclick="delete_content_info(this,'+page_id+','+value+')">删除</a></td>';
+            				html_index += '</tr>';
+            			}else{
+            				html_index += '<tr id="content_plus_info_'+page_id+'_'+value+'">';
+            				html_index += '<input type="hidden" name="page_name_value_'+page_id+'[]" value="'+value+'" />';
+            				html_index += '<td>'+cidList[value]['cid_name']+'</td>';
+            				html_index += '<td><a onclick="sort_up_check(this,\'MoveUp\')">上移</a>&nbsp;&nbsp;';
+            				html_index += '<a onclick="sort_up_check(this,\'MoveDown\')">下移</a>&nbsp;&nbsp;';
+            				html_index += '<a onclick="delete_content_info(this,'+page_id+','+value+')">删除</a></td>';
+            				html_index += '</tr>';
+            			}
+            			$("#content_plus_"+page_id).append(html_index);
+            		} 
+            	}
+            	
+            	if((total+q)>=num){
+            		$("#content_plus_add_"+page_id).hide();
+            	}
+            }
+        },
+        buttons: {
+            "cancel": {"label": "取消"},
+            "confirm": {
+                "label": "确定",
+                "className": "btn-danger"
+            }
+        }
+    });
+	
+}
+
+function delete_content_info(t,page_id,value_id){
+	$("#content_plus_info_"+page_id+"_"+value_id).remove();
+	var total = $("#content_plus_"+page_id).find("tr").length ;
+	
+	var num = 0;
+	//3个
+	if(page_id==2 || page_id==3 || page_id==4 || page_id==5){
+		num = 3;
+	}else if(page_id==7){
+		num = 6;
+	}
+	
+	if(total<num){
+		$("#content_plus_add_"+page_id).show();
+	}else{
+		$("#content_plus_add_"+page_id).hide();
+	}
+	
+}
+var routeList = {};
+var attractionsList = {};
+var holidayList = {};
+var cidList = {};
+var destinationList = {};
+
+function search_submit(page_id){
+	var keyword = $("#search_name").val();
+	$("#search_content").show();
+	$("#search_content_html").html("");
+	$.post("{:U('getList')}",{page_id:page_id,search_keyword:keyword}, function (result) {
+        var total = result.info.length;
+        if(result.status==1 && total>=1){
+        	var html_index = '';
+        	for(var i=0;i<total;i++){
+        		var info = result.info[i];
+        		var html_con='';
+        		html_con += '<tr>';
+        		if(page_id==2){
+        			routeList[info['route_id']] = info;
+        			html_con += '<td><input class="aids" type="checkbox" name="join_id" val="1" value="'+info['route_id']+'"></td>';
+            		
+        			html_con += '<td>路线</td>';
+            		html_con += '<td>'+info['route_name']+'</td>';
+            		//html_con += '<td>'+info['attractions_suggest']+'</td>';
+            		//$("#type_content").html("时长");
+        		}else if(page_id==3){
+        			destinationList[info['destination_id']] = info;
+        			html_con += '<td><input class="aids" type="checkbox" name="join_id" val="2" value="'+info['destination_id']+'"></td>';
+            		html_con += '<td>目的地</td>';
+            		html_con += '<td>'+info['destination_name']+'</td>';
+            		//html_con += '<td>'+info['hotel_score']+'</td>';
+            		//$("#type_content").html("评分");
+        		}else if(page_id==4){
+        			attractionsList[info['attractions_id']] = info;
+        			html_con += '<td><input class="aids" type="checkbox" name="join_id" val="2" value="'+info['attractions_id']+'"></td>';
+            		html_con += '<td>景点</td>';
+            		html_con += '<td>'+info['attractions_name']+'</td>';
+        		}else if(page_id==5){
+        			holidayList[info['holiday_id']] = info;
+        			html_con += '<td><input class="aids" type="checkbox" name="join_id" val="2" value="'+info['holiday_id']+'"></td>';
+            		html_con += '<td>节日</td>';
+            		html_con += '<td>'+info['holiday_name']+'</td>';
+        		}else{
+        			cidList[info['cid_id']] = info;
+        			html_con += '<td><input class="aids" type="checkbox" name="join_id" val="3" value="'+info['cid_id']+'"></td>';
+            		html_con += '<td>景点分类</td>';
+            		html_con += '<td>'+info['cid_name']+'</td>';
+        		}
+        		html_con += '</tr>';
+        		html_index += html_con;
+        		
+        	}
+        	$("#search_content_html").html(html_index);
+        }else{
+        	alert(result.info);
+        }
+    },'json');
+	
+}
+function route_form(){
+	$.post("{:U('update')}",$("#route_form").serialize(), function (result) {
+        //var total = result.info.length;
+        if(result.status==1){
+        	window.location.reload();
+        }else{
+        	bootbox.dialog({
+                message: result.info,
+                buttons: {
+                    "success": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        }
+    },'json');
+}
 </script>
 </body>
 </html>

@@ -95,7 +95,13 @@ class ShopattractionsController extends ComController
         $id = isset($_GET['attractions_id']) ? intval($_GET['attractions_id']) : false;
         if ($id) {
             $category = M('attractions');
-            $category->where('attractions_id=' . $id)->save(array("attractions_status"=>-1));
+            $res = $category->where('attractions_id=' . $id)->save(array("attractions_status"=>-1));
+            if($res){
+                $action=3;
+                
+                $searchUpdate = D("search");
+                $searchUpdate->delType($id,$this->type,$action);
+            }
                 addlog('删除景点，ID：' . $id);
             $this->success("删除景点成功");
         } else {
@@ -270,6 +276,12 @@ class ShopattractionsController extends ComController
             addlog('新增景点，attractions_id：' . $attractions_id.":".json_encode($_POST));
         
             $CommonModel->commit();
+            if($data['attractions_status']){
+                $action=1;
+                
+                $searchUpdate = D("search");
+                $searchUpdate->delType($attractions_id,$this->type,$action);
+            }
             $this->success('恭喜！景点添加成功！');
         } else {
             $CommonModel->rollback();
@@ -306,8 +318,18 @@ class ShopattractionsController extends ComController
             }
             $data['attractions_status'] = intval(I('attractions_status'))?1:0;
             $data['attractions_updated_at'] = time();
-            M('attractions')->data($data)->where('attractions_id=' . $data['attractions_id'])->save();
+            $res = M('attractions')->data($data)->where('attractions_id=' . $data['attractions_id'])->save();
             addlog('景点，attractions_id：' . $data['attractions_id'].":".intval(I('attractions_status'))?"上架":"下架");
+            if($res){
+                if($data['attractions_status']){
+                    $action = 1;
+                }else{
+                    $action = 3;
+                }
+                
+                $searchUpdate = D("search");
+                $searchUpdate->delType($data['attractions_id'],$this->type,$action);
+            }
             $this->success("修改状态成功");
         }
         
@@ -397,6 +419,15 @@ class ShopattractionsController extends ComController
         
         addlog('编辑景点，attractions_id：' . $data['attractions_id'].':'.json_encode($_POST));
         $CommonModel->commit();
+        
+        if($data['attractions_status']){
+            $action = 2;
+        }else{
+            $action = 3;
+        }
+        
+        $searchUpdate = D("search");
+        $searchUpdate->delType($data['attractions_id'],$this->type,$action);
         $this->success('恭喜！景点编辑成功！');
     }
     
@@ -426,8 +457,18 @@ class ShopattractionsController extends ComController
             }
             $data['attractions_status'] = intval(I('attractions_status'))?1:0;
             $data['attractions_updated_at'] = time();
-            M('attractions')->data($data)->where('attractions_id=' . $data['attractions_id'])->save();
+            $res = M('attractions')->data($data)->where('attractions_id=' . $data['attractions_id'])->save();
             addlog('景点，attractions_id：' . $data['attractions_id'].":".intval(I('attractions_status'))?"上架":"下架");
+            if($res){
+                if($data['attractions_status']){
+                    $action = 1;
+                }else{
+                    $action = 3;
+                }
+            
+                $searchUpdate = D("search");
+                $searchUpdate->delType($data['attractions_id'],$this->type,$action);
+            }
             $this->success("修改状态成功");
         }
         
@@ -512,6 +553,14 @@ class ShopattractionsController extends ComController
         
         addlog('编辑景点，attractions_id：' . $data['attractions_id'].':'.json_encode($_POST));
         $CommonModel->commit();
+        if($data['attractions_status']){
+            $action = 2;
+        }else{
+            $action = 3;
+        }
+        
+        $searchUpdate = D("search");
+        $searchUpdate->delType($data['attractions_id'],$this->type,$action);
         $this->success('恭喜！景点编辑成功！');
     }
     
@@ -554,8 +603,17 @@ class ShopattractionsController extends ComController
             $map = 'score_type='.$this->type.' and score_id=' . $aids;
             $up = array();
             $up['score_status']=0;
-            M('score')->where($map)->save($up);
-    
+            $res = M('score')->where($map)->save($up);
+            if($res){
+                
+                $hall_id = M('score')->where($map)->getField("join_id");
+                $res = M('attractions')->where(array("attractions_id"=>$hall_id))->setDec("attractions_score_num");
+                
+                $action = 2;
+                
+                $searchUpdate = D("search");
+                $searchUpdate->delType($hall_id,$this->type,$action);
+            }
             addlog('删除评论，ID：' . $aids);
             $this->success('恭喜，评论删除成功！');
         } else {

@@ -150,3 +150,37 @@ function getQiniuImgUrl($url){
     $setting = C(UPLOAD_SITEIMG_QINIU);
     return "http://".$setting['driverConfig']['domain']."/".$url;
 }
+
+
+function curl_request($URL,$headers,$params,$type='GET'){ // 模拟提交数据函数
+    $ch = curl_init();
+    $timeout = 10;
+    curl_setopt($ch, CURLOPT_URL, $URL); //发贴地址
+    //print_r($headers);
+    if($headers!=""){
+        curl_setopt ($ch, CURLOPT_HTTPHEADER, $headers);
+    }else {
+        curl_setopt ($ch, CURLOPT_HTTPHEADER, array('Content-type: text/json'));
+    }
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+    switch($type){
+        case "GET" : curl_setopt($ch,CURLOPT_HTTPGET,true);break;
+        case "POST": curl_setopt($ch,CURLOPT_POST,1);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$params);break;
+        case "PUT" : curl_setopt ($ch,CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$params);break;
+        case "DELETE":curl_setopt ($ch,CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$params);break;
+    }
+    $https = substr($URL,0,5);
+    if($https=='https'){
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, true); // 从证书中检查SSL加密算法是否存在
+    }
+
+
+    $file_contents = curl_exec($ch);//获得返回值
+    return $file_contents;
+
+}

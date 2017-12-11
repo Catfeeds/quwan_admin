@@ -40,4 +40,6 @@ return array(
         )
     ),
     'ORDER_CANCEL_TIME'=>7200,//订单自动取消时间
+    'QcloudsmsApi'=>"1400050330",//腾讯短信api
+    "QcloudsmsAppkey"=>"c40133722807cf92efd0b383472bef80"//腾讯短信appkey
 );

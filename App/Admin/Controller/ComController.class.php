@@ -17,6 +17,8 @@ use Think\Auth;
 class ComController extends BaseController
 {
     public $USER;
+    
+    public $Group_id;
 
     public function _initialize()
     {
@@ -43,9 +45,13 @@ class ComController extends BaseController
         $UID = $this->USER['admin_id'];
         $userinfo = $m->query("SELECT * FROM {$prefix}auth_group g left join {$prefix}auth_group_access a on g.id=a.group_id where a.admin_id=$UID");
         $Auth = new Auth();
-        $allow_controller_name = array('Upload');//放行控制器名称
+        $allow_controller_name = array('Upload','Address','Mobile');//放行控制器名称
         $allow_action_name = array();//放行函数名称
-        if ($userinfo[0]['group_id'] == 1 && !$Auth->check(CONTROLLER_NAME . '/' . ACTION_NAME,
+        
+        $this->Group_id = $userinfo[0]['group_id'];
+//         print_R($userinfo);
+//         die;
+        if ($userinfo[0]['group_id'] != 1 && !$Auth->check(CONTROLLER_NAME . '/' . ACTION_NAME,
                 $UID) && !in_array(CONTROLLER_NAME, $allow_controller_name) && !in_array(ACTION_NAME,
                 $allow_action_name)
         ) {
