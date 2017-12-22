@@ -473,7 +473,7 @@ class ShopholidayController extends ComController
     //管理员更新
     public function update($act = null)
     {
-        if($this->Group_id!=1){
+        if($this->Group_id==2){
             $this->error("请刷新重试");
         }
         
