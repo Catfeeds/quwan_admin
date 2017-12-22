@@ -26,8 +26,14 @@ class IndexController extends ComController
         $log->where("t < $t")->delete();//删除60天前的日志
         $pagesize = 25;#每页数量
         $offset = $pagesize * ($p - 1);//计算记录偏移量
-        $count = $log->count();
-        $list = $log->order('id desc')->limit($offset . ',' . $pagesize)->select();
+        $shop_id = session("shop_id");
+        if(!$shop_id || $this->Group_id!=2){
+            $where = "1=1";
+        }else{
+            $where = "admin_id=".session("admin_id");
+        }
+        $count = $log->where($where)->count();
+        $list = $log->where($where)->order('id desc')->limit($offset . ',' . $pagesize)->select();
         $page = new \Think\Page($count, $pagesize);
         $page = $page->show();
         $this->assign('list', $list);

@@ -68,7 +68,7 @@ class PersonalController extends ComController
             redirect(U("Admin/index/index"));
         }elseif($shop['shop_status']==-1){
             redirect(U("Admin/ShopPass/index"));
-        }elseif($shop['shop_status']<-1){
+        }elseif($shop['shop_status']<=-2){
             redirect(U("Admin/index/index"));
         }
         
