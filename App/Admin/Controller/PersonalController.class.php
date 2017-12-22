@@ -56,6 +56,8 @@ class PersonalController extends ComController
         
         $shop_id = session("shop_id");
         if(!$shop_id || $this->Group_id!=2){
+            echo U('personal/profile');
+            die;
             redirect(U('personal/profile'));
         }
         
