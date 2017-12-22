@@ -56,8 +56,6 @@ class PersonalController extends ComController
         
         $shop_id = session("shop_id");
         if(!$shop_id || $this->Group_id!=2){
-            echo U('personal/profile');
-            die;
             redirect(U('personal/profile'));
         }
         
@@ -67,11 +65,11 @@ class PersonalController extends ComController
         
         $shop = M('shop')->where(array("shop_id"=>$shop_id))->find();
         if(!$shop){
-            redirect("Admin/index/index");
+            redirect(U("Admin/index/index"));
         }elseif($shop['shop_status']==-1){
-            redirect("Admin/ShopPass/index");
+            redirect(U("Admin/ShopPass/index"));
         }elseif($shop['shop_status']<-1){
-            redirect("Admin/index/index");
+            redirect(U("Admin/index/index"));
         }
         
         $this->assign("shop",$shop);
