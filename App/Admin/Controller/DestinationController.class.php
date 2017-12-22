@@ -71,7 +71,7 @@ class DestinationController extends ComController
             }
             $o = I('post.destination_status', 0, 'intval');
             $data = array('destination_status' => $o,'destination_updated_at'=>time());
-            M('cid')->data($data)->where("destination_id='{$id}'")->save();
+            M('destination')->data($data)->where("destination_id='{$id}'")->save();
             addlog('目的地修改状态，ID：' . $id);
             die('1');
         }
