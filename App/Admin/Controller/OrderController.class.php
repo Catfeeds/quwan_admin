@@ -68,7 +68,7 @@ class OrderController extends ComController
         }
         
         
-        $count = $article->where($where)->count();
+        $count = $article->where($where)->join("left join ".$prefix."user u on u.user_id=o.user_id left join ".$prefix."shop s on o.shop_id=s.shop_id")->count();
         $list = $article->where($where)
         ->join("left join ".$prefix."user u on u.user_id=o.user_id left join ".$prefix."shop s on o.shop_id=s.shop_id")
         ->field("o.*,u.user_nickname,u.user_mobile,s.shop_name")->order($orderby)->limit($offset . ',' . $pagesize)->select();
