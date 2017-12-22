@@ -56,7 +56,7 @@ class PersonalController extends ComController
         
         $shop_id = session("shop_id");
         if(!$shop_id || $this->Group_id!=2){
-            redirect('profile');
+            redirect(U('profile'));
         }
         
         $member = M('admin')->where('admin_id=' . $this->USER['admin_id'])->find();
