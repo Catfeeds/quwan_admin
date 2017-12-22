@@ -86,19 +86,19 @@ class OrderController extends ComController
                 }
                 $order_status_msg = '';
                 if($info['order_status']==10){
-                    $order_status_msg .'<font color="red">未付款</font>';
-                    $order_status_msg .'<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
+                    $order_status_msg .='<font color="red">未付款</font>';
+                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
                 }elseif($info['order_status']==20){
-                    $order_status_msg .'<font color="red">已付款</font>';
-                    $order_status_msg .'<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
+                    $order_status_msg .='<font color="red">已付款</font>';
+                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
                 }elseif($info['order_status']==30){
-                    $order_status_msg .'<font color="red">待评价</font>';
-                    $order_status_msg .'<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
-                    $order_status_msg .'<br>核销时间:'.date("Y-m-d H:i；s",$info['order_check_at']);
+                    $order_status_msg .='<font color="red">待评价</font>';
+                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
+                    $order_status_msg .='<br>核销时间:'.date("Y-m-d H:i；s",$info['order_check_at']);
                 }elseif($info['order_status']==40){
-                    $order_status_msg .'<font color="red">已完成</font>';
-                    $order_status_msg .'<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
-                    $order_status_msg .'<br>核销时间:'.date("Y-m-d H:i；s",$info['order_check_at']);
+                    $order_status_msg .='<font color="red">已完成</font>';
+                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
+                    $order_status_msg .='<br>核销时间:'.date("Y-m-d H:i；s",$info['order_check_at']);
                     
                     $replay_info = M('source')->where(array("order_id"=>$info['order_id']))->find();
                     if($replay_info){
@@ -116,12 +116,12 @@ class OrderController extends ComController
                     }
                 }elseif($info['order_status']==0){
                     if($info['order_cancel_type']==3){
-                        $order_status_msg .'<font color="red">退款中</font>';
+                        $order_status_msg .='<font color="red">退款中</font>';
                     }else{
-                        $order_status_msg .'<font color="red">已取消</font>';
+                        $order_status_msg .='<font color="red">已取消</font>';
                     }
-                    $order_status_msg .'<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
-                    $order_status_msg .'<br>取消时间:'.date("Y-m-d H:i；s",$info['order_cancel_at']);
+                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
+                    $order_status_msg .='<br>取消时间:'.date("Y-m-d H:i；s",$info['order_cancel_at']);
                 }
                 $info['replay_status'] = $replay_status;
                 $info['msg'] = $order_status_msg;
