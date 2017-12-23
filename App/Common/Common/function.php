@@ -12,7 +12,7 @@
 
 function UpImage($callBack = "image", $width = 100, $height = 100, $image = "")
 {
-    echo '<iframe scrolling="no" frameborder="0" border="0" onload="this.height=this.contentWindow.document.body.scrollHeight;this.width=this.contentWindow.document.body.scrollWidth;" width=' . $width . ' height="' . $height . '"  src="' . U('Upload/uploadpic') . '?Width=' . $width . '&Height=' . $height . '&BackCall=' . $callBack . '&Img=' . $image . '"></iframe>
+    echo '<iframe scrolling="no" frameborder="0" border="0" onload="this.height=this.contentWindow.document.body.scrollHeight;this.width=this.contentWindow.document.body.scrollWidth;" width=' . $width . ' height="' . $height . '"  src="' . U('Upload/uploadpic') . '?Width=' . $width . '&Height=' . $height . '&BackCall=' . $callBack . '&Img=' . urlencode($image) . '"></iframe>
          <input type="hidden" name="' . $callBack . '" id="' . $callBack . '">';
 }
 
