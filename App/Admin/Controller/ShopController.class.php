@@ -123,6 +123,7 @@ class ShopController extends ComController
         $add_admin = array();
         $add_shop = array();
         $add_shop['shop_mobile'] = $shop_mobile;
+        $add_shop['shop_phone'] = $shop_mobile;
         $add_shop['shop_name'] = $shop_name;
         
         $model = new Model();
