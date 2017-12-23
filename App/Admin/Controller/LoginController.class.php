@@ -71,13 +71,13 @@ class LoginController extends ComController
             
             $shop_id = 0;
             $shop_status=-1;
-            $url = U('index/index');
+            
+            $url = U("index/index");
             $shopInfo = M('admin_shop')->where("admin_id=".$user['admin_id'])->find();
             if($shopInfo){
                 $shop_id=$shopInfo['shop_id'];
                 $shop = M('shop')->where("shop_id=".$shopInfo['shop_id'])->find();
                 $shop_status = $shop['shop_status'];
-                $url = U("ShopPass/index");
             }
             session('shop_id',$shop_id);
             session('shop_status',$shop_status);
