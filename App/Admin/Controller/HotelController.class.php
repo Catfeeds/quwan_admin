@@ -254,7 +254,7 @@ class HotelController extends ComController
                     $searchUpdate->delType($hotel_id,$this->type,$action);
                 }
                 
-                $this->success('恭喜！酒店添加成功！');
+                $this->success('恭喜！酒店添加成功！',U('index'));
             } else {
                 $CommonModel->rollback();
                 $this->error('抱歉，未知错误！');

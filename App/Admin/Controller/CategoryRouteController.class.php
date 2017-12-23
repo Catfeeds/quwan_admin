@@ -24,7 +24,7 @@ class CategoryRouteController extends ComController
             $cid_type=1;
         }
         $cid_type=$this->type;
-        $category = M('cid')->where("cid_status=1 and cid_type=".$cid_type)->order('cid_sort asc')->select();
+        $category = M('cid')->where("cid_status>=0 and cid_type=".$cid_type)->order('cid_sort asc')->select();
 //         $category = $this->getMenu($category);
 //         print_R($cid_type);
         $this->assign('category', $category);

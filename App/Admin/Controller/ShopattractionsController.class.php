@@ -282,7 +282,7 @@ class ShopattractionsController extends ComController
                 $searchUpdate = D("search");
                 $searchUpdate->delType($attractions_id,$this->type,$action);
             }
-            $this->success('恭喜！景点添加成功！');
+            $this->success('恭喜！景点添加成功！',U('index'));
         } else {
             $CommonModel->rollback();
             $this->error('抱歉，未知错误！');

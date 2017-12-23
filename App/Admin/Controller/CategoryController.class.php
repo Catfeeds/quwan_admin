@@ -22,7 +22,7 @@ class CategoryController extends ComController
         if($cid_type<1 || $cid_type>6){
             $cid_type=1;
         }
-        $category = M('cid')->where("cid_status=1 and cid_type=".$cid_type)->order('cid_sort asc')->select();
+        $category = M('cid')->where("cid_status>=0 and cid_type=".$cid_type)->order('cid_sort asc')->select();
 //         $category = $this->getMenu($category);
 //         print_R($cid_type);
         $this->assign('category', $category);

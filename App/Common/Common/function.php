@@ -147,6 +147,10 @@ function checkMobile($mobile){
  * @return string
  */
 function getQiniuImgUrl($url){
+    if(strstr($url,'http://') || strstr($url,'https://')){
+        return $url;
+    }
+    
     $setting = C(UPLOAD_SITEIMG_QINIU);
     return "http://".$setting['driverConfig']['domain']."/".$url;
 }
