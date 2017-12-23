@@ -77,7 +77,7 @@ class DestinationController extends ComController
         }
 
         $id = I('post.destination_id', false, 'intval');
-        $data['destination_status'] = I('post.destination_status', 1, 'intval');
+        $data['destination_status'] = I('post.destination_status', 0, 'intval');
         $data['destination_name'] = I('post.destination_name');
         $data['destination_sort'] = I('post.destination_sort', 0, 'intval');
         
