@@ -25,7 +25,8 @@ class UploadController extends ComController
         $imgUrl = '';
         $setting = C("UPLOAD_SITEIMG_QINIU");
         if($Img){
-            $imgUrl = "http://".$setting['driverConfig']['domain'].'/'.$Img;
+            
+            $imgUrl = getQiniuImgUrl($Img);//"http://".$setting['driverConfig']['domain'].'/'.$Img;
         }
         if ($_FILES['img']) {
             $ImgInfo = $this->saveimg($_FILES);
