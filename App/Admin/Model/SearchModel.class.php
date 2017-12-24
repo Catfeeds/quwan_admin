@@ -16,7 +16,7 @@ class SearchModel extends Model{
     
     Protected $autoCheckFields = false;
     
-    private $url = "http://restapi.quwan.cn/";
+    private $url = "http://restapi.qu666.cn/quwan/";
     //删除更新搜索引擎
     /**
      * 更新搜索引擎
