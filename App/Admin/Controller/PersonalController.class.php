@@ -108,6 +108,10 @@ class PersonalController extends ComController
         $data['shop_lon'] = $_POST['shop_lon'];
         $data['shop_lat'] = $_POST['shop_lat'];
         
+        if($shop['shop_status']==0){
+            $data['shop_status'] = 1;
+        }
+        
         if(!$data['shop_address'] || !$data['shop_lon'] || !$data['shop_lat']){
             $this->error("请使用定位功能，获取位置");
         }
