@@ -422,10 +422,10 @@ class ShopholidayController extends ComController
         }
         $data['holiday_intro'] = htmlspecialchars($data['holiday_intro']);
         
-        $cid_id = $_POST['cid_id'];
-        if(count($cid_id)<1){
-            $this->error("最少选择一个分类");
-        }
+//         $cid_id = $_POST['cid_id'];
+//         if(count($cid_id)<1){
+//             $this->error("最少选择一个分类");
+//         }
         
         $CommonModel = D('Common');
         $CommonModel->startTrans();
@@ -441,7 +441,7 @@ class ShopholidayController extends ComController
         //更新图片对应
         $CommonModel->ImgJoin($data['holiday_id'], $this->type, $Img);
         //更新分类对应
-        $CommonModel->setCidJoin($data['holiday_id'], $this->type, $cid_id);
+        //$CommonModel->setCidJoin($data['holiday_id'], $this->type, $cid_id);
         
         //增加节日对应的路线
         $route_id = $_POST['route_id'];
@@ -570,10 +570,10 @@ class ShopholidayController extends ComController
         }
         $data['holiday_intro'] = htmlspecialchars($data['holiday_intro']);
         
-        $cid_id = $_POST['cid_id'];
-        if(count($cid_id)<1){
-            $this->error("最少选择一个分类");
-        }
+//         $cid_id = $_POST['cid_id'];
+//         if(count($cid_id)<1){
+//             $this->error("最少选择一个分类");
+//         }
         
         $CommonModel = D('Common');
         $CommonModel->startTrans();
@@ -589,7 +589,7 @@ class ShopholidayController extends ComController
         //更新图片对应
         $CommonModel->ImgJoin($data['holiday_id'], $this->type, $Img);
         //更新分类对应
-        $CommonModel->setCidJoin($data['holiday_id'], $this->type, $cid_id);
+        //$CommonModel->setCidJoin($data['holiday_id'], $this->type, $cid_id);
         
         
         //增加节日对应的路线
