@@ -125,8 +125,13 @@ class PersonalController extends ComController
         
         $res = M("shop")->where(array("shop_id"=>$shop_id))->save($data);
         if(!$res){
-            $this->error("商家信息更细失败");
+            $this->error("商家信息更新失败");
         }
+        
+        if(isset($data['shop_status'])){
+            session("shop_status",1);
+        }
+        
         addlog('修改商家资料成功');
         $this->success("商家信息更新成功");
     }
