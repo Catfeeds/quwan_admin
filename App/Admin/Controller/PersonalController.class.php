@@ -103,7 +103,7 @@ class PersonalController extends ComController
         
         $data = array();
         $data['shop_title'] = $_POST['shop_title'];
-        $data['shop_mobile'] = $_POST['shop_mobile'];
+        $data['shop_phone'] = $_POST['shop_phone'];
         $data['shop_address'] = $_POST['shop_address'];
         $data['shop_lon'] = $_POST['shop_lon'];
         $data['shop_lat'] = $_POST['shop_lat'];
@@ -119,7 +119,7 @@ class PersonalController extends ComController
         if(!$data['shop_title'] || mb_strlen($data['shop_title']>20)){
             $this->error("请填写店铺名称/店铺名称长度不能超过20个字符串");
         }
-        if(!$data['shop_mobile']){
+        if(!$data['shop_phone']){
             $this->error("请填写店铺联系手机号码");
         }
         
