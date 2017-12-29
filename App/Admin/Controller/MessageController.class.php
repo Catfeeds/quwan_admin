@@ -72,7 +72,7 @@ class MessageController extends ComController
             $this->error('请标题！');
         }
         
-        $data['message_comment'] = I('post.message_comment', '', 'strip_tags');
+        $data['message_comment'] = I('post.message_content', '', 'strip_tags');
         if(!$data['message_comment']){
             $this->error('请填写内页内容！');
         }
