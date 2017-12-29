@@ -52,8 +52,9 @@ class MessageController extends ComController
             } else {
                 $map = 'message_id=' . $ids;
             }
-            $res = M('message')->where($map)->save(array("message_status=0"));
-            echo M('')->getLastSql();
+            $model = M('message');
+            $res = $model->where($map)->save(array("message_status=0"));
+            echo $model->getLastSql();
             die;
             if ($res) {
                 
