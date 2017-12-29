@@ -88,7 +88,7 @@ class MessageController extends ComController
         $data['user_id'] = 0;
         M('message')->data($data)->add();
         addlog('新增系统消息');
-
+        M("user")->setInc('user_msg_num');
         $this->success('恭喜，操作成功！', U('index'));
     }
 }
