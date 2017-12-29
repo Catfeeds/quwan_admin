@@ -56,7 +56,7 @@ class MessageController extends ComController
                 addlog('删除信息，ID：' . $ids);
                 $this->success('恭喜，删除成功！');
             } else {
-                $this->error('参数错误！');
+                $this->error('参数错误！a');
             }
         } else {
             $this->error('参数错误！');
