@@ -52,11 +52,8 @@ class MessageController extends ComController
             } else {
                 $map = 'message_id=' . $ids;
             }
-            print_R($map);
             $model = M('message');
-            $res = $model->where($map)->save(array("message_status=0"));
-            echo $model->getLastSql();
-            die;
+            $res = $model->where($map)->save(array("message_status"=>0));
             if ($res) {
                 
                 addlog('删除信息，ID：' . $ids);
