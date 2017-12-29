@@ -53,6 +53,7 @@ class MessageController extends ComController
                 $map = 'message_id=' . $ids;
             }
             if (M('message')->where($map)->save(array("message_status=0"))) {
+                echo M('')->getLastSql();
                 addlog('删除信息，ID：' . $ids);
                 $this->success('恭喜，删除成功！');
             } else {
