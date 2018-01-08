@@ -49,8 +49,8 @@ class ComController extends BaseController
         $allow_action_name = array();//放行函数名称
         
         $this->Group_id = $userinfo[0]['group_id'];
-        print_R($userinfo);
-        die;
+//         print_R($userinfo);
+//         die;
         if ($userinfo[0]['group_id'] != 1 && !$Auth->check(CONTROLLER_NAME . '/' . ACTION_NAME,
                 $UID) && !in_array(CONTROLLER_NAME, $allow_controller_name) && !in_array(ACTION_NAME,
                 $allow_action_name)
