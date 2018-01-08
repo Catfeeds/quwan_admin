@@ -50,7 +50,10 @@ class LoginController extends ComController
         $model = M("admin");
         $user = $model->field('admin_id,user')->where($where)->find();
 print_R($user);
+print_R($where);
+echo $username;
 die;
+
         if ($user) {
             
             
