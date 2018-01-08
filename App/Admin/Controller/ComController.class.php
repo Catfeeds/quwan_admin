@@ -61,7 +61,7 @@ class ComController extends BaseController
         $shop_status = session('shop_status');
 //         echo $shop_status;
 //         die;
-        $controller_shop = array("Address","ShopPass","Mobile","Upload","Login");
+        $controller_shop = array("Address","ShopPass","Mobile","Upload","Login","Logout");
         if($shop_id>0 && $shop_status==-1 && (CONTROLLER_NAME!='ShopPass' && CONTROLLER_NAME!='Mobile')){
             $this->error('请先重置您的密码!',U('ShopPass/index'));
         }
