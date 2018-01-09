@@ -64,7 +64,7 @@ class ShopholidayController extends ComController
         
         
         $count = $article->where($where)->join("left join ".$prefix."shop on ".$prefix."holiday.shop_id=".$prefix."shop.shop_id")->count();
-        $list = $article->where($where)->join("left join ".$prefix."shop on ".$prefix."holiday.shop_id=".$prefix."shop.shop_id")->field($prefix."holiday.*,".$prefix."shop.shop_name")->order($orderby)->limit($offset . ',' . $pagesize)->select();
+        $list = $article->where($where)->join("left join ".$prefix."shop on ".$prefix."holiday.shop_id=".$prefix."shop.shop_id")->field($prefix."holiday.*,".$prefix."shop.shop_name,".$prefix."shop.shop_title")->order($orderby)->limit($offset . ',' . $pagesize)->select();
         if($list){
             $commonModel = new CommonModel();
             foreach($list as &$val){
