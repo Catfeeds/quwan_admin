@@ -131,9 +131,9 @@ class CategoryRouteController extends ComController
         }
         
         if($id){
-            $where = "cid_name='{$data['cid_name']}' and cid_id<>".$id;
+            $where = "cid_status>=0 and cid_name='{$data['cid_name']}' and cid_id<>".$id;
         }else{
-            $where = "cid_name='{$data['cid_name']}'";
+            $where = "cid_status>=0 and cid_name='{$data['cid_name']}'";
         }
         
         $count = M('cid')->where($where)->count();
@@ -145,14 +145,14 @@ class CategoryRouteController extends ComController
         if ($id) {
             if (M('cid')->data($data)->where('cid_id=' . $id)->save()) {
                 addlog('文章分类修改，ID：' . $id . '，名称：' . $data['name']);
-                $this->success('恭喜，分类修改成功！');
+                $this->success('恭喜，分类修改成功！',U('index'));
                 die(0);
             }
         } else {
             $id = M('cid')->data($data)->add();
             if ($id) {
                 addlog('新增分类，ID：' . $id . '，名称：' . $data['name']);
-                $this->success('恭喜，新增分类成功！', 'index');
+                $this->success('恭喜，新增分类成功！',U('index'));
                 die(0);
             }
         }

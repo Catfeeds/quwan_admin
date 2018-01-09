@@ -107,7 +107,7 @@ class DestinationController extends ComController
             $data['destination_updated_at'] = time();
             if (M('destination')->data($data)->where('destination_id=' . $id)->save()) {
                 addlog('目的地修改，ID：' . $id . '，名称：' . $data['destination_name']);
-                $this->success('恭喜，目的地修改成功！','index');
+                $this->success('恭喜，目的地修改成功！',U('index'));
                 die(0);
             }
         } else {
@@ -116,7 +116,7 @@ class DestinationController extends ComController
             $id = M('destination')->data($data)->add();
             if ($id) {
                 addlog('新增目的地，ID：' . $id . '，名称：' . $data['destination_name']);
-                $this->success('恭喜，新增目的地成功！', 'index');
+                $this->success('恭喜，新增目的地成功！',U('index'));
                 die(0);
             }
         }

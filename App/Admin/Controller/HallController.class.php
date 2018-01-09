@@ -231,7 +231,7 @@ class HallController extends ComController
             $searchUpdate = D("search");
             $searchUpdate->delType($hall_id,$this->type,$action);
             
-            $this->success('恭喜！餐饮编辑成功！');
+            $this->success('恭喜！餐饮编辑成功！',U('index'));
         } else {
             $data['hall_created_at'] = time();
             $hall_id = M('hall')->data($data)->add();
