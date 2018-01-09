@@ -37,7 +37,8 @@ class SearchModel extends Model{
         $data =array();
         $data['id'] = $joinId;
         $data['type'] = $type;
-        $res = curl_request($url, "", $data);
+        $res = curl_request($url, "", $data,'POST');
+        error_log($joinId.'|'.$type.'|'.$action.'|'.$res,3,date("Y-m-d").'_api.log');
         if($res){
             $res = json_encode($res);
         }else{
