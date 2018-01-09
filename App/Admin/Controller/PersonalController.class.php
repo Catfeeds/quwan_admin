@@ -46,7 +46,7 @@ class PersonalController extends ComController
             $data['isadmin'] = $isadmin == 'on' ? 1 : 0;
         }
         $Model = M('admin');
-        $Model->data($data)->where("admin_id=$uid")->save();
+        $Model->data($data)->where(array('admin_id' => $uid))->save();
         addlog('修改个人资料');
         $this->success('操作成功！');
     }
@@ -84,7 +84,7 @@ class PersonalController extends ComController
             redirect('profile');
         }
         
-        $member = M('admin')->where('admin_id=' . $this->USER['admin_id'])->find();
+        $member = M('admin')->where(array('admin_id' => $this->USER['admin_id']))->find();
         $this->assign('nav', array('Personal', 'profile', ''));//导航
         $this->assign('member', $member);
         

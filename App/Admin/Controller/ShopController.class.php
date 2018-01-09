@@ -69,7 +69,7 @@ class ShopController extends ComController
                 $category->where('shop_id=' . $id)->delete();
                 $info = M("admin_shop")->where('shop_id=' . $id)->find();
                 if($info){
-                    M('admin')->where('admin_id=' . $info['admin_id'])->save(array("shop_status"=>0));
+                    M('admin')->where(array('admin_id' => $info['admin_id']))->save(array("shop_status"=>0));
                 }
                 M("admin_shop")->where('shop_id=' . $id)->delete();
             }else{
@@ -78,7 +78,7 @@ class ShopController extends ComController
                 
                 $info = M("admin_shop")->where('shop_id=' . $id)->find();
                 if($info){
-                    M('admin')->where('admin_id=' . $info['admin_id'])->save(array("status"=>0));
+                    M('admin')->where(array('admin_id' => $info['admin_id']))->save(array("status"=>0));
                 }
             }
             addlog('删除商家，ID：' . $id);
@@ -228,7 +228,7 @@ class ShopController extends ComController
         $data['shop_desc'] = $shop_desc;
         $data['shop_title'] = $shop_title;
         
-        $member = M('admin')->where('admin_id=' . $this->USER['admin_id'])->find();
+        $member = M('admin')->where(array('admin_id' => $this->USER['admin_id']))->find();
         $dataAdmin = array();
         $dataAdmin['phone'] = $shop_mobile;
         
@@ -236,7 +236,7 @@ class ShopController extends ComController
             $dataAdmin['password']=password($password);
         }
         
-        $resAdmin = M('admin')->where('admin_id=' . $this->USER['admin_id'])->save($dataAdmin);
+        $resAdmin = M('admin')->where(array('admin_id' => $this->USER['admin_id']))->save($dataAdmin);
         
         $res = M('shop')->where(array('shop_id'=>$shop_id))->save($data);
         addlog('编辑商户UID：'.$shop_id . json_encode($data));
