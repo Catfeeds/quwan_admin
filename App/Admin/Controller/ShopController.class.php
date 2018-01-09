@@ -61,6 +61,7 @@ class ShopController extends ComController
             $category = M('shop');
             $shopInfo = $category->where(array("shop_id"=>$id))->find();
             if(!$shopInfo){
+                $this->error("商家不存在");
                 die('1');
             }
             //如果存在的商户，还没登录，就直接删除那个商户
@@ -80,12 +81,43 @@ class ShopController extends ComController
                 M('admin')->where('admin_id=' . $info['admin_id'])->save(array("status"=>0));
             }
             addlog('删除商家，ID：' . $id);
+            $this->success("商家删除成功");
             die('1');
         } else {
+            $this->error("参数错误");
             die('0');
         }
 
     }
+    
+    
+    public function hs()
+    {
+        $id = isset($_GET['shop_id']) ? intval($_GET['shop_id']) : false;
+        if ($id) {
+            $data['shop_id'] = $id;
+            $category = M('shop');
+            $shopInfo = $category->where(array("shop_id"=>$id))->find();
+            if(!$shopInfo){
+                $this->error("商家不存在");
+            }
+            
+            if($shopInfo['shop_lastmonth_money']>0){
+                $category->where('shop_id=' . $id)->save(array("shop_lastmonth_money"=>0));
+                
+                addlog('商家，'.$id.'：核算'.$shopInfo['shop_lastmonth_money'] .'金额，于'.date("Y-m-d H:i:s"));
+                $this->success("核算成功");
+                die('1');
+            }
+            $this->error("没有需要核算的");
+            
+        } else {
+            $this->error("参数错误");
+            die('0');
+        }
+    
+    }
+    
 
     public function edit()
     {
@@ -113,7 +145,7 @@ class ShopController extends ComController
         }
         
         if(!$shop_name || mb_strlen($shop_name)>10){
-            $this->error("请填写正确的商家号码");
+            $this->error("请输入联系人");
         }
         //商户已经存在
         if (M('shop')->where("shop_mobile='{$shop_mobile}'")->count()) {

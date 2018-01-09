@@ -86,7 +86,7 @@ class LoginController extends ComController
             exit(0);
         } else {
             addlog('登录失败。', $username);
-            $this->error('登录失败，请重试！', U("login/index"));
+            $this->error('账号或密码输入错误。！', U("login/index"));
         }
     }
 
