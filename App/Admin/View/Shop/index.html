@@ -52,7 +52,8 @@
                                 <tr>
                                     <th>商家名称</th>
                                     <th>联系人</th>
-                                    <th>手机号码</th>
+                                    <th>登录号码</th>
+                                    <th>联系号码</th>
                                     <th>地址</th>
                                     <th>上月及之前未结</th>
                                     <th>总未结金额</th>
@@ -65,6 +66,7 @@
                                         <td>{$val['shop_title']}</td>
                                         <td>{$val['shop_name']}</td>
                                         <td>{$val['shop_mobile']}</td>
+                                        <td>{$val['shop_phone']}</td>
                                         <td>{$val['shop_address']}</td>
                                         <td><if condition="$val.shop_lastmonth_money eq 0">结清<else />{$val['shop_lastmonth_money']}</if></td>
                                         <td>{$val['shop_lastmonth_money']+$val['shop_money']}</td>

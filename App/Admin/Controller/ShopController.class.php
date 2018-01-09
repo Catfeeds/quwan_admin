@@ -22,7 +22,7 @@ class ShopController extends ComController
         $where = '';
         $key = I('get.keyword');
         if($key){
-            $where = "(shop_title like '%{$key}%' or shop_name like '%{$key}%' or shop_mobile like '%{$key}%')";
+            $where = "(shop_title like '%{$key}%' or shop_name like '%{$key}%' or shop_mobile like '%{$key}%' or shop_phone like '%{$key}%')";
         }
         
         $type = I('get.type','0','intval');
@@ -213,6 +213,11 @@ class ShopController extends ComController
         //商户已经存在
         if (M('shop')->where("shop_mobile='{$shop_mobile}' and shop_id<>".$shop_id)->count()) {
             $this->error('手机号已经存在商户了！');
+        }
+        
+        //商户已经存在
+        if (M('admin')->where("phone='{$shop_mobile}'")->count()) {
+            $this->error('登录手机号码已经存在用户了！');
         }
         
         $data = array();

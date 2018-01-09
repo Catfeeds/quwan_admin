@@ -42,9 +42,9 @@ class LoginController extends ComController
         }
 
         if(checkMobile($username)){
-            $where = array('phone' => $username, 'password' => $password);
+            $where = array('phone' => $username, 'password' => $password, 'status'=>1);
         }else{
-            $where = array('user' => $username, 'password' => $password);
+            $where = array('user' => $username, 'password' => $password, 'status'=>1);
         }
         
         $model = M("admin");
