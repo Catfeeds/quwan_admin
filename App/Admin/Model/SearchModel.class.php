@@ -27,7 +27,7 @@ class SearchModel extends Model{
      */
     public function delType($joinId,$type,$action){
         if($action==1){
-            $url = $this->url."add_index";
+            $url = $this->url."edit_index";
         }elseif($action==3){
             $url = $this->url."del_index";
         }else{
