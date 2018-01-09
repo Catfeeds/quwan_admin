@@ -72,13 +72,14 @@ class ShopController extends ComController
                     M('admin')->where('admin_id=' . $info['admin_id'])->save(array("shop_status"=>0));
                 }
                 M("admin_shop")->where('shop_id=' . $id)->delete();
-            }
+            }else{
             
-            $category->where('shop_id=' . $id)->save(array("shop_status"=>-2));
-            
-            $info = M("admin_shop")->where('shop_id=' . $id)->find();
-            if($info){
-                M('admin')->where('admin_id=' . $info['admin_id'])->save(array("status"=>0));
+                $category->where('shop_id=' . $id)->save(array("shop_status"=>-2));
+                
+                $info = M("admin_shop")->where('shop_id=' . $id)->find();
+                if($info){
+                    M('admin')->where('admin_id=' . $info['admin_id'])->save(array("status"=>0));
+                }
             }
             addlog('删除商家，ID：' . $id);
             $this->success("商家删除成功");
