@@ -37,7 +37,12 @@ class RedSettingController extends ComController
         }
         
         $data['red_id'] = 1;
-        $info = M("red_status")->where(array("red_id"=>1))->count();
+        $info = M("red_status")->where(array("red_id"=>1))->find();
+
+        if($info['red_status'] == $data['red_status'] && $info['red_start_num']==$data['red_start_num'] && $info['red_end_num']==$data['red_end_num']){
+            $this->error('您未修改哦！');
+        }
+
         if($info){
             $res = M("red_status")->where(array("red_id"=>1))->save($data);
         }else{
