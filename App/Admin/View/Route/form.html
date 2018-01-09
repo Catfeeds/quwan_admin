@@ -2,15 +2,14 @@
 <body class="no-skin">
 <include file="Public/header"/>
 <include file="Public/footerjs"/>
-<div class="main-container" id="main-container">
-    <script type="text/javascript">
+<script type="text/javascript">
         try {
             ace.settings.check('main-container', 'fixed')
         } catch (e) {
         }
         function sort_up(){
-        	var start_num = 1;
-        	$("h4").each(function(){  
+            var start_num = 1;
+            $("h4").each(function(){  
                 $(this).html("第"+start_num+"日");  
                 start_num++;
             });  
@@ -19,6 +18,8 @@
             alert(type);
         }
     </script>
+<div class="main-container" id="main-container">
+    
 
     <include file="Public/sidebar"/>
     <div class="main-content">
@@ -114,9 +115,5 @@
 
 
 <!-- inline scripts related to this page -->
-<script type="text/javascript">
-
-        
-</script>
 </body>
 </html>
