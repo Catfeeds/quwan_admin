@@ -125,9 +125,9 @@ class CategoryController extends ComController
         }
         
         if($id){
-            $where = "cid_status>=0 and cid_name='{$data['cid_name']}' and cid_id<>".$id;
+            $where = "cid_status>=0 and cid_type=1 and cid_name='{$data['cid_name']}' and cid_id<>".$id;
         }else{
-            $where = "cid_status>=0 and cid_name='{$data['cid_name']}'";
+            $where = "cid_status>=0 and cid_type=1 and cid_name='{$data['cid_name']}'";
         }
         
         $count = M('cid')->where($where)->count();
