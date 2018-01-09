@@ -69,7 +69,7 @@ class ShopController extends ComController
                 $category->where('shop_id=' . $id)->delete();
                 $info = M("admin_shop")->where('shop_id=' . $id)->find();
                 if($info){
-                    M('admin')->where(array('admin_id' => $info['admin_id']))->save(array("shop_status"=>0));
+                    M('admin')->where(array('admin_id' => $info['admin_id']))->delete();
                 }
                 M("admin_shop")->where('shop_id=' . $id)->delete();
             }else{
