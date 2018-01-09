@@ -47,7 +47,7 @@ class RedSettingController extends ComController
             addlog('红包状态调整：' . json_encode($data));
             $this->success('恭喜，操作成功！', U('index'));
         }else{
-            $this->error('update错误！');
+            $this->error('更新错误！');
         }
         
     }
