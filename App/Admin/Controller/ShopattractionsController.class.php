@@ -133,6 +133,8 @@ class ShopattractionsController extends ComController
         $info['img'] = $CommonModel->getImgJoin($attractions_id, $this->type);
         $info['img'] = implode('|', $info['img']);
         //             print_R($article);
+        // print_R($info);
+        // die;
         $info['attractions_intro'] = htmlspecialchars_decode($info['attractions_intro']);
         $res = $CommonModel->getDestination_join($info['attractions_id'], $this->type);
         $info['destination_id'] = $res;
@@ -249,7 +251,7 @@ class ShopattractionsController extends ComController
         if(!$data['attractions_intro']){
             $this->error("景点介绍必须填写");
         }
-        $data['attractions_intro'] = htmlspecialchars($data['attractions_intro']);
+        // $data['attractions_intro'] = htmlspecialchars($data['attractions_intro']);
         
         $cid_id = $_POST['cid_id'];
         if(count($cid_id)<1){
@@ -394,7 +396,7 @@ class ShopattractionsController extends ComController
         if(!$data['attractions_intro']){
             $this->error("景点介绍必须填写");
         }
-        $data['attractions_intro'] = htmlspecialchars($data['attractions_intro']);
+        // $data['attractions_intro'] = htmlspecialchars($data['attractions_intro']);
         
         $cid_id = $_POST['cid_id'];
         if(count($cid_id)<1){
@@ -525,10 +527,12 @@ class ShopattractionsController extends ComController
         
         
         $data['attractions_intro'] = I('post.attractions_intro');
+        // print_R($data);
+        // die;
         if(!$data['attractions_intro']){
             $this->error("景点介绍必须填写");
         }
-        $data['attractions_intro'] = htmlspecialchars($data['attractions_intro']);
+        // $data['attractions_intro'] = htmlspecialchars($data['attractions_intro']);
         
         $cid_id = $_POST['cid_id'];
         if(count($cid_id)<1){

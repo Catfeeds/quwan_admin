@@ -204,7 +204,7 @@ class HallController extends ComController
         if(!$data['hall_intro']){
             $this->error("餐饮介绍必须填写");
         }
-        $data['hall_intro'] = htmlspecialchars($data['hall_intro']);
+        // $data['hall_intro'] = htmlspecialchars($data['hall_intro']);
         $CommonModel = D('Common');
         $CommonModel->startTrans();
         $data['hall_updated_at'] = time();

@@ -205,7 +205,7 @@ class HotelController extends ComController
         if(!$data['hotel_intro']){
             $this->error("酒店介绍必须填写");
         }
-        $data['hotel_intro'] = htmlspecialchars($data['hotel_intro']);
+        // $data['hotel_intro'] = htmlspecialchars($data['hotel_intro']);
         $CommonModel = D('Common');
         $CommonModel->startTrans();
         $data['hotel_updated_at'] = time();

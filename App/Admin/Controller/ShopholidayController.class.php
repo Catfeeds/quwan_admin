@@ -260,7 +260,7 @@ class ShopholidayController extends ComController
         if(!$data['holiday_intro']){
             $this->error("节日介绍必须填写");
         }
-        $data['holiday_intro'] = htmlspecialchars($data['holiday_intro']);
+        // $data['holiday_intro'] = htmlspecialchars($data['holiday_intro']);
         
 //         $cid_id = $_POST['cid_id'];
 //         if(count($cid_id)<1){
@@ -420,7 +420,7 @@ class ShopholidayController extends ComController
         if(!$data['holiday_intro']){
             $this->error("节日介绍必须填写");
         }
-        $data['holiday_intro'] = htmlspecialchars($data['holiday_intro']);
+        // $data['holiday_intro'] = htmlspecialchars($data['holiday_intro']);
         
 //         $cid_id = $_POST['cid_id'];
 //         if(count($cid_id)<1){
@@ -568,7 +568,7 @@ class ShopholidayController extends ComController
         if(!$data['holiday_intro']){
             $this->error("节日介绍必须填写");
         }
-        $data['holiday_intro'] = htmlspecialchars($data['holiday_intro']);
+        // $data['holiday_intro'] = htmlspecialchars($data['holiday_intro']);
         
 //         $cid_id = $_POST['cid_id'];
 //         if(count($cid_id)<1){

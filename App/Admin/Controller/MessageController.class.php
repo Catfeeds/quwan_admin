@@ -79,7 +79,7 @@ class MessageController extends ComController
         if(!$data['message_comment']){
             $this->error('请填写内页内容！');
         }
-        $data['message_comment'] = htmlspecialchars($data['message_comment']);
+        // $data['message_comment'] = htmlspecialchars($data['message_comment']);
         $data['created_user_id'] = session("admin_id");
         $data['message_status'] = 1;
         $data['message_type'] = 1;
