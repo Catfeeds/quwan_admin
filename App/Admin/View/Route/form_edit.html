@@ -34,7 +34,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="cf">
-                                <a class="btn btn-info" onclick="html_plus('day',0)" value="">新增行程</a>
+                                <a class="btn btn-info" onclick="html_plus('day',0,'')" value="">新增行程</a>
                         </div>
                         <div class="space-4"></div>
 									
@@ -99,7 +99,7 @@
 											<a onclick="del_day({$day})" style="color:#E09E96">
 												<i class="ace-icon fa fa-times" style="font-size:24px"></i>
 											</a>&nbsp;&nbsp;
-											<a onclick="html_plus('con',{$day})">
+											<a onclick="html_plus('con',{$day},'')">
 												<i class="ace-icon fa fa-plus" style="font-size:24px"></i>
 											</a>
 										</div>
@@ -444,7 +444,7 @@
 }); */
 var day_num = {:count($day_list)+1};
 var chose_day;
-function html_plus(type,id,id_name=''){
+function html_plus(type,id,id_name){
 	if(type=='day'){
 		var html_day = '<div class="space-10"></div>';
 		//html_day += '<label class="col-sm-1 control-label no-padding-right"></label>';
@@ -455,7 +455,7 @@ function html_plus(type,id,id_name=''){
 		html_day += '<div class="widget-toolbar">';
 		html_day += '<a onclick="del_day('+day_num+')" style="color:#E09E96">';
 		html_day += '<i class="ace-icon fa fa-times" style="font-size:24px"></i></a>&nbsp;&nbsp;';
-		html_day += '<a  onclick="html_plus(\'con\','+day_num+')">';
+		html_day += '<a  onclick="html_plus(\'con\','+day_num+',\'\')">';
 		html_day += '<i class="ace-icon fa fa-plus" style="font-size:24px"></i></a>';
 		html_day += '</div></div>';
 		html_day += '<div class="widget-body">';
