@@ -153,6 +153,11 @@ class ShopController extends ComController
             $this->error('手机号已经存在商户了！');
         }
         
+        //后台账号存在
+        if (M('admin')->where("phone='{$shop_mobile}'")->count()) {
+            $this->error('手机号已经存在管理员了！');
+        }
+        
         $add_admin = array();
         $add_shop = array();
         $add_shop['shop_mobile'] = $shop_mobile;
