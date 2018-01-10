@@ -237,7 +237,9 @@ class ShopholidayController extends ComController
         if($data['holiday_price']<=0){
             $this->error("销售价格必须大于0");
         }
-        
+        if($data['holiday_price']>=100000000){
+            $this->error("销售价格必须大于100000000");
+        }
         
         $destination_id = I('post.destination_id',0,'intval');
         if(!$destination_id){
@@ -397,7 +399,9 @@ class ShopholidayController extends ComController
         if($data['holiday_price']<=0){
             $this->error("销售价格必须大于0");
         }
-        
+        if($data['holiday_price']>=100000000){
+            $this->error("销售价格必须大于100000000");
+        }
         
         $destination_id = I('post.destination_id',0,'intval');
         if(!$destination_id){
