@@ -40,7 +40,7 @@ class SearchModel extends Model{
         $header = array(
             "Content-type: application/x-www-form-urlencoded"
         );
-        $res = curl_request($url, "", $data,'POST');
+        $res = curl_request($url, $header, $data,'POST');
         error_log($joinId.'|'.$type.'|'.$action.'|'.$res,3,date("Y-m-d").'_api.log');
         if($res){
             $res = json_encode($res);
