@@ -37,6 +37,9 @@ class SearchModel extends Model{
         $data =array();
         $data['id'] = $joinId;
         $data['type'] = $type;
+        $header = array(
+            "Content-type: application/x-www-form-urlencoded"
+        );
         $res = curl_request($url, "", $data,'POST');
         error_log($joinId.'|'.$type.'|'.$action.'|'.$res,3,date("Y-m-d").'_api.log');
         if($res){
