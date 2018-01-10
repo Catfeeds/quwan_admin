@@ -40,7 +40,8 @@ class SearchModel extends Model{
         $header = array(
             "Content-type: application/x-www-form-urlencoded"
         );
-        $res = curl_request($url, $header, $data,'POST');
+        //$res = curl_request($url, $header, $data,'POST');
+        $res = $this->send_post($url, $data);
         error_log($joinId.'|'.$type.'|'.$action.'|'.$res,3,date("Y-m-d").'_api.log');
         if($res){
             $res = json_encode($res);
@@ -50,5 +51,20 @@ class SearchModel extends Model{
         return $res;
     }
     
-    
+    private function send_post($url, $post_data) {
+ 
+      $postdata = http_build_query($post_data);
+      $options = array(
+        'http' => array(
+          'method' => 'POST',
+          'header' => 'Content-type:application/x-www-form-urlencoded',
+          'content' => $postdata,
+          'timeout' => 15 * 60 // 超时时间（单位:s）
+        )
+      );
+      $context = stream_context_create($options);
+      $result = file_get_contents($url, false, $context);
+     
+      return $result;
+    }
 }
