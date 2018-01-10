@@ -102,6 +102,7 @@ class ShopcheckController extends ComController
         $upOrder = array();
         $upOrder['order_status'] = 30;
         $upOrder['order_updated_at'] = time();
+        $upOrder['order_check_at'] = time();
         
         $res = M('order')->where(array("order_id"=>$order_id))->save($upOrder);
         if(!$res){
