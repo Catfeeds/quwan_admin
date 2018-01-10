@@ -27,7 +27,7 @@ class ShoptotalController extends ComController
             $date = date("Y-m-01");
             $start_time = strtotime($date);
             $date = date("Y-m-d");
-            $end_time = strtotime($date);
+            $end_time = strtotime($date)+86400;
         }elseif($day_status==2){//上月
             $date = date("Y-m",strtotime("-1 month"));
             $start_time = strtotime($date);
@@ -42,7 +42,7 @@ class ShoptotalController extends ComController
             }
             
             $start_time = strtotime($start_day);
-            $end_time = strtotime($end_day);
+            $end_time = strtotime($end_day)+86400;
         }
         
         $order_num = M('order')->where("order_pay_at>=".$start_time." and order_pay_at<".$end_time)->count();
