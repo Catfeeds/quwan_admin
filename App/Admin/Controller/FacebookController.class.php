@@ -11,6 +11,8 @@
 
 namespace Admin\Controller;
 
+use Admin\Model\CommonModel;
+
 class FacebookController extends ComController
 {
 
@@ -27,7 +29,19 @@ class FacebookController extends ComController
         $prefix = C('DB_PREFIX');
         $count = $article->count();
         $list = $article->field("s.*,u.user_nickname")->join("left join {$prefix}user u on s.user_id=u.user_id")->order($orderby)->limit($offset . ',' . $pagesize)->select();
-        
+        if($list){
+            $CommonModel = new CommonModel();
+            foreach($list as &$info){
+                $imgList= $CommonModel->getImgJoin($info['suggest_id'], 9);
+                $img = array();
+                if($imgList){
+                    foreach($imgList as $imgInfo){
+                        $img[] = getQiniuImgUrl($imgInfo);
+                    }
+                }
+                $info['img'] = $img;
+            }
+        }
         $page = new \Think\Page($count, $pagesize);
         $page = $page->show();
         $this->assign('list', $list);

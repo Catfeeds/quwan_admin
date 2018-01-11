@@ -32,6 +32,7 @@
                                     <th>手机号</th>
                                     <th>发布时间</th>
                                     <th>问题</th>
+                                    <th>图片</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -42,6 +43,7 @@
                                         <td>{$val['suggest_phone']}</td>
                                         <td>{$val['suggest_created_at']|date="Y-m-d H:i:s",###}</td>
                                         <td>{$val['suggest_comment']}</td>
+                                        <td><volist name="val['img']" id="img"><a style="margin-left:5px" href="{$img}" target="_blank"><img width="100px" height="100px" src="{$img}" /></a></volist></td>
                                     </tr>
                                 </volist>
                                 </tbody>
