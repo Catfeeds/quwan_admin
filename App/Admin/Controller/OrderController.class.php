@@ -60,7 +60,7 @@ class OrderController extends ComController
         }
         
         //默认按照时间降序
-        $orderby = 'o.order_updated_at desc';
+        $orderby = 'o.order_created_at desc';
         
         
         if($keyword){
@@ -100,7 +100,7 @@ class OrderController extends ComController
                     $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
                     $order_status_msg .='<br>核销时间:'.date("Y-m-d H:i；s",$info['order_check_at']);
                     
-                    $replay_info = M('source')->where(array("order_id"=>$info['order_id']))->find();
+                    $replay_info = M('score')->where(array("order_id"=>$info['order_id']))->find();
                     if($replay_info){
                         
                         $replay_msg = "评分:".$replay_info['score'];
