@@ -229,7 +229,7 @@ class HallController extends ComController
                 $action = 2;
             }
             $searchUpdate = D("search");
-            $searchUpdate->delType($hall_id,$this->type,$action);
+            $searchUpdate->delType($data['hall_id'],$this->type,$action);
             
             $this->success('恭喜！餐饮编辑成功！',U('index'));
         } else {
