@@ -87,18 +87,18 @@ class OrderController extends ComController
                 $order_status_msg = '';
                 if($info['order_status']==10){
                     $order_status_msg .='<font color="red">未付款</font>';
-                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
+                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i:s",$info['order_created_at']);
                 }elseif($info['order_status']==20){
                     $order_status_msg .='<font color="red">已付款</font>';
-                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
+                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i:s",$info['order_created_at']);
                 }elseif($info['order_status']==30){
                     $order_status_msg .='<font color="red">待评价</font>';
-                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
-                    $order_status_msg .='<br>核销时间:'.date("Y-m-d H:i；s",$info['order_check_at']);
+                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i:s",$info['order_created_at']);
+                    $order_status_msg .='<br>核销时间:'.date("Y-m-d H:i:s",$info['order_check_at']);
                 }elseif($info['order_status']==40){
                     $order_status_msg .='<font color="red">已完成</font>';
-                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i；s",$info['order_created_at']);
-                    $order_status_msg .='<br>核销时间:'.date("Y-m-d H:i；s",$info['order_check_at']);
+                    $order_status_msg .='<br>下单时间:'.date("Y-m-d H:i:s",$info['order_created_at']);
+                    $order_status_msg .='<br>核销时间:'.date("Y-m-d H:i:s",$info['order_check_at']);
                     
                     $replay_info = M('score')->where(array("order_id"=>$info['order_id']))->find();
                     if($replay_info){
