@@ -47,7 +47,7 @@ class OrderController extends ComController
         
         if($status==10){
             $where .= ' and o.order_status=10';
-        }elseif($status==0){
+        }elseif($status==-1){
             $where .= ' and o.order_status=0';
         }elseif($status==20){
             $where .= ' and o.order_status=20';
