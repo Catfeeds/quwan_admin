@@ -20,7 +20,8 @@ class MemberController extends ComController
         $where = '';
         $key = I('get.keyword');
         if($key){
-            $where = "(user_id={intval($key)} or user_nickname like '%{$key}%' or user_mobile like '%{$key}%')";
+            $id = intval($key);
+            $where = "(user_id={$id} or user_nickname like '%{$key}%' or user_mobile like '%{$key}%')";
         }
         
         //注册时间
