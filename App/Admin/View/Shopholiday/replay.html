@@ -47,7 +47,7 @@
                                     <tr>
                                         <td>{$val['score']}</td>
                                         <td>{$val['score_comment']}</td>
-                                        <td><volist name="$val['imgList']" id="imgVal"><img width="100px" height="100px" src="{:getQiniuImgUrl($imgVal)}" /></volist></td>
+                                        <td><volist name="val['imgList']" id="imgVal"><img width="100px" height="100px" src="{:getQiniuImgUrl($imgVal)}" /></volist></td>
                                         <td>{$val['user_nickname']}</td>
                                         <td>{$val['score_created_at']|date="Y-m-d H:i:s",###}</td>
                                         <td><if condition="$val.score_replay_status eq 0"><a class="replay_content" href="javascript:;" val="{$val['score_id']}"><i
