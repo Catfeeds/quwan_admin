@@ -36,10 +36,10 @@ class CrontabController extends ComController
      * 节日报名短信推送信息
      */
     public function holiday_sms(){
-        $day = date("m-d",strtotime("-2 day"));
+        $day = date("Y-m-d",strtotime("-2 day"));
         $sql = "select * from qw_order o left join qw_holiday h on o.join_id=h.holiday_id
         left join qw_user u on o.user_id=u.user_id
-        where h.holiday_status=1 and FROM_UNIXTIME(h.holiday_start_at, '%m-%d')='{$day}'
+        where h.holiday_status=1 and FROM_UNIXTIME(h.holiday_start_at, '%Y-%m-%d')='{$day}'
         and o.order_type=4 and o.order_status>=20";
         
         $model = new Model();

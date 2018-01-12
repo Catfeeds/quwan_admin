@@ -138,8 +138,8 @@ class ShopholidayController extends ComController
         $info['destination_id'] = $res;
         
         
-        $info['holiday_start_at'] = date("m-d",$info['holiday_start_at']);
-        $info['holiday_end_at'] = date("m-d",$info['holiday_end_at']);
+        $info['holiday_start_at'] = date("Y-m-d",$info['holiday_start_at']);
+        $info['holiday_end_at'] = date("Y-m-d",$info['holiday_end_at']);
         
         
         $this->assign("info",$info);
