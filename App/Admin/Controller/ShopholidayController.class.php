@@ -59,7 +59,7 @@ class ShopholidayController extends ComController
         
         
         if($keyword){
-            $where .= " and (".$prefix."holiday.holiday_name like '%{$keyword}%' or ".$prefix."shop.shop_name like '%{$keyword}%' or ".$prefix."shop.shop_name like '%{$keyword}%')";
+            $where .= " and (".$prefix."holiday.holiday_name like '%{$keyword}%' or ".$prefix."shop.shop_name like '%{$keyword}%' or ".$prefix."shop.shop_title like '%{$keyword}%')";
         }
         
         
