@@ -190,5 +190,5 @@ function curl_request($URL,$headers,$params,$type='GET'){ // 模拟提交数据�
 }
 
 function wirteFileLog($msg,$file_type='log'){
-    error_log($msg.'\t\n',3,'App\\logs\\'.$file_type.'_'.date("Y-m-d").'_api.log');
+    error_log($msg.'\t\n',3,'App/logs/'.$file_type.'_'.date("Y-m-d").'_api.log');
 }
