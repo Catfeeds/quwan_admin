@@ -59,7 +59,7 @@ class ShopholidayController extends ComController
         
         
         if($keyword){
-            $where .= " and (".$prefix."holiday.holiday_name like '%{$keyword}%' or ".$prefix."shop.shop_name like '%{$keyword}%')";
+            $where .= " and (".$prefix."holiday.holiday_name like '%{$keyword}%' or ".$prefix."shop.shop_name like '%{$keyword}%' or ".$prefix."shop.shop_name like '%{$keyword}%')";
         }
         
         
@@ -136,6 +136,11 @@ class ShopholidayController extends ComController
         $info['holiday_intro'] = htmlspecialchars_decode($info['holiday_intro']);
         $res = $CommonModel->getDestination_join($info['holiday_id'], $this->type);
         $info['destination_id'] = $res;
+        
+        
+        $info['holiday_start_at'] = date("m-d",$info['holiday_start_at']);
+        $info['holiday_end_at'] = date("m-d",$info['holiday_end_at']);
+        
         
         $this->assign("info",$info);
         
@@ -268,6 +273,10 @@ class ShopholidayController extends ComController
 //         if(count($cid_id)<1){
 //             $this->error("最少选择一个分类");
 //         }
+        
+        
+        $data['holiday_start_at'] = strtotime(I('post.holiday_start_at'));
+        $data['holiday_end_at'] = strtotime(I('post.holiday_end_at'));
         
         $CommonModel = D('Common');
         $CommonModel->startTrans();
@@ -431,6 +440,9 @@ class ShopholidayController extends ComController
 //             $this->error("最少选择一个分类");
 //         }
         
+        $data['holiday_start_at'] = strtotime(I('post.holiday_start_at'));
+        $data['holiday_end_at'] = strtotime(I('post.holiday_end_at'));
+        
         $CommonModel = D('Common');
         $CommonModel->startTrans();
         $data['holiday_updated_at'] = time();
@@ -578,6 +590,8 @@ class ShopholidayController extends ComController
 //         if(count($cid_id)<1){
 //             $this->error("最少选择一个分类");
 //         }
+        $data['holiday_start_at'] = strtotime(I('post.holiday_start_at'));
+        $data['holiday_end_at'] = strtotime(I('post.holiday_end_at'));
         
         $CommonModel = D('Common');
         $CommonModel->startTrans();

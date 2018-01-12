@@ -42,7 +42,8 @@ class SearchModel extends Model{
         );
         //$res = curl_request($url, $header, $data,'POST');
         $res = $this->send_post($url, $data);
-        error_log($joinId.'|'.$type.'|'.$action.'|'.$res,3,date("Y-m-d").'_api.log');
+        wirteFileLog($joinId.'|'.$type.'|'.$action.'|'.$res,'searchApi');
+        //error_log($joinId.'|'.$type.'|'.$action.'|'.$res,3,date("Y-m-d").'_api.log');
         if($res){
             $res = json_encode($res);
         }else{

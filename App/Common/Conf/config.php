@@ -41,5 +41,22 @@ return array(
     ),
     'ORDER_CANCEL_TIME'=>7200,//订单自动取消时间
     'QcloudsmsApi'=>"1400050330",//腾讯短信api
-    "QcloudsmsAppkey"=>"c40133722807cf92efd0b383472bef80"//腾讯短信appkey
+    "QcloudsmsAppkey"=>"c40133722807cf92efd0b383472bef80",//腾讯短信appkey
+        
+    'DATA_CACHE_PREFIX' => 'yybredis_',//缓存前缀
+    'DATA_CACHE_TYPE'=>'Redis',//默认动态缓存为Redis
+    'REDIS_RW_SEPARATE' => false, //Redis读写分离 true 开启
+    'REDIS_HOST'=>'127.0.0.1', //redis服务器ip，多台用逗号隔开；读写分离开启时，第一台负责写，其它[随机]负责读；
+    'REDIS_PORT'=>'6371',//端口号
+    'REDIS_TIMEOUT'=>'0',//超时时间
+    'REDIS_PERSISTENT'=>false,//是否长连接 false=短连接
+    'REDIS_AUTH'=>'',//AUTH认证密码
+    
+    //短信模板id
+    'SENDmsg_tpl_id' => array(
+        "login_id" => '64707',//后台验证码的
+        "holiday_id" => '76123',//节日id
+        "check_id" => '76126',//核销后商家id
+        "order_hs_id" => '76129',//结款推送
+    )
 );

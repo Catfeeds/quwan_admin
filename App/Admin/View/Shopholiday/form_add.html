@@ -117,6 +117,30 @@
                             
                             <div class="space-4"></div>
                             <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 开始日期 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="holiday_start_at" id="holiday_start_at" placeholder="节日开始日期"
+                                           class="col-xs-10 col-sm-5" value="{$info.holiday_start_at}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">节日开始日期，用于报名用户的推送,不填将不会有短信提醒等。</span>
+											</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 结束日期 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="holiday_end_at" id="holiday_end_at" placeholder="节日结束日期"
+                                           class="col-xs-10 col-sm-5" value="{$info.holiday_end_at}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">结束日期。</span>
+											</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
                                 <label class="col-sm-1 control-label no-padding-right" for="name"> 节日电话 </label>
                                 <div class="col-sm-9">
                                     <input type="text" name="holiday_phone" id="holiday_phone" placeholder="节日电话"
@@ -414,6 +438,26 @@
                  }
                }
     }
+    
+    
+    jQuery(function ($) {
+        $('#holiday_start_at').datepicker({
+        	changeYearth: false,
+            dateFormat: "mm-dd",
+            weekStart: 1,
+            autoclose: true,
+            todayBtn: 'linked',
+            language: 'cn'
+        });
+        $('#holiday_end_at').datepicker({
+        	changeYearth: false,
+            dateFormat: "mm-dd",
+            weekStart: 1,
+            autoclose: true,
+            todayBtn: 'linked',
+            language: 'cn'
+        });
+    });     
 </script>
 </body>
 </html>

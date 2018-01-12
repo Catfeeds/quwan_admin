@@ -122,6 +122,20 @@ class ShopcheckController extends ComController
             $this->error("核算订单失败");
         }
         
+        
+        //短信通知
+        $Qcloudsms = new \Org\Util\Qcloudsms(C("QcloudsmsApi"), C("QcloudsmsAppkey"));
+        $msg_config = C('SENDmsg_tpl_id');
+        
+        $userInfo = M('user')->where(array('user_id'=>$orderInfo['user_id']))->find();
+        
+        $shopInfo = M('user')->where(array('shop_id'=>$shop_id))->find();
+        
+        $params = array();
+        $params[] = $userInfo['user_name'];
+        $params[] = $orderInfo['order_amount'];
+        $res = $Qcloudsms->sendWithParam("86", $shopInfo['shop_mobile'], $msg_config['check_id'],$params);
+        wirteFileLog($shop_id.'|'.$order_id.'|'.$res,'shop_check_msg');
         $model->commit();
         $this->success("核销成功");
     }

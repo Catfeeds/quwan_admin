@@ -59,7 +59,7 @@ class ShopattractionsController extends ComController
         
         
         if($keyword){
-            $where .= " and (".$prefix."attractions.attractions_name like '%{$keyword}%' or ".$prefix."shop.shop_name like '%{$keyword}%')";
+            $where .= " and (".$prefix."attractions.attractions_name like '%{$keyword}%' or ".$prefix."shop.shop_name like '%{$keyword}%' or ".$prefix."shop.shop_title like '%{$keyword}%')";
         }
         
         

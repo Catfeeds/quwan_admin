@@ -38,9 +38,11 @@ class MobileController extends ComController
             
             $Qcloudsms = new \Org\Util\Qcloudsms(C("QcloudsmsApi"), C("QcloudsmsAppkey"));
             
+            $msg_config = C('SENDmsg_tpl_id');
+            
             $params = array();
             $params[] = $code;
-            $res = $Qcloudsms->sendWithParam("86", $mobile, 64707,$params);
+            $res = $Qcloudsms->sendWithParam("86", $mobile, $msg_config['login_id'],$params);
             $res = json_decode($res,true);
             //print_R($res);
             if($res['result']!=0){

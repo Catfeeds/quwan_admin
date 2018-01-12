@@ -107,6 +107,17 @@ class ShopController extends ComController
                 $category->where('shop_id=' . $id)->save(array("shop_lastmonth_money"=>0));
                 
                 addlog('商家，'.$id.'：核算'.$shopInfo['shop_lastmonth_money'] .'金额，于'.date("Y-m-d H:i:s"));
+                
+                $Qcloudsms = new \Org\Util\Qcloudsms(C("QcloudsmsApi"), C("QcloudsmsAppkey"));
+                
+                $msg_config = C('SENDmsg_tpl_id');
+                
+                $params = array();
+                $params[] = $shopInfo['shop_lastmonth_money'];
+                $res = $Qcloudsms->sendWithParam("86", $shopInfo['shop_mobile'], $msg_config['order_hs_id'],$params);
+                wirteFileLog($id.'|'.$res,'shop_hs_msg');
+                
+                
                 $this->success("核算成功");
                 die('1');
             }

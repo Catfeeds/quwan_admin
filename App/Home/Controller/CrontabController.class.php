@@ -10,8 +10,12 @@
  **/
 namespace Home\Controller;
 
+use Think\Model;
+
 class CrontabController extends ComController
 {
+    
+    //统计商家的结算金额信息的信息
     public function index()
     {
         $list = M('shop')->where("shop_status>=1 and shop_crontab_time='".date("Y-m-d")."'")->limit('50')->select();
@@ -26,5 +30,39 @@ class CrontabController extends ComController
             }
         }
         echo "1";
+    }
+    
+    /**
+     * 节日报名短信推送信息
+     */
+    public function holiday_sms(){
+        $day = date("m-d",strtotime("-2 day"));
+        $sql = "select * from qw_order o left join qw_holiday h on o.join_id=h.holiday_id
+        left join qw_user u on o.user_id=u.user_id
+        where h.holiday_status=1 and FROM_UNIXTIME(h.holiday_start_at, '%m-%d')='{$day}'
+        and o.order_type=4 and o.order_status>=20";
+        
+        $model = new Model();
+        $list = $model->query($sql);
+        if($list){
+            $Qcloudsms = new \Org\Util\Qcloudsms(C("QcloudsmsApi"), C("QcloudsmsAppkey"));
+            $msg_config = C('SENDmsg_tpl_id');
+            foreach($list as $info){
+                $key = $info['user_id'] . '_' . $info['holiday_id'] . '_' . date("Y_m_d");
+                $cache = S($key);
+                if(!$cache){
+                    $params = array();
+                    $params[] = $info['holiday_name'];
+                    $res = $Qcloudsms->sendWithParam("86", $info['user_mobile'], $msg_config['holiday_id'],$params);
+                    wirteFileLog($info['order_id'].'|'.$info['user_id'].'|'.$res,'holiday_send');
+                    $res = json_decode($res,true);
+                    //print_R($res);
+                    if($res['result']!=0){
+                        continue;
+                    }
+                    S($key,1,86400);
+                }
+            }
+        }
     }
 }
