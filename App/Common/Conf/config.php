@@ -55,8 +55,8 @@ return array(
     //短信模板id
     'SENDmsg_tpl_id' => array(
         "login_id" => '64707',//后台验证码的
-        "holiday_id" => '76123',//节日id
-        "check_id" => '76126',//核销后商家id
-        "order_hs_id" => '76129',//结款推送
+        "holiday_id" => '58480',//节日id
+        "check_id" => '58478',//核销后商家id
+        "order_hs_id" => '58479',//结款推送
     )
 );
