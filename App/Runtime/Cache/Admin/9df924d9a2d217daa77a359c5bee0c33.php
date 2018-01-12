@@ -98,9 +98,9 @@
                     </li>
                     <li class="light-blue">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="<?php if( $user["head"] == '' ): ?>/Public/admin/avatars/avatar2.png
+                            <img class="nav-user-photo" src="<?php if( $user["head"] == '' ): ?>/Public/admin/images/avatar.png
                             <?php else: ?>
-                            <?php echo ($user["head"]); endif; ?>" alt="<?php echo ($user["user"]); ?>" />
+                            <?php echo getQiniuImgUrl($user['head']); endif; ?>" alt="<?php echo ($user["user"]); ?>" />
                             <span class="user-info">
                                 <small>欢迎光临，</small>
                                 <?php echo ($user["user"]); ?>
@@ -111,9 +111,9 @@
 
                         <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                             <li>
-                                <a href="<?php echo U('Setting/Setting');?>">
+                                <a href="<?php echo U('ShopPass/index');?>">
                                     <i class="ace-icon fa fa-cog"></i>
-                                    设置
+                                    修改密码
                                 </a>
                             </li>
 
@@ -388,107 +388,6 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="row">
-
-                            <div id="accordion-sysinfo" class="accordion-style1 panel-group col-sm-3">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a class="accordion-toggle" data-toggle="collapse"
-                                               data-parent="#accordion-sysinfo" href="#sysinfo">
-                                                <i class="ace-icon fa fa-angle-down bigger-110"
-                                                   data-icon-hide="ace-icon fa fa-angle-down"
-                                                   data-icon-show="ace-icon fa fa-angle-right"></i>
-                                                &nbsp;站点信息
-                                            </a>
-                                        </h4>
-                                    </div>
-
-                                    <div class="panel-collapse collapse in" id="sysinfo">
-                                        <div class="panel-body">
-                                            <p>PHP版本：<?php echo PHP_VERSION ?>，MySQL版本：<?php echo ($mysql); ?></p>
-                                            <p>服务器：<?php echo php_uname('s');?></p>
-                                            <p>PHP运行方式：<?php echo php_sapi_name();?></p>
-                                            <p>服务器IP：<?php echo GetHostByName($_SERVER['SERVER_NAME']);?></p>
-                                            <p>程序版本：<?php echo (C("Version")); ?>&nbsp;<a href="javascript:;"
-                                                                                    id="update">检查更新</a>&nbsp;&nbsp;<span
-                                                    id="upmsg"></span></p>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="accordion" class="accordion-style1 panel-group col-sm-5">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
-                                               href="#collapseOne">
-                                                <i class="ace-icon fa fa-angle-down bigger-110"
-                                                   data-icon-hide="ace-icon fa fa-angle-down"
-                                                   data-icon-show="ace-icon fa fa-angle-right"></i>
-                                                &nbsp;官方消息
-                                            </a>
-                                        </h4>
-                                    </div>
-
-                                    <div class="panel-collapse collapse in" id="collapseOne">
-                                        <div id="officialnews" class="panel-body">
-                                            <ul>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="Facebook-info" class="accordion-style1 panel-group col-sm-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a class="accordion-toggle" data-toggle="collapse"
-                                               data-parent="#Facebook-info" href="#Facebook">
-                                                <i class="ace-icon fa fa-angle-down bigger-110"
-                                                   data-icon-hide="ace-icon fa fa-angle-down"
-                                                   data-icon-show="ace-icon fa fa-angle-right"></i>
-                                                &nbsp;提交反馈
-                                            </a>
-                                        </h4>
-                                    </div>
-
-                                    <div class="panel-collapse collapse in" id="Facebook">
-                                        <div class="panel-body">
-                                            <form class="form-horizontal" id="form" method="post"
-                                                  action="<?php echo U('facebook/add',array('act'=>'update'));?>">
-                                                <div class="space-4"></div>
-                                                <div class="form-group">
-
-                                                    <div class="col-sm-12">
-                                                        <textarea name="content" id="content"
-                                                                  placeholder="请输入您反馈内容,您的支持是我们前进的最大动力！"
-                                                                  class="col-xs-5 col-sm-12" rows="3"></textarea>
-                                                        <span class="help-inline col-xs-12 col-sm-7">
-																		<span class="middle"></span>
-																	</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-offset-2 col-md-9">
-                                                    <button class="btn btn-info submit" type="button">
-                                                        <i class="icon-ok bigger-110"></i>
-                                                        提交
-                                                    </button>
-
-                                                    &nbsp; &nbsp; &nbsp;
-                                                    <button class="btn" type="reset">
-                                                        <i class="icon-undo bigger-110"></i>
-                                                        重置
-                                                    </button>
-                                                </div>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>

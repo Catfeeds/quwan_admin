@@ -73,7 +73,7 @@
         <input type="hidden" value="<?php echo ($BackCall); ?>" name="BackCall">
         <input type="hidden" value="<?php echo ($ImgStr); ?>" name="Img" id="Img">
         <div class="iconbox">
-            <?php if(is_array($Img)): foreach($Img as $key=>$vo): ?><div class="icon"><img class="iconimg" src="<?php echo ($vo); ?>"><div class="remove">移除</div></div><?php endforeach; endif; ?>
+            <?php if(is_array($Img)): foreach($Img as $key=>$vo): ?><div class="icon"><img class="iconimg" src="<?php echo getQiniuImgUrl($vo);?>"><div class="remove">移除</div></div><?php endforeach; endif; ?>
             <a class="file_box">＋<input type="file" name="uploadimg[]" id="uploadicon"  multiple  value="上传"/></a>
         </div>
     </form>
@@ -98,11 +98,11 @@
                 if(index!=0) ImgStr+='|';
                 ImgStr+=$(this).attr('src');
             });
-            //$('#<?php echo ($BackCall); ?>',parent.document).val(ImgStr);
-            $('#Img').val(ImgStr);
+            $('#<?php echo ($BackCall); ?>',parent.document).val(ImgStr);
+            $('#Img').val(ImgStr); 
         }
 
-        //$('#<?php echo ($BackCall); ?>',parent.document).val("<?php echo ($ImgStr); ?>");
+        $('#<?php echo ($BackCall); ?>',parent.document).val("<?php echo ($ImgStr); ?>");
     </script>
 </body>
 
