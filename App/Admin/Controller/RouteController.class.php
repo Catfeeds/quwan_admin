@@ -13,6 +13,7 @@ namespace Admin\Controller;
 
 use Admin\Model\CommonModel;
 use Think\Model;
+use Admin\Model\GeoHashModel;
 
 class RouteController extends ComController
 {
@@ -169,6 +170,20 @@ class RouteController extends ComController
         $route_info['route_intro'] = htmlspecialchars($_POST['route_intro']);
         $route_info['route_updated_at'] = time();
 //         $route_info['route_intro'] = $route_name;
+
+        $route_info['route_address'] = I('post.route_address', '', 'strip_tags');//详细地址
+        $route_info['route_lon'] = I('post.route_lon');//经度
+        $route_info['route_lat'] = I('post.route_lat');//维度
+        
+        if(!$route_info['route_address'] || !$route_info['route_lon'] || !$route_info['route_lat']){
+            $this->error("请使用定位功能，获取位置");
+        }
+        
+        $geoHashModel = new GeoHashModel();
+        $route_info['route_geohash'] = $geoHashModel->encode($route_info['route_lat'], $route_info['route_lon']);
+        
+        
+        
         //赋值到返回信息中
         $data['route_info'] = $route_info;
         $route_day_desc = $_POST['route_name_day'];
