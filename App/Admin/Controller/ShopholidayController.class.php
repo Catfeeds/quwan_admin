@@ -773,7 +773,7 @@ class ShopholidayController extends ComController
         
         $count = M("order o")->where($where)->count();
         $list = M("order o")->where($where)->join("left join ".$prefix."user u on o.user_id=u.user_id")
-        ->field("o.*,u.user_nickname,u.mobile")->order($orderby)->limit($offset . ',' . $pagesize)->select();
+        ->field("o.*,u.user_nickname,u.user_mobile")->order($orderby)->limit($offset . ',' . $pagesize)->select();
         $page = new \Think\Page($count, $pagesize);
         $page = $page->show();
         $this->assign('list', $list);
