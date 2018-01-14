@@ -148,7 +148,7 @@
         $("#submit").click(function () {
             bootbox.confirm({
                 title: "系统提示",
-                message: "是否要删除所选文章？",
+                message: "是否要删除所选景点？",
                 callback: function (result) {
                     if (result) {
                         $("#form").submit();
@@ -167,7 +167,7 @@
             var url = $(this).attr('val');
             bootbox.confirm({
                 title: "系统提示",
-                message: "是否要该景点？",
+                message: "是否要删除该景点？",
                 callback: function (result) {
                     if (result) {
                         window.location.href = url;

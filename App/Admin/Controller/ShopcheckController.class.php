@@ -35,7 +35,7 @@ class ShopcheckController extends ComController
         
         $code = $_POST['code'];
         if(!$code){
-            $this->error("请传入正确的code");
+            $this->error("请传入正确的核销码");
         }
         $where = array(
             "shop_id"=>$shop_id,
@@ -44,13 +44,13 @@ class ShopcheckController extends ComController
         );
         $orderCodeInfo = M('order_code')->where($where)->find();
         if(!$orderCodeInfo){
-            $this->error("请传入正确的code,code不存在");
+            $this->error("请传入正确的核销码,核销码不存在");
         }
         
         $order_id = $orderCodeInfo['order_id'];
         $orderInfo = M('order')->where(array("order_id"=>$order_id))->find();
         if(!$orderInfo || $orderInfo['order_status']!=20){
-            $this->error("请传入正确的code,code无效");
+            $this->error("请传入正确的核销码,核销码无效");
         }
         
         $orderInfo['userInfo'] = M('user')->where(array("user_id"=>$orderInfo['user_id']))->find();
@@ -78,7 +78,7 @@ class ShopcheckController extends ComController
         
         $code = $_POST['code'];
         if(!$code){
-            $this->error("请传入正确的code");
+            $this->error("请传入正确的核销码");
         }
         $where = array(
             "shop_id"=>$shop_id,
@@ -87,13 +87,13 @@ class ShopcheckController extends ComController
         );
         $orderCodeInfo = M('order_code')->where($where)->find();
         if(!$orderCodeInfo){
-            $this->error("请传入正确的code,code不存在");
+            $this->error("请传入正确的核销码,核销码不存在");
         }
         
         $order_id = $orderCodeInfo['order_id'];
         $orderInfo = M('order')->where(array("order_id"=>$order_id))->find();
         if(!$orderInfo || $orderInfo['order_status']!=20){
-            $this->error("请传入正确的code,code无效");
+            $this->error("请传入正确的核销码,核销码无效");
         }
         
         $model = new Model();

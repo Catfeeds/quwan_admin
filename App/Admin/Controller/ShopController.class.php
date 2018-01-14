@@ -232,8 +232,12 @@ class ShopController extends ComController
             $this->error('手机号已经存在商户了！');
         }
         
+        $adminInfo = M('admin_shop')->where(array("shop_id"=>$shop_id))->find();
+        
+        $admin_id = intval($adminInfo['admin_id']);
+        
         //商户已经存在
-        if (M('admin')->where("phone='{$shop_mobile}'")->count()) {
+        if (M('admin')->where("phone='{$shop_mobile}' and admin_id<>".$admin_id)->count()) {
             $this->error('登录手机号码已经存在用户了！');
         }
         
@@ -244,16 +248,19 @@ class ShopController extends ComController
         $data['shop_desc'] = $shop_desc;
         $data['shop_title'] = $shop_title;
         
-        $member = M('admin')->where(array('admin_id' => $this->USER['admin_id']))->find();
-        $dataAdmin = array();
-        $dataAdmin['phone'] = $shop_mobile;
+        $member = M('admin')->where(array('admin_id' => $admin_id))->find();
         
+        $dataAdmin = array();
+        if($member['phone']!=$shop_mobile){
+            $dataAdmin['phone'] = $shop_mobile;
+        }
         if($password){
             $dataAdmin['password']=password($password);
         }
         
-        $resAdmin = M('admin')->where(array('admin_id' => $this->USER['admin_id']))->save($dataAdmin);
-        
+        if($dataAdmin){
+            $resAdmin = M('admin')->where(array('admin_id' => $admin_id))->save($dataAdmin);
+        }
         $res = M('shop')->where(array('shop_id'=>$shop_id))->save($data);
         addlog('编辑商户UID：'.$shop_id . json_encode($data));
         $this->success("编辑商户成功",U('index'));

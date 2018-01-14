@@ -17,6 +17,8 @@ class ShoptotalController extends ComController
     public function index(){
         $day_status = intval($_GET['day_status']);
         
+        $shop_id = session("shop_id");
+        $shop_id = intval($shop_id);
         $wherePay = "";
         $whereCheck = "";
         if($day_status==0){//昨日
@@ -45,9 +47,9 @@ class ShoptotalController extends ComController
             $end_time = strtotime($end_day)+86400;
         }
         
-        $order_num = M('order')->where("order_pay_at>=".$start_time." and order_pay_at<".$end_time)->count();
+        $order_num = M('order')->where("shop_id={$shop_id} and order_pay_at>=".$start_time." and order_pay_at<".$end_time)->count();
         
-        $order_amount = M('order')->where("order_check_at>=".$start_time." and order_check_at<".$end_time)->sum("order_amount");
+        $order_amount = M('order')->where("shop_id={$shop_id} and order_check_at>=".$start_time." and order_check_at<".$end_time)->sum("order_amount");
         //echo M('order')->getLastSql();
         $this->assign("order_num",$order_num);
         $this->assign("order_amount",$order_amount);
