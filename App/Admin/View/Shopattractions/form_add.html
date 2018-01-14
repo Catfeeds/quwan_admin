@@ -58,7 +58,7 @@
                             </div>
 			                <div class="space-4"></div>
 			                <div class="form-group">
-			                    <label class="col-sm-1 control-label no-padding-right" for="o"> 定价 </label>
+			                    <label class="col-sm-1 control-label no-padding-right" for="o"> 定价<font color='red'>*</font> </label>
 			                    <div class="col-sm-9">
 			                        <input type="text" name="attractions_price" id="attractions_price" placeholder="定价" class="col-xs-10 col-sm-5"
 			                               value="{$info.attractions_price}">
@@ -69,7 +69,7 @@
 			                </div>
 			                <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 是否上架 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 是否上架<font color='red'>*</font> </label>
                                 <div class="control-label no-padding-left col-sm-1">
                                     <label>
                                         <input name="attractions_status" id="attractions_status"
@@ -84,7 +84,7 @@
                             </div>
                             <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 能否退款 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 能否退款<font color='red'>*</font> </label>
                                 <div class="control-label no-padding-left col-sm-1">
                                     <label>
                                         <input name="attractions_is_refund" id="attractions_is_refund"
@@ -101,7 +101,7 @@
 
                             <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="name"> 开放时间 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 开放时间<font color='red'>*</font> </label>
                                 <div class="col-sm-9">
                                     <input type="text" name="attractions_open_time" id="attractions_open_time" placeholder="开放时间"
                                            class="col-xs-10 col-sm-5" value="{$info.attractions_open_time}">
@@ -113,7 +113,7 @@
                             
                             <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="name"> 景点电话 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 景点电话<font color='red'>*</font> </label>
                                 <div class="col-sm-9">
                                     <input type="text" name="attractions_phone" id="attractions_phone" placeholder="景点电话"
                                            class="col-xs-10 col-sm-5" value="{$info.attractions_phone}">
@@ -125,7 +125,7 @@
                             
                             <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="name"> 建议游玩时长 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 建议游玩时长<font color='red'>*</font> </label>
                                 <div class="col-sm-9">
                                     <input type="text" name="attractions_suggest" id="attractions_suggest" placeholder="约2-3小时"
                                            class="col-xs-10 col-sm-5" value="{$info.attractions_suggest}">
@@ -137,7 +137,7 @@
                             
                             <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="name"> 景点地址 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 景点地址<font color='red'>*</font> </label>
                                 <div class="col-sm-9">
                                 	<div class="col-xs-12" style="padding-left:0px">
 	                                    <input type="text" name="attractions_address" id="amap_address" placeholder="景点详细地址"
@@ -162,7 +162,7 @@
                             </div>
                             
                             <div class="form-group">
-								<label class="col-sm-1 control-label no-padding-right">景点分类：</label>
+								<label class="col-sm-1 control-label no-padding-right">景点分类<font color='red'>*</font>：</label>
 								<div class="col-sm-9 error-tips">
 								<volist name="category" id="val">
 									<label>
@@ -176,7 +176,7 @@
                             
                             <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="pid"> 所属目的地 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="pid"> 所属目的地<font color='red'>*</font> </label>
                                 <div class="col-sm-9">
                                     <select id="destination_id" name="destination_id" class="col-xs-10 col-sm-5">
                                         <option value="0">选择目的地</option>
@@ -193,7 +193,7 @@
                             
                             <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right"> 景点图集 </label>
+                                <label class="col-sm-1 control-label no-padding-right"> 景点图集<font color='red'>*</font> </label>
                                 <div class="col-sm-9">
                                     <div class="col-xs-10 col-sm-10">{:BatchImage("img",100,100,$info['img'])}</div>
                                     
@@ -203,7 +203,7 @@
                             <div class="space-4"></div>
                             <div class="form-group">
                                 <label class="col-sm-1 control-label no-padding-right" for="form-field-2">
-                                    景点介绍 </label>
+                                    景点介绍<font color='red'>*</font> </label>
                                 <div class="col-sm-4">
                                         <textarea name="attractions_intro" id="attractions_intro"
                                                   style="width:100%;height:500px;visibility:hidden;">{$info['attractions_intro']}</textarea>

@@ -42,7 +42,7 @@
 							<input type="hidden" name="route_id" id="route_id" value="{$info.route_id}">
 							<div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="name"> 路线名称 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="name"> 路线名称<font color='red'>*</font> </label>
                                 <div class="col-sm-9">
                                     <input type="text" name="route_name" id="route_name" placeholder="路线名称"
                                            class="col-xs-10 col-sm-5" value="{$info.route_name}">
@@ -53,7 +53,7 @@
                             </div>
                             <div class="space-4"></div>
                             <div class="form-group">
-                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 是否上线 </label>
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-2"> 是否上线<font color='red'>*</font> </label>
                                 <div class="control-label no-padding-left col-sm-1">
                                     <label>
                                         <input name="route_status" id="route_status"
@@ -68,7 +68,7 @@
                             </div>
                             <div class="space-4"></div>
                             <div class="form-group">
-								<label class="col-sm-1 control-label no-padding-right">景点分类：</label>
+								<label class="col-sm-1 control-label no-padding-right">景点分类<font color='red'>*</font>：</label>
 								<div class="col-sm-9 error-tips">
 								<volist name="category" id="val">
 									<label>
@@ -82,7 +82,7 @@
 							<div class="space-4"></div>
                             <div class="form-group">
                                 <label class="col-sm-1 control-label no-padding-right" for="form-field-2">
-                                    路线简介 </label>
+                                    路线简介<font color='red'>*</font> </label>
                                 <div class="col-sm-10">
                                         <input type="text" name="route_intro" id="route_intro" placeholder="路线简介"
                                            class="col-xs-10 col-sm-5" value="{$info.route_intro}">
