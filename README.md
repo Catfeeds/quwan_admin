@@ -10,3 +10,4 @@
 - php错误日志  /usr/local/php/var/log/php-fpm.log
 - 代码内部日志  App/logs/
 - 操作日志  数据库  qw\_admin\_log表
+- 核心库类 ThinkPHP
