@@ -184,7 +184,9 @@ class HallController extends ComController
         if(!$data['hall_phone']){
             $this->error("电话号码不能为空");
         }
-        
+        if(!checkPhone($data['hall_phone']) && !checkMobile($data['hall_phone'])){
+            $this->error("请填写正电话号码/手机号码");
+        }
         if(!$destination_id){
             $this->error("请选择目的地");
         }

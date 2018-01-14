@@ -52,7 +52,7 @@ class FlashController extends ComController
             } else {
                 $map = 'adv_id=' . $ids;
             }
-            if (M('adv')->where($map)->save(array("adv_status=-1"))) {
+            if (M('adv')->where($map)->save(array("adv_status"=>-1))) {
                 addlog('删除焦点图，ID：' . $ids);
                 $this->success('恭喜，删除成功！');
             } else {
@@ -83,8 +83,10 @@ class FlashController extends ComController
             if(!$data['adv_content']){
                 $this->error('请填写内页内容！');
             }
+            $adv_type = 2;
         }
         
+        $data['adv_type'] = $adv_type;
         $data['adv_weight'] = I('post.adv_weight', '1', 'intval');
         $data['adv_img'] = I('post.adv_img', '', 'strip_tags');
         if ($data['adv_img'] == '') {

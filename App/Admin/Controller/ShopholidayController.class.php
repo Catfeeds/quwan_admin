@@ -221,6 +221,11 @@ class ShopholidayController extends ComController
             $this->error("电话号码不能为空");
         }
         
+        
+        if(!checkPhone($data['holiday_phone']) && !checkMobile($data['holiday_phone'])){
+            $this->error("请填写正电话号码/手机号码");
+        }
+        
         $data['holiday_status'] = I('post.holiday_status', '0', 'intval');//状态
         
         $data['holiday_address'] = I('post.holiday_address', '', 'strip_tags');//详细地址
@@ -238,6 +243,9 @@ class ShopholidayController extends ComController
         $data['holiday_is_refund'] = I('post.holiday_is_refund', '0', 'intval');//是否可以退款
         
         $data['holiday_suggest'] = I('post.holiday_suggest');//建议游玩时长
+        if(!$data['holiday_suggest']){
+            $this->error("请填写建议游玩时长");
+        }
         $data['holiday_price'] = I('post.holiday_price','0.00','float');
         if($data['holiday_price']<=0){
             $this->error("销售价格必须大于0");
@@ -386,7 +394,9 @@ class ShopholidayController extends ComController
         if(!$data['holiday_phone']){
             $this->error("电话号码不能为空");
         }
-        
+        if(!checkPhone($data['holiday_phone']) && !checkMobile($data['holiday_phone'])){
+            $this->error("请填写正电话号码/手机号码");
+        }
         $data['holiday_status'] = I('post.holiday_status', '0', 'intval');//状态
         
         $data['holiday_address'] = I('post.holiday_address', '', 'strip_tags');//详细地址
@@ -404,6 +414,9 @@ class ShopholidayController extends ComController
         $data['holiday_is_refund'] = I('post.holiday_is_refund', '0', 'intval');//是否可以退款
         
         $data['holiday_suggest'] = I('post.holiday_suggest');//建议游玩时长
+        if(!$data['holiday_suggest']){
+            $this->error("请填写建议游玩时长");
+        }
         $data['holiday_price'] = I('post.holiday_price','0.00','float');
         if($data['holiday_price']<=0){
             $this->error("销售价格必须大于0");
@@ -544,7 +557,9 @@ class ShopholidayController extends ComController
         if(!$data['holiday_phone']){
             $this->error("电话号码不能为空");
         }
-        
+        if(!checkPhone($data['holiday_phone']) && !checkMobile($data['holiday_phone'])){
+            $this->error("请填写正电话号码/手机号码");
+        }
         $data['holiday_status'] = I('post.holiday_status', '0', 'intval');//状态
         
         $data['holiday_address'] = I('post.holiday_address', '', 'strip_tags');//详细地址
@@ -562,6 +577,10 @@ class ShopholidayController extends ComController
         
         
         $data['holiday_suggest'] = I('post.holiday_suggest');//建议游玩时长
+        
+        if(!$data['holiday_suggest']){
+            $this->error("请填写建议游玩时长");
+        }
         
         $destination_id = I('post.destination_id',0,'intval');
         if(!$destination_id){

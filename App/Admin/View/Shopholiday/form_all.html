@@ -408,7 +408,12 @@
     	$("#search_content_html").html("");
     	$.post("{:U('getList')}",{search_keyword:keyword}, function (result) {
             var total = result.info.length;
-            if(result.status==1 && total>=1){
+            if(result.status==1){
+            	if(total<1){
+            		alert("没有检索到");
+            		$("#search_content").hide();
+            		return;
+            	}
             	var html_index = '';
             	for(var i=0;i<total;i++){
             		var info = result.info[i];

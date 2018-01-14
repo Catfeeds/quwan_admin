@@ -28,7 +28,7 @@ class RouteController extends ComController
         $offset = $pagesize * ($p - 1);//计算记录偏移量
         $prefix = C('DB_PREFIX');
         $keyword = isset($_GET['keyword']) ? htmlentities($_GET['keyword']) : '';
-        $where = '1 = 1 ';
+        $where = 'user_id = 0 ';
         
         $status = isset($_GET['status']) ? intval($_GET['status']) : 0;
         

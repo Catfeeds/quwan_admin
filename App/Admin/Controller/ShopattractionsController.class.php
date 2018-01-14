@@ -206,7 +206,9 @@ class ShopattractionsController extends ComController
         if(!$data['attractions_phone']){
             $this->error("电话号码不能为空");
         }
-        
+        if(!checkPhone($data['attractions_phone']) && !checkMobile($data['attractions_phone'])){
+            $this->error("请填写正电话号码/手机号码");
+        }
         $data['attractions_status'] = I('post.attractions_status', '0', 'intval');//状态
         
         $data['attractions_address'] = I('post.attractions_address', '', 'strip_tags');//详细地址
@@ -224,6 +226,9 @@ class ShopattractionsController extends ComController
         $data['attractions_is_refund'] = I('post.attractions_is_refund', '0', 'intval');//是否可以退款
         
         $data['attractions_suggest'] = I('post.attractions_suggest');//建议游玩时长
+        if(!$data['attractions_suggest']){
+            $this->error("请填写建议游玩时长");
+        }
         $data['attractions_price'] = I('post.attractions_price','0.00','float');
         if($data['attractions_price']<=0){
             $this->error("销售价格必须大于0");
@@ -355,7 +360,9 @@ class ShopattractionsController extends ComController
         if(!$data['attractions_phone']){
             $this->error("电话号码不能为空");
         }
-        
+        if(!checkPhone($data['attractions_phone']) && !checkMobile($data['attractions_phone'])){
+            $this->error("请填写正电话号码/手机号码");
+        }
         $data['attractions_status'] = I('post.attractions_status', '0', 'intval');//状态
         
         $data['attractions_address'] = I('post.attractions_address', '', 'strip_tags');//详细地址
@@ -373,6 +380,9 @@ class ShopattractionsController extends ComController
         $data['attractions_is_refund'] = I('post.attractions_is_refund', '0', 'intval');//是否可以退款
         
         $data['attractions_suggest'] = I('post.attractions_suggest');//建议游玩时长
+        if(!$data['attractions_suggest']){
+            $this->error("请填写建议游玩时长");
+        }
         $data['attractions_price'] = I('post.attractions_price','0.00','float');
         if($data['attractions_price']<=0){
             $this->error("销售价格必须大于0");
@@ -496,7 +506,9 @@ class ShopattractionsController extends ComController
         if(!$data['attractions_phone']){
             $this->error("电话号码不能为空");
         }
-        
+        if(!checkPhone($data['attractions_phone']) && !checkMobile($data['attractions_phone'])){
+            $this->error("请填写正电话号码/手机号码");
+        }
         $data['attractions_status'] = I('post.attractions_status', '0', 'intval');//状态
         
         $data['attractions_address'] = I('post.attractions_address', '', 'strip_tags');//详细地址
@@ -514,7 +526,9 @@ class ShopattractionsController extends ComController
         
         
         $data['attractions_suggest'] = I('post.attractions_suggest');//建议游玩时长
-        
+        if(!$data['attractions_suggest']){
+            $this->error("请填写建议游玩时长");
+        }
         $destination_id = I('post.destination_id',0,'intval');
         if(!$destination_id){
             $this->error("请选择目的地");

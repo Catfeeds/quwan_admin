@@ -42,12 +42,12 @@ class MobileController extends ComController
             
             $params = array();
             $params[] = $code;
-            $res = $Qcloudsms->sendWithParam("86", $mobile, $msg_config['login_id'],$params);
-            $res = json_decode($res,true);
-            //print_R($res);
-            if($res['result']!=0){
-                $this->error("短信发送失败");
-            }
+//             $res = $Qcloudsms->sendWithParam("86", $mobile, $msg_config['login_id'],$params);
+//             $res = json_decode($res,true);
+// //             print_R($res);
+//             if($res['result']!=0){
+//                 $this->error("短信发送失败");
+//             }
             
             $data = array();
             $data['admin_id'] = $admin_id;

@@ -125,8 +125,9 @@ class OrderstatController extends ComController
         $share_num = M("log")->where("log_type = 2 and log_time>=".$start_time." and log_time<".$end_time)->count();
         
         //收藏次数
-        $fav_num = M("fav")->where("fav_created_at>=".$start_time." and fav_created_at<".$end_time)->count();
+//         $fav_num = M("fav")->where("fav_created_at>=".$start_time." and fav_created_at<".$end_time)->count();
         //select count(DISTINCT(user_id)) from qw_order where order_status>=30;
+        $fav_num = M("log")->where("log_type = 4 and log_time>=".$start_time." and log_time<".$end_time)->count();
         
         //计算复购率
         $per_m = M("order")->where("order_status>=30")->count("distinct user_id");

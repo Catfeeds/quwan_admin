@@ -185,7 +185,9 @@ class HotelController extends ComController
         if(!$data['hotel_phone']){
             $this->error("电话号码不能为空");
         }
-        
+        if(!checkPhone($data['hotel_phone']) && !checkMobile($data['hotel_phone'])){
+            $this->error("请填写正电话号码/手机号码");
+        }
         if(!$destination_id){
             $this->error("请选择目的地");
         }

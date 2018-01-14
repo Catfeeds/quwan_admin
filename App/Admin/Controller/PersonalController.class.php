@@ -122,7 +122,9 @@ class PersonalController extends ComController
         if(!$data['shop_phone']){
             $this->error("请填写店铺联系手机号码");
         }
-        
+        if(!checkPhone($data['shop_phone']) && !checkMobile($data['shop_phone'])){
+            $this->error("请填写正电话号码/手机号码");
+        }
         $res = M("shop")->where(array("shop_id"=>$shop_id))->save($data);
         if(!$res){
             $this->error("商家信息更新失败");

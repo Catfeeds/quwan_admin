@@ -45,7 +45,7 @@
                                     <tr>
                                         <td class="center"><input class="ids" type="checkbox" name="ids[]"
                                                                   value="{$val['adv_id']}"></td>
-                                        <td><a href="{$val['adv_url']}" target="_blank">{$val['adv_title']}</a></td>
+                                        <td>{$val['adv_title']}</td>
                                         <td><a href="{$val['adv_url']}" target="_blank">{$val['adv_url']}</a></td>
                                         <td><a href="{:getQiniuImgUrl($val['adv_img'])}" target="_blank"><img src="{:getQiniuImgUrl($val['adv_img'])}" height="100px" width="300px" /></a></td>
                                         <td>{$val['adv_weight']}</td>
@@ -113,7 +113,7 @@
             var url = $(this).attr('val');
             bootbox.confirm({
                 title: "系统提示",
-                message: "是否要该记录？",
+                message: "是否要删除该记录？",
                 callback: function (result) {
                     if (result) {
                         window.location.href = url;
