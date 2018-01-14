@@ -141,6 +141,18 @@ function checkMobile($mobile){
     }
 }
 
+function checkPhone($mobile)//电话号码正则表达试
+{
+    $isTel="/^([0-9]{3,4}-)?[0-9]{7,8}$/";
+    if(!preg_match($isTel,$mobile)){
+        return false;
+    }else{
+        return true;
+    }
+    
+    //return (preg_match("/^(((d{4}))|(d{4}-))?((0d{2,3})|0d{2,3}-)?[1-9]d{6,8}$/",$str))?true:false;
+}
+
 /**
  * 获取七牛的图片链接
  * @param unknown $url
