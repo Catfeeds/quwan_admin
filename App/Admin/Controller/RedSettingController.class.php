@@ -36,6 +36,11 @@ class RedSettingController extends ComController
             $this->error("开启红包后，开始金额不能大于等于结束金额");   
         }
         
+        
+        if($data['red_status']==1 && $data['red_start_num']<=1){
+            $this->error("开启红包后，开始金额必须大于等于1");
+        }
+        
         $data['red_id'] = 1;
         $info = M("red_status")->where(array("red_id"=>1))->find();
 
