@@ -362,7 +362,7 @@ class RouteController extends ComController
         }
         $model->commit();
         addlog('编辑路线，ID：' . $route_id.json_encode($_POST));
-        if($data['route_status']==1){
+        if($data['route_info']['route_status']==1){
             $action = 2;
             
             $searchUpdate = D("search");
