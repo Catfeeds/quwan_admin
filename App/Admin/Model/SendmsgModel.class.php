@@ -17,7 +17,7 @@ class SendmsgModel extends Model{
     Protected $autoCheckFields = false;
     
     
-    private $url = 't';
+    private $url = 'https://restapi.qu666.cn/quwan/get_access_token';
     
     private function getAccessToken(){
         $res = curl_request($this->url, '', '');
