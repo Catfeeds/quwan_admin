@@ -58,5 +58,8 @@ return array(
         "holiday_id" => '58480',//节日id
         "check_id" => '58478',//核销后商家id
         "order_hs_id" => '58479',//结款推送
-    )
+    ),
+    
+    'hs_order_tpl'=>'__irai85MFOGHFYpgXgqvYYuMqDBfiWY6Tm2quVuEmg' //核销订单推送模板
+    
 );

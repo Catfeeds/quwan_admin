@@ -137,6 +137,8 @@ class ShopcheckController extends ComController
         $res = $Qcloudsms->sendWithParam("86", $shopInfo['shop_mobile'], $msg_config['check_id'],$params);
         wirteFileLog($shop_id.'|'.$order_id.'|'.$res,'shop_check_msg');
         $model->commit();
+        $SendMsg = D("Sendmsg");
+        $res = $SendMsg->sendMsg($userInfo,$orderInfo,time());
         $this->success("核销成功");
     }
 }
