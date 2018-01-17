@@ -129,7 +129,7 @@ class ShopcheckController extends ComController
         
         $userInfo = M('user')->where(array('user_id'=>$orderInfo['user_id']))->find();
         
-        $shopInfo = M('user')->where(array('shop_id'=>$shop_id))->find();
+        $shopInfo = M('shop')->where(array('shop_id'=>$shop_id))->find();
         
         $params = array();
         $params[] = $userInfo['user_name'];

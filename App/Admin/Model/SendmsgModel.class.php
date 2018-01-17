@@ -56,7 +56,7 @@ class SendmsgModel extends Model{
         $post_data = json_encode($data, true);
         //将数组编码为 JSON
         
-        $return = send_post( $url, $post_data);
+        $return = $this->send_post( $url, $post_data);
         wirteFileLog($return,'sendMsg_tpl');
         $res = json_decode($return);
         return $res;
