@@ -131,6 +131,16 @@ class ShopcheckController extends ComController
         
         $shopInfo = M('shop')->where(array('shop_id'=>$shop_id))->find();
         
+        $shopData = array(
+            "shop_money"=>$shopInfo['shop_money']+$orderInfo['order_amount'],
+        );
+        
+        $res = M('shop')->where(array('shop_id'=>$shop_id))->save($shopData);
+        if(!$res){
+            $this->error("核销失败");
+        }
+        
+        
         $params = array();
         $params[] = $userInfo['user_name'];
         $params[] = $orderInfo['order_amount'];
