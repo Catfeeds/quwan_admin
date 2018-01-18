@@ -142,7 +142,7 @@ class ShopcheckController extends ComController
         
         
         $params = array();
-        $params[] = $userInfo['user_name'];
+        $params[] = $userInfo['user_nickname'];
         $params[] = $orderInfo['order_amount'];
         $res = $Qcloudsms->sendWithParam("86", $shopInfo['shop_mobile'], $msg_config['check_id'],$params);
         wirteFileLog($shop_id.'|'.$order_id.'|'.$res,'shop_check_msg');
