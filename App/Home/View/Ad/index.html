@@ -1,7 +1,6 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <title>{$title}</title>
@@ -14,13 +13,42 @@
   img {
     max-width: 100%;
   }
+  html,
+  body {
+    background-color: #fff;
+  }
+  .adv-img {
+    padding-bottom: 13px;
+  }
+  .adv-img img {
+    display: block;
+    max-width: 100%;
+  }
+  .adv-title {
+    font-size: 34px;
+    line-height: 48px;
+    text-align: center;
+  }
+  .adv-content {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
   </style>
 </head>
-
 <body>
-  <!-- 富文本内容放这里 开始 -->
-  {$desc}
-  <!-- 富文本内容放这里 结束 -->
+  <div class="container">
+    <!-- 图片位置 -->
+    <?php if($img){?>
+    <div class="adv-img">
+      <img src="http://ozg3kv9uz.bkt.clouddn.com/<?php echo $img;?>" alt="">
+    </div>
+    <?php }?>
+    <div class="adv-title">{$title}</div>
+    <div class="adv-content">
+      <!-- 富文本内容放这里 开始 -->
+      {$desc}
+      <!-- 富文本内容放这里 结束 -->
+    </div>
+  </div>
 </body>
-
 </html>

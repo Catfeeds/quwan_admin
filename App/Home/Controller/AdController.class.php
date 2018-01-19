@@ -20,10 +20,13 @@ class AdController extends ComController
         if(!$flash || $flash['adv_type']==1){
             $title = "趣玩";
             $desc = "请求出错了";
+            $img = false;
         }else{
             $title = $flash['adv_title'];
             $desc = $flash['adv_content'];
+            $img = $flash['adv_img'];
         }
+        $this->assign("img",$img);
         $this->assign("title",$title);
         $this->assign("desc",$desc);
         $this->display();
