@@ -74,12 +74,12 @@ class FlashController extends ComController
         
         $adv_type = I('post.adv_type',1,'intval');
         if($adv_type==1){
-            $data['adv_url'] = I('post.adv_url', '', 'strip_tags');
+            $data['adv_url'] = I('post.adv_url', '', '');
             if(!$data['adv_url']){
                 $this->error('请填写链接！');
             }
         }else{
-            $data['adv_content'] = I('post.adv_content', '', 'strip_tags');
+            $data['adv_content'] = I('post.adv_content', '', '');
             if(!$data['adv_content']){
                 $this->error('请填写内页内容！');
             }
