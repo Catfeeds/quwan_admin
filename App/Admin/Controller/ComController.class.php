@@ -51,7 +51,7 @@ class ComController extends BaseController
         $this->Group_id = $userinfo[0]['group_id'];
 //         print_R($userinfo);
 //         die;
-        if ($userinfo[0]['group_id'] != 1 && !$Auth->check(CONTROLLER_NAME . '/' . ACTION_NAME,
+        if (!$Auth->check(CONTROLLER_NAME . '/' . ACTION_NAME,
                 $UID) && !in_array(CONTROLLER_NAME, $allow_controller_name) && !in_array(ACTION_NAME,
                 $allow_action_name)
         ) {
@@ -89,6 +89,7 @@ class ComController extends BaseController
 
             $menu_where = '';
         }
+        $menu_where = "AND id in ($menu_access_id)";
         $menu = M('auth_rule')->field('id,title,pid,name,icon')->where("islink=1 $menu_where ")->order('o ASC')->select();
         $menu = $this->getMenu($menu);
         $this->assign('menu', $menu);
