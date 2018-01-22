@@ -12,3 +12,8 @@
 - 操作日志  数据库  qw\_admin\_log表
 - 核心库类 ThinkPHP
 - 定时任务，每月核算商家的上月金额结算 */1 3 1 * * curl 'http://admin.qu666.cn/Home/Crontab/index'
+
+
+
+#后台初始化操作流程
+- 导入数据库后，先用admin账号创建一个平台账号，后续操作请都已平台账号操作，admin只用于管理这个。
