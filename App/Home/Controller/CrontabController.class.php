@@ -27,6 +27,8 @@ class CrontabController extends ComController
                 $data['shop_ver'] = $data['shop_ver']+1;
                 $data['shop_crontab_time'] = date("Y-m-d");
                 $info = M('shop')->where(array("shop_id"=>$v['shop_id'],'shop_ver'=>$v['shop_ver']))->save($data);
+                print_R($data);
+                print_R($info);
             }
         }
         echo "1";
