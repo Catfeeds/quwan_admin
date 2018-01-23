@@ -18,7 +18,7 @@ class CrontabController extends ComController
     //统计商家的结算金额信息的信息
     public function index()
     {
-        $list = M('shop')->where("shop_status>=1 and shop_crontab_time!='".date("Y-m-d")."'")->limit('50')->select();
+        $list = M('shop')->where("shop_status>=1 and (shop_crontab_time!='".date("Y-m-d")."' or shop_crontab_time is null)")->limit('50')->select();
         if($list){
             foreach($list as $v){
                 $data = array();
