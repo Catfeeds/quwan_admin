@@ -554,7 +554,7 @@ function html_plus(type,id,id_name){
 			
 		}else{
 			attractionsId = attr_id;
-	       	html_con += '<div onclick="search_submit(1)" class="btn btn-purple btn-sm">';
+	       	/* html_con += '<div onclick="search_submit(1)" class="btn btn-purple btn-sm">';
 	      	html_con += '景点';
 	      	html_con += '</div>&nbsp;&nbsp;';
 	      	html_con += '<div onclick="search_submit(5)" class="btn btn-purple btn-sm">';
@@ -562,6 +562,18 @@ function html_plus(type,id,id_name){
 	      	html_con += '</div>&nbsp;&nbsp;';
 	      	html_con += '<div onclick="search_submit(6)" class="btn btn-purple btn-sm">';
 	      	html_con += '餐厅';
+	      	html_con += '</div>'; */
+			html_con += '<label class="inline">名称</label>';
+			html_con += '<input type="text" id="search_name" value="" class="form-control">';
+	
+			html_con += '<label class="inline">&nbsp;&nbsp;类型：</label>';
+			html_con += '<select id="search_type" class="form-control">';
+			html_con += '<option value="1">景点</option>';
+			html_con += '<option value="5">酒店</option>';
+			html_con += '<option value="6">餐厅</option>';
+	        html_con += '</select>';
+	       	html_con += '<div onclick="search_submit(0)" class="btn btn-purple btn-sm">';
+	      	html_con += '搜索';
 	      	html_con += '</div>';
 		}
 		
