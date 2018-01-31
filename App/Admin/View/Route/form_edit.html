@@ -566,7 +566,7 @@ function html_plus(type,id,id_name){
 		}
 		
 		html_con += '</div></div>';
-		html_con += '<div id="search_content" style="display:none;height:400px;overflow:auto;border-bottom:1px solid #dddddd">';
+		html_con += '<div id="search_content" style="height:400px;overflow:auto;border-bottom:1px solid #dddddd">';
 		html_con += '<form id="search_chose" class="form-inline">';
 		//html_con += '<input type="hidden" name="search_chose_type" class="form-inline">';
 		html_con += '<table class="table table-striped table-bordered">';
@@ -692,7 +692,7 @@ function search_submit(typeOk){
         var total = result.info.length;
         if(result.status==1){
         	if(total<1){
-        		$("#search_content").hide();
+        		$("#search_content").show();
         		alert("没有检索到数据");
         		return false;
         	}
