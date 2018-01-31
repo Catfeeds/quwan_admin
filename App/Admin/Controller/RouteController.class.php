@@ -402,7 +402,7 @@ class RouteController extends ComController
                 $where = "attractions_status=1";
             }
             
-            if($getHash){
+            if($getHash && !$keyword){
                 $where .= " and attractions_geohash like '{$getHash}%'";
             }
             
@@ -414,7 +414,7 @@ class RouteController extends ComController
                 $where = "hotel_status=1";
             }
             
-            if($getHash){
+            if($getHash && !$keyword){
                 $where .= " and hotel_geohash like '{$getHash}%'";
             }
             $model = M('hotel');
@@ -426,7 +426,7 @@ class RouteController extends ComController
                 $where = "hall_status=1";
             }
             
-            if($getHash){
+            if($getHash && !$keyword){
                 $where .= " and hall_geohash like '{$getHash}%'";
             }
             
