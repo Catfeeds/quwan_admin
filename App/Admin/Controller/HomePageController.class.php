@@ -58,11 +58,11 @@ class HomePageController extends ComController
                 if($info['home_page_type']==1 || $info['home_page_type']==6){
                     $info['list'] = array();
                 }elseif($info['home_page_type']==2){//路线
-                    $info['list'] = M("home_page_value v")->join("left join ".C("DB_PREFIX")."route r on r.route_id=v.value_id")->field("r.*,v.home_page_value_id")->where("v.home_page_id=".$info['home_page_id'])->order("sort asc")->select();
+                    $info['list'] = M("home_page_value v")->join("left join ".C("DB_PREFIX")."route r on r.route_id=v.value_id")->field("r.*,v.home_page_value_id,v.value_id")->where("v.home_page_id=".$info['home_page_id'])->order("sort asc")->select();
                 }elseif($info['home_page_type']==3){//目的地
-                    $info['list'] = M("home_page_value v")->join("left join ".C("DB_PREFIX")."destination r on r.destination_id=v.value_id")->field("r.*,v.home_page_value_id")->where("v.home_page_id=".$info['home_page_id'])->order("sort asc")->select();
+                    $info['list'] = M("home_page_value v")->join("left join ".C("DB_PREFIX")."destination r on r.destination_id=v.value_id")->field("r.*,v.home_page_value_id,v.value_id")->where("v.home_page_id=".$info['home_page_id'])->order("sort asc")->select();
                 }elseif($info['home_page_type']==4){//景点
-                    $info['list'] = M("home_page_value v")->join("left join ".C("DB_PREFIX")."attractions r on r.attractions_id=v.value_id")->field("r.*,v.home_page_value_id")->where("v.home_page_id=".$info['home_page_id'])->order("sort asc")->select();
+                    $info['list'] = M("home_page_value v")->join("left join ".C("DB_PREFIX")."attractions r on r.attractions_id=v.value_id")->field("r.*,v.home_page_value_id,v.value_id")->where("v.home_page_id=".$info['home_page_id'])->order("sort asc")->select();
                     if($info['list']){
                         foreach($info['list'] as &$v){
                             $v['imgInfo'] = $common->getImgJoinOne($v['attractions_id'],1);
@@ -70,14 +70,14 @@ class HomePageController extends ComController
                     }
                     
                 }elseif($info['home_page_type']==5){//节日
-                    $info['list'] = M("home_page_value v")->join("left join ".C("DB_PREFIX")."holiday r on r.holiday_id=v.value_id")->field("r.*,v.home_page_value_id")->where("v.home_page_id=".$info['home_page_id'])->order("sort asc")->select();
+                    $info['list'] = M("home_page_value v")->join("left join ".C("DB_PREFIX")."holiday r on r.holiday_id=v.value_id")->field("r.*,v.home_page_value_id,v.value_id")->where("v.home_page_id=".$info['home_page_id'])->order("sort asc")->select();
                     if($info['list']){
                         foreach($info['list'] as &$v){
                             $v['imgInfo'] = $common->getImgJoinOne($v['holiday_id'],4);
                         }
                     }
                 }elseif($info['home_page_type']==7){//景点分类
-                    $info['list'] = M("home_page_value v")->join("left join ".C("DB_PREFIX")."cid r on r.cid_id=v.value_id")->field("r.*,v.home_page_value_id")->where("v.home_page_id=".$info['home_page_id']." and r.cid_type=1")->order("sort asc")->select();
+                    $info['list'] = M("home_page_value v")->join("left join ".C("DB_PREFIX")."cid r on r.cid_id=v.value_id")->field("r.*,v.home_page_value_id,v.value_id")->where("v.home_page_id=".$info['home_page_id']." and r.cid_type=1")->order("sort asc")->select();
                 }
                 $info["label_num"] = count($info['list']);
             }
@@ -240,12 +240,14 @@ class HomePageController extends ComController
                 $i = 1;
                 $list = $post["page_name_value_".$home_page_id];
                 foreach ($list as $page_value){
-                    $addJoin = array();
-                    $addJoin['home_page_id'] = $home_page_id;
-                    $addJoin['value_id'] = $page_value;
-                    $addJoin['sort'] = $i;
-                    M("home_page_value")->add($addJoin);
-                    $i++;
+                    if($page_value>1){
+                        $addJoin = array();
+                        $addJoin['home_page_id'] = $home_page_id;
+                        $addJoin['value_id'] = $page_value;
+                        $addJoin['sort'] = $i;
+                        M("home_page_value")->add($addJoin);
+                        $i++;
+                    }
                 }
             }
         }

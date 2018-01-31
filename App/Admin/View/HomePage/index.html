@@ -69,12 +69,12 @@
 								                                </thead>
 																<tbody id="content_plus_{$val['home_page_id']}">
 																	<volist name="val['list']" id="val_info">
-																	<tr id="content_plus_info_{$val['home_page_id']}_{$val_info["route_id"]}">
-																		<input type="hidden" name="page_name_value_{$val['home_page_id']}[]" value="{$val_info["route_id"]}" />
+																	<tr id="content_plus_info_{$val['home_page_id']}_{$val_info["value_id"]}">
+																		<input type="hidden" name="page_name_value_{$val['home_page_id']}[]" value="{$val_info["value_id"]}" />
 																		<td>{$val_info['route_name']}</td>
 																		<td><a onclick="sort_up_check(this,'MoveUp')">上移</a>&nbsp;&nbsp;
 																		<a onclick="sort_up_check(this,'MoveDown')">下移</a>&nbsp;&nbsp;
-																		<a onclick="delete_content_info(this,{$val['home_page_id']},{$val_info["route_id"]})">删除</a></td>
+																		<a onclick="delete_content_info(this,{$val['home_page_id']},{$val_info["value_id"]})">删除</a></td>
 																	</tr>
 																	</volist>
 																</tbody>
