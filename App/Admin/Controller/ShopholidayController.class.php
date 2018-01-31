@@ -247,8 +247,8 @@ class ShopholidayController extends ComController
             $this->error("请填写建议游玩时长");
         }
         $data['holiday_price'] = I('post.holiday_price','0.00','float');
-        if($data['holiday_price']<=0){
-            $this->error("销售价格必须大于0");
+        if($data['holiday_price']<0){
+            $this->error("销售价格必须大于等于0");
         }
         if($data['holiday_price']>=100000000){
             $this->error("销售价格必须大于100000000");
@@ -418,8 +418,8 @@ class ShopholidayController extends ComController
             $this->error("请填写建议游玩时长");
         }
         $data['holiday_price'] = I('post.holiday_price','0.00','float');
-        if($data['holiday_price']<=0){
-            $this->error("销售价格必须大于0");
+        if($data['holiday_price']<0){
+            $this->error("销售价格必须大于等于0");
         }
         if($data['holiday_price']>=100000000){
             $this->error("销售价格必须大于100000000");
