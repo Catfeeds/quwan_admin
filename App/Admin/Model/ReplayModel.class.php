@@ -37,7 +37,12 @@ class ReplayModel extends Model{
         if($list){
             $Common = new CommonModel();
             foreach($list as &$val){
-                $val['imgList'] = $Common->getImgJoin($val['score_id'], 8);
+                $imgList = $Common->getImgJoin($val['score_id'], 8);
+                if(count($imgList)>=1){
+                    $val['imgList'] = $Common->getImgJoin($val['score_id'], 8);
+                }else{
+                    $val['imgList'] = array();
+                }
             }
         }
         
