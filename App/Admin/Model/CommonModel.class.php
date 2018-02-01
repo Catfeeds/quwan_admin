@@ -150,6 +150,10 @@ class CommonModel extends Model{
     public function getImgJoin($join_id,$type){
         $list=M('img')->where(array("join_id"=>$join_id,"img_type"=>$type,"img_status"=>1))->getField('img_url',true);
 //         print_R($list);
+
+        if(count($list)==1 && $list[0] == ''){
+            return array();
+        }
         return $list;//implode('|', $list);
     }
     /**
@@ -161,9 +165,6 @@ class CommonModel extends Model{
     public function getImgJoinOne($join_id,$type){
         $list=M('img')->where(array("join_id"=>$join_id,"img_type"=>$type,"img_status"=>1))->order("img_sort asc")->getField('img_url');
         //         print_R($list);
-        if(count($list)==1 && $list[0] == ''){
-            return array();
-        }
         return $list;
     }
     
